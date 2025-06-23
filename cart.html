@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <title>سلة المشتريات - Alma</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      background-color: #f7f7f7;
+      padding: 30px;
+      text-align: center;
+    }
+    h1 {
+      color: #2563eb;
+    }
+    .cart-item {
+      background: white;
+      padding: 15px;
+      margin: 10px auto;
+      border-radius: 10px;
+      max-width: 400px;
+      box-shadow: 0 0 5px rgba(0,0,0,0.1);
+      position: relative;
+    }
+    .cart-item button {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      background-color: #ef4444;
+      border: none;
+      color: white;
+      border-radius: 5px;
+      padding: 5px 10px;
+      cursor: pointer;
+    }
+    .total {
+      font-size: 20px;
+      margin-top: 20px;
+      font-weight: bold;
+    }
+    .btn {
+      background-color: #25D366;
+      color: white;
+      padding: 12px 24px;
+      text-decoration: none;
+      border-radius: 8px;
+      font-size: 18px;
+      margin-top: 20px;
+      display: inline-block;
+    }
+    .clear-btn {
+      background-color: #dc2626;
+      color: white;
+      padding: 12px 24px;
+      font-size: 16px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>🛒 سلة مشترياتك</h1>
+  <div id="cart"></div>
+  <div class="total" id="total"></div>
+  <a id="whatsappBtn" class="btn" target="_blank">✅ تأكيد الطلب عبر واتساب</a>
+  <br>
+  <button class="clear-btn" onclick="clearCart()">🗑️ حذف السلة بالكامل</button>
+
+  <script>
+    let cart = JSON.parse(localStorage.getItem("cart")) || [];
+    const cartDiv = document.getElementById("cart");
+    const totalDiv = document.getElementById("total");
+    const whatsappBtn = document.getElementById("whatsappBtn");
+
+    const grouped = {};
+    cart.forEach(item => {
+      if (grouped[item.name]) {
+        grouped[item.name].quantity += 1;
+        grouped[item.name].total += item.price;
+      } else {
+        grouped[item.name] = {
+          quantity: 1,
+          price: item.price,
+          total: item.price
+        };
+      }
+    });
+
+    let total = 0;
+    let message = "مرحباً، أود تأكيد طلبي من متجر Alma:\n";
+
+    for (const name in grouped) {
+      const item = grouped[name];
+      total += item.total;
+      message += `• ${name} × ${item.quantity} = ${item.total} ل.س\n`;
+
+      const itemDiv = document.createElement("div");
+      itemDiv.className = "cart-item";
+      itemDiv.innerHTML = `
+        <strong>${name}</strong><br>
+        الكمية: ${item.quantity}<br>
+        السعر الكلي: ${item.total} ل.س
+        <button onclick="removeItem('${name}')">❌</button>
+      `;
+      cartDiv.appendChild(itemDiv);
+    }
+
+    message += `\n📦 المجموع الكلي: ${total} ل.س`;
+    totalDiv.textContent = `المجموع: ${total} ل.س`;
+
+    const phone = "963980120001";
+    const whatsappURL = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
+    whatsappBtn.href = whatsappURL;
+
+    function removeItem(name) {
+      const updatedCart = [];
+      let removed = false;
+      for (let item of cart) {
+        if (item.name === name && !removed) {
+          removed = true; // احذف نسخة واحدة فقط
+          continue;
+        }
+        updatedCart.push(item);
+      }
+      localStorage.setItem("cart", JSON.stringify(updatedCart));
+      location.reload();
+    }
+
+    function clearCart() {
+      if (confirm("هل أنت متأكد من حذف جميع الطلبات؟")) {
+        localStorage.removeItem("cart");
+        location.reload();
+      }
+    }
+  </script>
+
+</body>
+</html>

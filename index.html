@@ -1,0 +1,3087 @@
+  <!DOCTYPE html>
+  <html lang="ar">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Alma Store</title>
+
+    <style>
+      body {
+        font-family: 'Segoe UI', sans-serif;
+        background-color: #f9f9f9;
+        color: #333;
+        text-align: center;
+        padding: 30px;
+      }
+      <img src="A_logo_design_features_the_word_&quot;Alma&quot;_centered_on.png" alt="Alma Logo" class="logo">
+
+      header {
+        
+        background-color: #4CAF50;
+        color: white;
+        padding: 20px;
+        border-radius: 10px;
+        margin-bottom: 30px;
+      }
+
+      h1 {
+        margin: 0;
+        font-size: 2.5em;
+      }
+
+      .products {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 20px;
+        padding: 20px;
+      }
+
+      .product {
+        background-color: white;
+        border: 1px solid #ddd;
+        border-radius: 10px;
+        padding: 15px;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      }
+
+      .product img {
+        max-width: 100%;
+        border-radius: 10px;
+      }
+
+      .product h3 {
+        margin-top: 10px;
+        font-size: 1.2em;
+      }
+
+      .product p {
+        color: #777;
+        font-size: 0.9em;
+      }
+
+      .filter-btn {
+        background-color: #e5e7eb;
+        color: #111827;
+        border: none;
+        border-radius: 20px;
+        padding: 10px 20px;
+        margin: 5px;
+        cursor: pointer;
+        font-size: 16px;
+        transition: 0.3s;
+      }
+
+      .filter-btn:hover {
+        background-color: #2563eb;
+        color: white;
+      }
+
+      .filter-btn.active {
+        background-color: #2563eb;
+        color: white;
+      }
+
+      #cart-count {
+        position: absolute;
+        top: -8px;
+        right: -8px;
+        background-color: red;
+        color: white;
+        font-size: 14px;
+        padding: 2px 6px;
+        border-radius: 50%;
+      }
+    </style>
+  </head>
+
+  <body>
+    <header>
+      <header>
+        <img src="alma logo 001.png" alt="Alma Logo" style="max-width: 180px; margin-bottom: 10px;">
+        <h1>Alma Store</h1>
+      </header>
+
+    </header>
+
+    <!-- أزرار التصنيفات -->
+    <div style="text-align: center; margin-bottom: 20px;">
+      <button class="filter-btn active" onclick="filterProducts(\'all\', this)">الكل</button>
+      <button class="filter-btn" onclick="filterProducts(\'أخرى/متفرقات\', this)">أخرى/متفرقات</button>
+      <button class="filter-btn" onclick="filterProducts(\'ألبان وأجبان\', this)">ألبان وأجبان</button>
+      <button class="filter-btn" onclick="filterProducts(\'بسكويت\', this)">بسكويت</button>
+      <button class="filter-btn" onclick="filterProducts(\'بقالة أساسية\', this)">بقالة أساسية</button>
+      <button class="filter-btn" onclick="filterProducts(\'تبغ\', this)">تبغ</button>
+      <button class="filter-btn" onclick="filterProducts(\'حلويات متنوعة\', this)">حلويات متنوعة</button>
+      <button class="filter-btn" onclick="filterProducts(\'شيبسات\', this)">شيبسات</button>
+      <button class="filter-btn" onclick="filterProducts(\'مشروبات\', this)">مشروبات</button>
+      <button class="filter-btn" onclick="filterProducts(\'معلبات\', this)">معلبات</button>
+      <button class="filter-btn" onclick="filterProducts(\'منظفات وعناية شخصية\', this)">منظفات وعناية شخصية</button>
+    </div>
+
+
+    <!-- زر عرض السلة -->
+    <a href="cart.html" style="
+      position: relative;
+      background-color: #f59e0b;
+      color: white;
+      padding: 12px 24px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-size: 18px;
+      margin-right: 10px;
+      display: inline-block;">
+      🛒 عرض السلة
+      <span id="cart-count">0</span>
+    </a>
+
+    <!-- المنتجات -->
+
+        <!-- بسكويت -->
+        <div style="text-align: center; margin-bottom: 20px;">
+          <button class="filter-btn" onclick="filterProducts('بسكويت', this)">بسكويت</button>
+        </div>
+        <section class="products">
+          <div class="product" data-category="بسكويت">
+            <img src="https://via.placeholder.com/200x150?text=السودا+باتيسري+كوكيز+300+غ" alt="السودا باتيسري كوكيز 300 غ">
+            <h3>السودا باتيسري كوكيز 300 غ</h3>
+            <p>السعر: 19.000 ل.س</p>
+            <button onclick="addToCart('السودا باتيسري كوكيز 300 غ', 19000)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="بسكويت">
+            <img src="https://via.placeholder.com/200x150?text=السودا+باتيسري+سابليه+300+غ" alt="السودا باتيسري سابليه 300 غ">
+            <h3>السودا باتيسري سابليه 300 غ</h3>
+            <p>السعر: 23.000 ل.س</p>
+            <button onclick="addToCart('السودا باتيسري سابليه 300 غ', 23000)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="بسكويت">
+            <img src="https://via.placeholder.com/200x150?text=السودا+باتيسري+كعك+مالح+280+غ" alt="السودا باتيسري كعك مالح 280 غ">
+            <h3>السودا باتيسري كعك مالح 280 غ</h3>
+            <p>السعر: 16.000 ل.س</p>
+            <button onclick="addToCart('السودا باتيسري كعك مالح 280 غ', 16000)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="بسكويت">
+            <img src="https://via.placeholder.com/200x150?text=الركن+الفرنسي+كعك+مدور+350+غ" alt="الركن الفرنسي كعك مدور 350 غ">
+            <h3>الركن الفرنسي كعك مدور 350 غ</h3>
+            <p>السعر: 14.000 ل.س</p>
+            <button onclick="addToCart('الركن الفرنسي كعك مدور 350 غ', 14000)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="بسكويت">
+            <img src="https://via.placeholder.com/200x150?text=البحر+و+المتوسط+كعك+250+غ" alt="البحر و المتوسط كعك 250 غ">
+            <h3>البحر و المتوسط كعك 250 غ</h3>
+            <p>السعر: 7.000 ل.س</p>
+            <button onclick="addToCart('البحر و المتوسط كعك 250 غ', 7000)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="بسكويت">
+            <img src="https://via.placeholder.com/200x150?text=العنازة+اصابع+تمرية+موجه+سمسم" alt="العنازة اصابع تمرية موجه سمسم">
+            <h3>العنازة اصابع تمرية موجه سمسم</h3>
+            <p>السعر: 2.000 ل.س</p>
+            <button onclick="addToCart('العنازة اصابع تمرية موجه سمسم', 2000)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="بسكويت">
+            <img src="https://via.placeholder.com/200x150?text=تشيلو+بسكويت+مغطس+20+غ" alt="تشيلو بسكويت مغطس 20 غ">
+            <h3>تشيلو بسكويت مغطس 20 غ</h3>
+            <p>السعر: 1.000 ل.س</p>
+            <button onclick="addToCart('تشيلو بسكويت مغطس 20 غ', 1000)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="بسكويت">
+            <img src="https://via.placeholder.com/200x150?text=اورلي+فاخر+بسكويت+مغطس+35+غ" alt="اورلي فاخر بسكويت مغطس 35 غ">
+            <h3>اورلي فاخر بسكويت مغطس 35 غ</h3>
+            <p>السعر: 3.000 ل.س</p>
+            <button onclick="addToCart('اورلي فاخر بسكويت مغطس 35 غ', 3000)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="بسكويت">
+            <img src="https://via.placeholder.com/200x150?text=بركات+ليليوم+ساندويش+6+قطع+42+غ" alt="بركات ليليوم ساندويش 6 قطع 42 غ">
+            <h3>بركات ليليوم ساندويش 6 قطع 42 غ</h3>
+            <p>السعر: 2.000 ل.س</p>
+            <button onclick="addToCart('بركات ليليوم ساندويش 6 قطع 42 غ', 2000)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="بسكويت">
+            <img src="https://via.placeholder.com/200x150?text=عمار+شوكولا+لوح+20+غ" alt="عمار شوكولا لوح 20 غ">
+            <h3>عمار شوكولا لوح 20 غ</h3>
+            <p>السعر: 2.000 ل.س</p>
+            <button onclick="addToCart('عمار شوكولا لوح 20 غ', 2000)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="بسكويت">
+            <img src="https://via.placeholder.com/200x150?text=ساما+سيلفيتو+بسكويت+سادة+225+غ" alt="ساما سيلفيتو بسكويت سادة 225 غ">
+            <h3>ساما سيلفيتو بسكويت سادة 225 غ</h3>
+            <p>السعر: 6.000 ل.س</p>
+            <button onclick="addToCart('ساما سيلفيتو بسكويت سادة 225 غ', 6000)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="بسكويت">
+            <img src="https://via.placeholder.com/200x150?text=بركات+ويفر+اورجينال+37+-+40+غ" alt="بركات ويفر اورجينال 37 - 40 غ">
+            <h3>بركات ويفر اورجينال 37 - 40 غ</h3>
+            <p>السعر: 2.500 ل.س</p>
+            <button onclick="addToCart('بركات ويفر اورجينال 37 - 40 غ', 2500)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="بسكويت">
+            <img src="https://via.placeholder.com/200x150?text=كتاكيت+رومبا+ساندويش+6+قطع+40+غ" alt="كتاكيت رومبا ساندويش 6 قطع 40 غ">
+            <h3>كتاكيت رومبا ساندويش 6 قطع 40 غ</h3>
+            <p>السعر: 2.500 ل.س</p>
+            <button onclick="addToCart('كتاكيت رومبا ساندويش 6 قطع 40 غ', 2500)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="بسكويت">
+            <img src="https://via.placeholder.com/200x150?text=كتاكيت+رومبا+ساندويش+8+قطع+54+غ" alt="كتاكيت رومبا ساندويش 8 قطع 54 غ">
+            <h3>كتاكيت رومبا ساندويش 8 قطع 54 غ</h3>
+            <p>السعر: 3.000 ل.س</p>
+            <button onclick="addToCart('كتاكيت رومبا ساندويش 8 قطع 54 غ', 3000)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="بسكويت">
+            <img src="https://via.placeholder.com/200x150?text=كتاكيت+روبي+اصبعين+21+غ" alt="كتاكيت روبي اصبعين 21 غ">
+            <h3>كتاكيت روبي اصبعين 21 غ</h3>
+            <p>السعر: 1.500 ل.س</p>
+            <button onclick="addToCart('كتاكيت روبي اصبعين 21 غ', 1500)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="بسكويت">
+            <img src="https://via.placeholder.com/200x150?text=كتاكيت+لافيتا+ميني+17+غ" alt="كتاكيت لافيتا ميني 17 غ">
+            <h3>كتاكيت لافيتا ميني 17 غ</h3>
+            <p>السعر: 1.000 ل.س</p>
+            <button onclick="addToCart('كتاكيت لافيتا ميني 17 غ', 1000)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="بسكويت">
+            <img src="https://via.placeholder.com/200x150?text=ماستيرو+تاكت+بسكويت+سادة+40+غ" alt="ماستيرو تاكت بسكويت سادة 40 غ">
+            <h3>ماستيرو تاكت بسكويت سادة 40 غ</h3>
+            <p>السعر: 1.250 ل.س</p>
+            <button onclick="addToCart('ماستيرو تاكت بسكويت سادة 40 غ', 1250)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="بسكويت">
+            <img src="https://via.placeholder.com/200x150?text=محمد+ماجيك+شوكولا+32+غ" alt="محمد ماجيك شوكولا 32 غ">
+            <h3>محمد ماجيك شوكولا 32 غ</h3>
+            <p>السعر: 2.000 ل.س</p>
+            <button onclick="addToCart('محمد ماجيك شوكولا 32 غ', 2000)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="بسكويت">
+            <img src="https://via.placeholder.com/200x150?text=البشير+ماتيلدا+بسكويت+مغطس+28+غ" alt="البشير ماتيلدا بسكويت مغطس 28 غ">
+            <h3>البشير ماتيلدا بسكويت مغطس 28 غ</h3>
+            <p>السعر: 2.000 ل.س</p>
+            <button onclick="addToCart('البشير ماتيلدا بسكويت مغطس 28 غ', 2000)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="بسكويت">
+            <img src="https://via.placeholder.com/200x150?text=كتاكيت+دايجستيف+اورجينال+2+قطعة+28+غ" alt="كتاكيت دايجستيف اورجينال 2 قطعة 28 غ">
+            <h3>كتاكيت دايجستيف اورجينال 2 قطعة 28 غ</h3>
+            <p>السعر: 1.500 ل.س</p>
+            <button onclick="addToCart('كتاكيت دايجستيف اورجينال 2 قطعة 28 غ', 1500)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="بسكويت">
+            <img src="https://via.placeholder.com/200x150?text=كروسان+لوكاس+45غ" alt="كروسان لوكاس 45غ">
+            <h3>كروسان لوكاس 45غ</h3>
+            <p>السعر: 3.500 ل.س</p>
+            <button onclick="addToCart('كروسان لوكاس 45غ', 3500)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="بسكويت">
+            <img src="https://via.placeholder.com/200x150?text=كتاكيت+بسكويت+تويست+27غ" alt="كتاكيت بسكويت تويست 27غ">
+            <h3>كتاكيت بسكويت تويست 27غ</h3>
+            <p>السعر: 2.500 ل.س</p>
+            <button onclick="addToCart('كتاكيت بسكويت تويست 27غ', 2500)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="بسكويت">
+            <img src="https://via.placeholder.com/200x150?text=كتاكيت+بسكوت+تويست+27غ" alt="كتاكيت بسكوت تويست 27غ">
+            <h3>كتاكيت بسكوت تويست 27غ</h3>
+            <p>السعر: 2.000 ل.س</p>
+            <button onclick="addToCart('كتاكيت بسكوت تويست 27غ', 2000)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="بسكويت">
+            <img src="https://via.placeholder.com/200x150?text=زومو+كورنيت+20غ" alt="زومو كورنيت 20غ">
+            <h3>زومو كورنيت 20غ</h3>
+            <p>السعر: 3.000 ل.س</p>
+            <button onclick="addToCart('زومو كورنيت 20غ', 3000)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="بسكويت">
+            <img src="https://via.placeholder.com/200x150?text=زومو+كورنية+كبير+18غ" alt="زومو كورنية كبير 18غ">
+            <h3>زومو كورنية كبير 18غ</h3>
+            <p>السعر: 5.000 ل.س</p>
+            <button onclick="addToCart('زومو كورنية كبير 18غ', 5000)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="بسكويت">
+            <img src="https://via.placeholder.com/200x150?text=بسكويت+ساده+زنبكجي+400غ" alt="بسكويت ساده زنبكجي 400غ">
+            <h3>بسكويت ساده زنبكجي 400غ</h3>
+            <p>السعر: 10.000 ل.س</p>
+            <button onclick="addToCart('بسكويت ساده زنبكجي 400غ', 10000)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="بسكويت">
+            <img src="https://via.placeholder.com/200x150?text=بسكويت+ساده+زنبكجي+180غ" alt="بسكويت ساده زنبكجي 180غ">
+            <h3>بسكويت ساده زنبكجي 180غ</h3>
+            <p>السعر: 5.500 ل.س</p>
+            <button onclick="addToCart('بسكويت ساده زنبكجي 180غ', 5500)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="بسكويت">
+            <img src="https://via.placeholder.com/200x150?text=تيشوب+قشطه+بسكوت+بلكريمه" alt="تيشوب قشطه بسكوت بلكريمه">
+            <h3>تيشوب قشطه بسكوت بلكريمه</h3>
+            <p>السعر: 1.000 ل.س</p>
+            <button onclick="addToCart('تيشوب قشطه بسكوت بلكريمه', 1000)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="بسكويت">
+            <img src="https://via.placeholder.com/200x150?text=بانجوس+بيكو+180مل" alt="بانجوس بيكو 180مل">
+            <h3>بانجوس بيكو 180مل</h3>
+            <p>السعر: 2.500 ل.س</p>
+            <button onclick="addToCart('بانجوس بيكو 180مل', 2500)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="بسكويت">
+            <img src="https://via.placeholder.com/200x150?text=باك+باك+بسكويت+35غ" alt="باك باك بسكويت 35غ">
+            <h3>باك باك بسكويت 35غ</h3>
+            <p>السعر: 2.500 ل.س</p>
+            <button onclick="addToCart('باك باك بسكويت 35غ', 2500)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="بسكويت">
+            <img src="https://via.placeholder.com/200x150?text=بركات+ليليوم+اصبع+24غ" alt="بركات ليليوم اصبع 24غ">
+            <h3>بركات ليليوم اصبع 24غ</h3>
+            <p>السعر: 2.500 ل.س</p>
+            <button onclick="addToCart('بركات ليليوم اصبع 24غ', 2500)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="بسكويت">
+            <img src="https://via.placeholder.com/200x150?text=ليليوم+بركات+دبي+35غ" alt="ليليوم بركات دبي 35غ">
+            <h3>ليليوم بركات دبي 35غ</h3>
+            <p>السعر: 5.000 ل.س</p>
+            <button onclick="addToCart('ليليوم بركات دبي 35غ', 5000)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="بسكويت">
+            <img src="https://via.placeholder.com/200x150?text=فولت+بسكويت+بركات+34غ" alt="فولت بسكويت بركات 34غ">
+            <h3>فولت بسكويت بركات 34غ</h3>
+            <p>السعر: 4.000 ل.س</p>
+            <button onclick="addToCart('فولت بسكويت بركات 34غ', 4000)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="بسكويت">
+            <img src="https://via.placeholder.com/200x150?text=سباركي+بسكويت+الحليب+المحشو+بشوكولا" alt="سباركي بسكويت الحليب المحشو بشوكولا">
+            <h3>سباركي بسكويت الحليب المحشو بشوكولا</h3>
+            <p>السعر: 1.000 ل.س</p>
+            <button onclick="addToCart('سباركي بسكويت الحليب المحشو بشوكولا', 1000)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="بسكويت">
+            <img src="https://via.placeholder.com/200x150?text=حبة+قمح+بليلا+نايو+ون+15غ" alt="حبة قمح بليلا نايو ون 15غ">
+            <h3>حبة قمح بليلا نايو ون 15غ</h3>
+            <p>السعر: 2.000 ل.س</p>
+            <button onclick="addToCart('حبة قمح بليلا نايو ون 15غ', 2000)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="بسكويت">
+            <img src="https://via.placeholder.com/200x150?text=بيض+سوربرايس+لعبة+2غ" alt="بيض سوربرايس لعبة 2غ">
+            <h3>بيض سوربرايس لعبة 2غ</h3>
+            <p>السعر: 2.000 ل.س</p>
+            <button onclick="addToCart('بيض سوربرايس لعبة 2غ', 2000)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="بسكويت">
+            <img src="https://via.placeholder.com/200x150?text=بيتفور+بسكويت+3+حبات+20غ" alt="بيتفور بسكويت 3 حبات 20غ">
+            <h3>بيتفور بسكويت 3 حبات 20غ</h3>
+            <p>السعر: 2.500 ل.س</p>
+            <button onclick="addToCart('بيتفور بسكويت 3 حبات 20غ', 2500)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="بسكويت">
+            <img src="https://via.placeholder.com/200x150?text=روبي+شوكولا+سائلة+بلاستيك+250+غ" alt="روبي شوكولا سائلة بلاستيك 250 غ">
+            <h3>روبي شوكولا سائلة بلاستيك 250 غ</h3>
+            <p>السعر: 17.000 ل.س</p>
+            <button onclick="addToCart('روبي شوكولا سائلة بلاستيك 250 غ', 17000)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="بسكويت">
+            <img src="https://via.placeholder.com/200x150?text=كتاكيت+بريستو+مرقة+دجاج+بودرة+ظرف+10+غ" alt="كتاكيت بريستو مرقة دجاج بودرة ظرف 10 غ">
+            <h3>كتاكيت بريستو مرقة دجاج بودرة ظرف 10 غ</h3>
+            <p>السعر: 750 ل.س</p>
+            <button onclick="addToCart('كتاكيت بريستو مرقة دجاج بودرة ظرف 10 غ', 750)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="بسكويت">
+            <img src="https://via.placeholder.com/200x150?text=شوكولا+سائلة+نيوبارك+275غ" alt="شوكولا سائلة نيوبارك 275غ">
+            <h3>شوكولا سائلة نيوبارك 275غ</h3>
+            <p>السعر: 14.500 ل.س</p>
+            <button onclick="addToCart('شوكولا سائلة نيوبارك 275غ', 14500)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="بسكويت">
+            <img src="https://via.placeholder.com/200x150?text=كتاكيت+بسكوت+مولتو+ساده+45غ" alt="كتاكيت بسكوت مولتو ساده 45غ">
+            <h3>كتاكيت بسكوت مولتو ساده 45غ</h3>
+            <p>السعر: 3.000 ل.س</p>
+            <button onclick="addToCart('كتاكيت بسكوت مولتو ساده 45غ', 3000)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="بسكويت">
+            <img src="https://via.placeholder.com/200x150?text=بيضة+الارض+السعيدة+كوتو+موتو+10غ" alt="بيضة الارض السعيدة كوتو موتو 10غ">
+            <h3>بيضة الارض السعيدة كوتو موتو 10غ</h3>
+            <p>السعر: 2.500 ل.س</p>
+            <button onclick="addToCart('بيضة الارض السعيدة كوتو موتو 10غ', 2500)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="بسكويت">
+            <img src="https://via.placeholder.com/200x150?text=بيكون+جبنة+مثلثات+8+قطع+120+غ+مصري" alt="بيكون جبنة مثلثات 8 قطع 120 غ مصري">
+            <h3>بيكون جبنة مثلثات 8 قطع 120 غ مصري</h3>
+            <p>السعر: 15.750 ل.س</p>
+            <button onclick="addToCart('بيكون جبنة مثلثات 8 قطع 120 غ مصري', 15750)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="بسكويت">
+            <img src="https://via.placeholder.com/200x150?text=كينت+شوكولا+بندق+دهن+بلاستيك+400+غ" alt="كينت شوكولا بندق دهن بلاستيك 400 غ">
+            <h3>كينت شوكولا بندق دهن بلاستيك 400 غ</h3>
+            <p>السعر: 2 ل.س</p>
+            <button onclick="addToCart('كينت شوكولا بندق دهن بلاستيك 400 غ', 2)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="بسكويت">
+            <img src="https://via.placeholder.com/200x150?text=ميلكا+شوكولا+بندق+دهن+زجاج+350+غ" alt="ميلكا شوكولا بندق دهن زجاج 350 غ">
+            <h3>ميلكا شوكولا بندق دهن زجاج 350 غ</h3>
+            <p>السعر: 4 ل.س</p>
+            <button onclick="addToCart('ميلكا شوكولا بندق دهن زجاج 350 غ', 4)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="بسكويت">
+            <img src="https://via.placeholder.com/200x150?text=نوتيلا+شوكولا+بندق+دهن+زجاج+400+غ" alt="نوتيلا شوكولا بندق دهن زجاج 400 غ">
+            <h3>نوتيلا شوكولا بندق دهن زجاج 400 غ</h3>
+            <p>السعر: 4 ل.س</p>
+            <button onclick="addToCart('نوتيلا شوكولا بندق دهن زجاج 400 غ', 4)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="بسكويت">
+            <img src="https://via.placeholder.com/200x150?text=بيفا+بيفاريلا+شوكولا+بندق+دهن+بلاستيك+300+غ" alt="بيفا بيفاريلا شوكولا بندق دهن بلاستيك 300 غ">
+            <h3>بيفا بيفاريلا شوكولا بندق دهن بلاستيك 300 غ</h3>
+            <p>السعر: 16.800 ل.س</p>
+            <button onclick="addToCart('بيفا بيفاريلا شوكولا بندق دهن بلاستيك 300 غ', 16800)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="بسكويت">
+            <img src="https://via.placeholder.com/200x150?text=كادبوري+هوت+كاكاو+بودرة+بلاستيك+300+غ" alt="كادبوري هوت كاكاو بودرة بلاستيك 300 غ">
+            <h3>كادبوري هوت كاكاو بودرة بلاستيك 300 غ</h3>
+            <p>السعر: 57.750 ل.س</p>
+            <button onclick="addToCart('كادبوري هوت كاكاو بودرة بلاستيك 300 غ', 57750)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="بسكويت">
+            <img src="https://via.placeholder.com/200x150?text=بيكون+جبنة+مثلثات+24+قطعه+360+غ+مصري" alt="بيكون جبنة مثلثات 24 قطعه 360 غ مصري">
+            <h3>بيكون جبنة مثلثات 24 قطعه 360 غ مصري</h3>
+            <p>السعر: 43.050 ل.س</p>
+            <button onclick="addToCart('بيكون جبنة مثلثات 24 قطعه 360 غ مصري', 43050)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="بسكويت">
+            <img src="https://via.placeholder.com/200x150?text=نوتيلا+شوكولا+بندق+دهن+زجاج+200غ" alt="نوتيلا شوكولا بندق دهن زجاج 200غ">
+            <h3>نوتيلا شوكولا بندق دهن زجاج 200غ</h3>
+            <p>السعر: 26.250 ل.س</p>
+            <button onclick="addToCart('نوتيلا شوكولا بندق دهن زجاج 200غ', 26250)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="بسكويت">
+            <img src="https://via.placeholder.com/200x150?text=اولكر+كريسبي+اصابع+منكه+كيس+43+غ" alt="اولكر كريسبي اصابع منكه كيس 43 غ">
+            <h3>اولكر كريسبي اصابع منكه كيس 43 غ</h3>
+            <p>السعر: 6.825 ل.س</p>
+            <button onclick="addToCart('اولكر كريسبي اصابع منكه كيس 43 غ', 6825)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="بسكويت">
+            <img src="https://via.placeholder.com/200x150?text=كيندر+جوي+بيض+بلاستيك+20+غ" alt="كيندر جوي بيض بلاستيك 20 غ">
+            <h3>كيندر جوي بيض بلاستيك 20 غ</h3>
+            <p>السعر: 7.350 ل.س</p>
+            <button onclick="addToCart('كيندر جوي بيض بلاستيك 20 غ', 7350)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="بسكويت">
+            <img src="https://via.placeholder.com/200x150?text=بونارت+جوي+توب+بيض+20+-+25+غ" alt="بونارت جوي توب بيض 20 - 25 غ">
+            <h3>بونارت جوي توب بيض 20 - 25 غ</h3>
+            <p>السعر: 5.250 ل.س</p>
+            <button onclick="addToCart('بونارت جوي توب بيض 20 - 25 غ', 5250)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="بسكويت">
+            <img src="https://via.placeholder.com/200x150?text=هاي+هيو+بسكويت+مغطس+3+قطع+30+غ" alt="هاي هيو بسكويت مغطس 3 قطع 30 غ">
+            <h3>هاي هيو بسكويت مغطس 3 قطع 30 غ</h3>
+            <p>السعر: 2.625 ل.س</p>
+            <button onclick="addToCart('هاي هيو بسكويت مغطس 3 قطع 30 غ', 2625)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="بسكويت">
+            <img src="https://via.placeholder.com/200x150?text=نستله+ليون+شوكولا+40+-+41+غ" alt="نستله ليون شوكولا 40 - 41 غ">
+            <h3>نستله ليون شوكولا 40 - 41 غ</h3>
+            <p>السعر: 6.825 ل.س</p>
+            <button onclick="addToCart('نستله ليون شوكولا 40 - 41 غ', 6825)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="بسكويت">
+            <img src="https://via.placeholder.com/200x150?text=تويكس+شوكولا+اصبعين+50+غ" alt="تويكس شوكولا اصبعين 50 غ">
+            <h3>تويكس شوكولا اصبعين 50 غ</h3>
+            <p>السعر: 6.825 ل.س</p>
+            <button onclick="addToCart('تويكس شوكولا اصبعين 50 غ', 6825)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="بسكويت">
+            <img src="https://via.placeholder.com/200x150?text=كادبوري+سناك+ساندويش+22+غ" alt="كادبوري سناك ساندويش 22 غ">
+            <h3>كادبوري سناك ساندويش 22 غ</h3>
+            <p>السعر: 5.250 ل.س</p>
+            <button onclick="addToCart('كادبوري سناك ساندويش 22 غ', 5250)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="بسكويت">
+            <img src="https://via.placeholder.com/200x150?text=كادبوري+تويرل+شوكولا+21.5+غ" alt="كادبوري تويرل شوكولا 21.5 غ">
+            <h3>كادبوري تويرل شوكولا 21.5 غ</h3>
+            <p>السعر: 5.250 ل.س</p>
+            <button onclick="addToCart('كادبوري تويرل شوكولا 21.5 غ', 5250)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="بسكويت">
+            <img src="https://via.placeholder.com/200x150?text=اولكر+كات+كات+تات+25+غ" alt="اولكر كات كات تات 25 غ">
+            <h3>اولكر كات كات تات 25 غ</h3>
+            <p>السعر: 2.625 ل.س</p>
+            <button onclick="addToCart('اولكر كات كات تات 25 غ', 2625)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="بسكويت">
+            <img src="https://via.placeholder.com/200x150?text=اولكر+ميلفوي+28+غ" alt="اولكر ميلفوي 28 غ">
+            <h3>اولكر ميلفوي 28 غ</h3>
+            <p>السعر: 2.625 ل.س</p>
+            <button onclick="addToCart('اولكر ميلفوي 28 غ', 2625)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="بسكويت">
+            <img src="https://via.placeholder.com/200x150?text=ايتي+هوسبيس+ويفر+40+غ" alt="ايتي هوسبيس ويفر 40 غ">
+            <h3>ايتي هوسبيس ويفر 40 غ</h3>
+            <p>السعر: 4.200 ل.س</p>
+            <button onclick="addToCart('ايتي هوسبيس ويفر 40 غ', 4200)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="بسكويت">
+            <img src="https://via.placeholder.com/200x150?text=سنيكرز+شوكولا+50+غ" alt="سنيكرز شوكولا 50 غ">
+            <h3>سنيكرز شوكولا 50 غ</h3>
+            <p>السعر: 5.775 ل.س</p>
+            <button onclick="addToCart('سنيكرز شوكولا 50 غ', 5775)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="بسكويت">
+            <img src="https://via.placeholder.com/200x150?text=لواكر+ساندويش+ويفر+25+غ" alt="لواكر ساندويش ويفر 25 غ">
+            <h3>لواكر ساندويش ويفر 25 غ</h3>
+            <p>السعر: 5.250 ل.س</p>
+            <button onclick="addToCart('لواكر ساندويش ويفر 25 غ', 5250)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="بسكويت">
+            <img src="https://via.placeholder.com/200x150?text=سيزميتشي+تايم+هيرو+ويفر+رول+4+قطع+27+غ" alt="سيزميتشي تايم هيرو ويفر رول 4 قطع 27 غ">
+            <h3>سيزميتشي تايم هيرو ويفر رول 4 قطع 27 غ</h3>
+            <p>السعر: 2.625 ل.س</p>
+            <button onclick="addToCart('سيزميتشي تايم هيرو ويفر رول 4 قطع 27 غ', 2625)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="بسكويت">
+            <img src="https://via.placeholder.com/200x150?text=اولكر+اولالا+سوفلي+كيك+70+غ" alt="اولكر اولالا سوفلي كيك 70 غ">
+            <h3>اولكر اولالا سوفلي كيك 70 غ</h3>
+            <p>السعر: 5.250 ل.س</p>
+            <button onclick="addToCart('اولكر اولالا سوفلي كيك 70 غ', 5250)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="بسكويت">
+            <img src="https://via.placeholder.com/200x150?text=اولكر+ميترو+شوكولا+50.4+غ" alt="اولكر ميترو شوكولا 50.4 غ">
+            <h3>اولكر ميترو شوكولا 50.4 غ</h3>
+            <p>السعر: 4.200 ل.س</p>
+            <button onclick="addToCart('اولكر ميترو شوكولا 50.4 غ', 4200)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="بسكويت">
+            <img src="https://via.placeholder.com/200x150?text=ايتي+ويفر+اب+اكسترا+29+غ" alt="ايتي ويفر اب اكسترا 29 غ">
+            <h3>ايتي ويفر اب اكسترا 29 غ</h3>
+            <p>السعر: 3.150 ل.س</p>
+            <button onclick="addToCart('ايتي ويفر اب اكسترا 29 غ', 3150)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="بسكويت">
+            <img src="https://via.placeholder.com/200x150?text=لو+سينت+ويفر+45+غ" alt="لو سينت ويفر 45 غ">
+            <h3>لو سينت ويفر 45 غ</h3>
+            <p>السعر: 9.450 ل.س</p>
+            <button onclick="addToCart('لو سينت ويفر 45 غ', 9450)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="بسكويت">
+            <img src="https://via.placeholder.com/200x150?text=نستله+شوكا+بيك+بار+25+غ" alt="نستله شوكا بيك بار 25 غ">
+            <h3>نستله شوكا بيك بار 25 غ</h3>
+            <p>السعر: 6.300 ل.س</p>
+            <button onclick="addToCart('نستله شوكا بيك بار 25 غ', 6300)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="بسكويت">
+            <img src="https://via.placeholder.com/200x150?text=نوتيلا+ساندويش+3+قطع+41.4+غ" alt="نوتيلا ساندويش 3 قطع 41.4 غ">
+            <h3>نوتيلا ساندويش 3 قطع 41.4 غ</h3>
+            <p>السعر: 6.300 ل.س</p>
+            <button onclick="addToCart('نوتيلا ساندويش 3 قطع 41.4 غ', 6300)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="بسكويت">
+            <img src="https://via.placeholder.com/200x150?text=ميلكا+شوكو+كاو+40+غ" alt="ميلكا شوكو كاو 40 غ">
+            <h3>ميلكا شوكو كاو 40 غ</h3>
+            <p>السعر: 5.250 ل.س</p>
+            <button onclick="addToCart('ميلكا شوكو كاو 40 غ', 5250)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="بسكويت">
+            <img src="https://via.placeholder.com/200x150?text=ميلكا+شوكو+ميني+ستار+37.5+غ" alt="ميلكا شوكو ميني ستار 37.5 غ">
+            <h3>ميلكا شوكو ميني ستار 37.5 غ</h3>
+            <p>السعر: 5.250 ل.س</p>
+            <button onclick="addToCart('ميلكا شوكو ميني ستار 37.5 غ', 5250)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="بسكويت">
+            <img src="https://via.placeholder.com/200x150?text=كادبوري+بووست+شوكولا+31.5+غ" alt="كادبوري بووست شوكولا 31.5 غ">
+            <h3>كادبوري بووست شوكولا 31.5 غ</h3>
+            <p>السعر: 5.250 ل.س</p>
+            <button onclick="addToCart('كادبوري بووست شوكولا 31.5 غ', 5250)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="بسكويت">
+            <img src="https://via.placeholder.com/200x150?text=نستله+داماك+شوكولا+لوح+60+غ" alt="نستله داماك شوكولا لوح 60 غ">
+            <h3>نستله داماك شوكولا لوح 60 غ</h3>
+            <p>السعر: 16.800 ل.س</p>
+            <button onclick="addToCart('نستله داماك شوكولا لوح 60 غ', 16800)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="بسكويت">
+            <img src="https://via.placeholder.com/200x150?text=كيندر+كاونتري+23.5+غ" alt="كيندر كاونتري 23.5 غ">
+            <h3>كيندر كاونتري 23.5 غ</h3>
+            <p>السعر: 5.775 ل.س</p>
+            <button onclick="addToCart('كيندر كاونتري 23.5 غ', 5775)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="بسكويت">
+            <img src="https://via.placeholder.com/200x150?text=كيندر+شوكولا+اصابع+4+قطع+50+غ" alt="كيندر شوكولا اصابع 4 قطع 50 غ">
+            <h3>كيندر شوكولا اصابع 4 قطع 50 غ</h3>
+            <p>السعر: 8.662 ل.س</p>
+            <button onclick="addToCart('كيندر شوكولا اصابع 4 قطع 50 غ', 8662)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="بسكويت">
+            <img src="https://via.placeholder.com/200x150?text=ستروك+كنوبرز+ويفر+25+غ" alt="ستروك كنوبرز ويفر 25 غ">
+            <h3>ستروك كنوبرز ويفر 25 غ</h3>
+            <p>السعر: 5.250 ل.س</p>
+            <button onclick="addToCart('ستروك كنوبرز ويفر 25 غ', 5250)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="بسكويت">
+            <img src="https://via.placeholder.com/200x150?text=مارس+شوكولا+51+غ" alt="مارس شوكولا 51 غ">
+            <h3>مارس شوكولا 51 غ</h3>
+            <p>السعر: 6.300 ل.س</p>
+            <button onclick="addToCart('مارس شوكولا 51 غ', 6300)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="بسكويت">
+            <img src="https://via.placeholder.com/200x150?text=اولكر+ميترو+بيغ+3+شوكولا+45+غ" alt="اولكر ميترو بيغ 3 شوكولا 45 غ">
+            <h3>اولكر ميترو بيغ 3 شوكولا 45 غ</h3>
+            <p>السعر: 4.200 ل.س</p>
+            <button onclick="addToCart('اولكر ميترو بيغ 3 شوكولا 45 غ', 4200)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="بسكويت">
+            <img src="https://via.placeholder.com/200x150?text=تيفاني+بريك+ريزو+17+غ" alt="تيفاني بريك ريزو 17 غ">
+            <h3>تيفاني بريك ريزو 17 غ</h3>
+            <p>السعر: 2.100 ل.س</p>
+            <button onclick="addToCart('تيفاني بريك ريزو 17 غ', 2100)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="بسكويت">
+            <img src="https://via.placeholder.com/200x150?text=بيسكولاتا+ستيكس+اصابع+شوكولا+27.5+غ" alt="بيسكولاتا ستيكس اصابع شوكولا 27.5 غ">
+            <h3>بيسكولاتا ستيكس اصابع شوكولا 27.5 غ</h3>
+            <p>السعر: 9.450 ل.س</p>
+            <button onclick="addToCart('بيسكولاتا ستيكس اصابع شوكولا 27.5 غ', 9450)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="بسكويت">
+            <img src="https://via.placeholder.com/200x150?text=كيندر+هابي+هيبو+20.7+غ" alt="كيندر هابي هيبو 20.7 غ">
+            <h3>كيندر هابي هيبو 20.7 غ</h3>
+            <p>السعر: 6.300 ل.س</p>
+            <button onclick="addToCart('كيندر هابي هيبو 20.7 غ', 6300)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="بسكويت">
+            <img src="https://via.placeholder.com/200x150?text=غالاكسي+شوكولا+18+غ" alt="غالاكسي شوكولا 18 غ">
+            <h3>غالاكسي شوكولا 18 غ</h3>
+            <p>السعر: 4.725 ل.س</p>
+            <button onclick="addToCart('غالاكسي شوكولا 18 غ', 4725)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="بسكويت">
+            <img src="https://via.placeholder.com/200x150?text=غالاكسي+شوكولا+36+-+38+غ" alt="غالاكسي شوكولا 36 - 38 غ">
+            <h3>غالاكسي شوكولا 36 - 38 غ</h3>
+            <p>السعر: 8.925 ل.س</p>
+            <button onclick="addToCart('غالاكسي شوكولا 36 - 38 غ', 8925)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="بسكويت">
+            <img src="https://via.placeholder.com/200x150?text=اولكر+البيني+فيفا+36+غ" alt="اولكر البيني فيفا 36 غ">
+            <h3>اولكر البيني فيفا 36 غ</h3>
+            <p>السعر: 4.200 ل.س</p>
+            <button onclick="addToCart('اولكر البيني فيفا 36 غ', 4200)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="بسكويت">
+            <img src="https://via.placeholder.com/200x150?text=اولكر+كريمالي+روندو+61+غ" alt="اولكر كريمالي روندو 61 غ">
+            <h3>اولكر كريمالي روندو 61 غ</h3>
+            <p>السعر: 6.300 ل.س</p>
+            <button onclick="addToCart('اولكر كريمالي روندو 61 غ', 6300)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="بسكويت">
+            <img src="https://via.placeholder.com/200x150?text=اولكر+هالي+مدور+66+غ" alt="اولكر هالي مدور 66 غ">
+            <h3>اولكر هالي مدور 66 غ</h3>
+            <p>السعر: 4.725 ل.س</p>
+            <button onclick="addToCart('اولكر هالي مدور 66 غ', 4725)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="بسكويت">
+            <img src="https://via.placeholder.com/200x150?text=نوتيلا+بي+ريدي+22+غ" alt="نوتيلا بي ريدي 22 غ">
+            <h3>نوتيلا بي ريدي 22 غ</h3>
+            <p>السعر: 6.300 ل.س</p>
+            <button onclick="addToCart('نوتيلا بي ريدي 22 غ', 6300)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="بسكويت">
+            <img src="https://via.placeholder.com/200x150?text=كيندر+ديلايس+كيك+39+غ" alt="كيندر ديلايس كيك 39 غ">
+            <h3>كيندر ديلايس كيك 39 غ</h3>
+            <p>السعر: 6.300 ل.س</p>
+            <button onclick="addToCart('كيندر ديلايس كيك 39 غ', 6300)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="بسكويت">
+            <img src="https://via.placeholder.com/200x150?text=ام+اند+امز+كيس+45+غ" alt="ام اند امز كيس 45 غ">
+            <h3>ام اند امز كيس 45 غ</h3>
+            <p>السعر: 6.300 ل.س</p>
+            <button onclick="addToCart('ام اند امز كيس 45 غ', 6300)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="بسكويت">
+            <img src="https://via.placeholder.com/200x150?text=سيكريت+سينتر+شوكولا+132+غ++مارس+-+تويكس+-+باونتي" alt="سيكريت سينتر شوكولا 132 غ / مارس - تويكس - باونتي">
+            <h3>سيكريت سينتر شوكولا 132 غ / مارس - تويكس - باونتي</h3>
+            <p>السعر: 25.200 ل.س</p>
+            <button onclick="addToCart('سيكريت سينتر شوكولا 132 غ / مارس - تويكس - باونتي', 25200)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="بسكويت">
+            <img src="https://via.placeholder.com/200x150?text=ام+ان+شوكولا+تريند+دبي+200+غ" alt="ام ان شوكولا تريند دبي 200 غ">
+            <h3>ام ان شوكولا تريند دبي 200 غ</h3>
+            <p>السعر: 36.750 ل.س</p>
+            <button onclick="addToCart('ام ان شوكولا تريند دبي 200 غ', 36750)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="بسكويت">
+            <img src="https://via.placeholder.com/200x150?text=ميلكا+شوكو+ويفر+مدور+30+غ" alt="ميلكا شوكو ويفر مدور 30 غ">
+            <h3>ميلكا شوكو ويفر مدور 30 غ</h3>
+            <p>السعر: 2.625 ل.س</p>
+            <button onclick="addToCart('ميلكا شوكو ويفر مدور 30 غ', 2625)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="بسكويت">
+            <img src="https://via.placeholder.com/200x150?text=مالتيزرس+بسكويت+110+غ" alt="مالتيزرس بسكويت 110 غ">
+            <h3>مالتيزرس بسكويت 110 غ</h3>
+            <p>السعر: 18.375 ل.س</p>
+            <button onclick="addToCart('مالتيزرس بسكويت 110 غ', 18375)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="بسكويت">
+            <img src="https://via.placeholder.com/200x150?text=ميلكا+شوكو+غراين+126+غ" alt="ميلكا شوكو غراين 126 غ">
+            <h3>ميلكا شوكو غراين 126 غ</h3>
+            <p>السعر: 15.750 ل.س</p>
+            <button onclick="addToCart('ميلكا شوكو غراين 126 غ', 15750)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="بسكويت">
+            <img src="https://via.placeholder.com/200x150?text=كادبوري+بيكنيك+شوكولا+32+غ" alt="كادبوري بيكنيك شوكولا 32 غ">
+            <h3>كادبوري بيكنيك شوكولا 32 غ</h3>
+            <p>السعر: 5.250 ل.س</p>
+            <button onclick="addToCart('كادبوري بيكنيك شوكولا 32 غ', 5250)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="بسكويت">
+            <img src="https://via.placeholder.com/200x150?text=نستله+كيت+كات+ميني+13.5+غ" alt="نستله كيت كات ميني 13.5 غ">
+            <h3>نستله كيت كات ميني 13.5 غ</h3>
+            <p>السعر: 2.625 ل.س</p>
+            <button onclick="addToCart('نستله كيت كات ميني 13.5 غ', 2625)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="بسكويت">
+            <img src="https://via.placeholder.com/200x150?text=باونتي+شوكولا+جوز+هند+2+قطعة+57+غ" alt="باونتي شوكولا جوز هند 2 قطعة 57 غ">
+            <h3>باونتي شوكولا جوز هند 2 قطعة 57 غ</h3>
+            <p>السعر: 5.250 ل.س</p>
+            <button onclick="addToCart('باونتي شوكولا جوز هند 2 قطعة 57 غ', 5250)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="بسكويت">
+            <img src="https://via.placeholder.com/200x150?text=تويكس+رول+مجوز+22.5+غ" alt="تويكس رول مجوز 22.5 غ">
+            <h3>تويكس رول مجوز 22.5 غ</h3>
+            <p>السعر: 4.410 ل.س</p>
+            <button onclick="addToCart('تويكس رول مجوز 22.5 غ', 4410)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="بسكويت">
+            <img src="https://via.placeholder.com/200x150?text=سنيكرز+رول+مجوز+24+غ" alt="سنيكرز رول مجوز 24 غ">
+            <h3>سنيكرز رول مجوز 24 غ</h3>
+            <p>السعر: 4.410 ل.س</p>
+            <button onclick="addToCart('سنيكرز رول مجوز 24 غ', 4410)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="بسكويت">
+            <img src="https://via.placeholder.com/200x150?text=اوزمو+كورنيه+شوكولا+25+غ" alt="اوزمو كورنيه شوكولا 25 غ">
+            <h3>اوزمو كورنيه شوكولا 25 غ</h3>
+            <p>السعر: 4.200 ل.س</p>
+            <button onclick="addToCart('اوزمو كورنيه شوكولا 25 غ', 4200)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="بسكويت">
+            <img src="https://via.placeholder.com/200x150?text=بيسكولاتا+موود+كاسة+125+غ" alt="بيسكولاتا موود كاسة 125 غ">
+            <h3>بيسكولاتا موود كاسة 125 غ</h3>
+            <p>السعر: 12.600 ل.س</p>
+            <button onclick="addToCart('بيسكولاتا موود كاسة 125 غ', 12600)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="بسكويت">
+            <img src="https://via.placeholder.com/200x150?text=ايتي+داريلو+بوبس+28+غ" alt="ايتي داريلو بوبس 28 غ">
+            <h3>ايتي داريلو بوبس 28 غ</h3>
+            <p>السعر: 3.675 ل.س</p>
+            <button onclick="addToCart('ايتي داريلو بوبس 28 غ', 3675)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="بسكويت">
+            <img src="https://via.placeholder.com/200x150?text=اتيستر+كراكر+شبك+كيس+200+غ" alt="اتيستر كراكر شبك كيس 200 غ">
+            <h3>اتيستر كراكر شبك كيس 200 غ</h3>
+            <p>السعر: 8.925 ل.س</p>
+            <button onclick="addToCart('اتيستر كراكر شبك كيس 200 غ', 8925)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="بسكويت">
+            <img src="https://via.placeholder.com/200x150?text=مكفيتيس+دايجستيف+اورجينال+250+غ" alt="مكفيتيس دايجستيف اورجينال 250 غ">
+            <h3>مكفيتيس دايجستيف اورجينال 250 غ</h3>
+            <p>السعر: 25.200 ل.س</p>
+            <button onclick="addToCart('مكفيتيس دايجستيف اورجينال 250 غ', 25200)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="بسكويت">
+            <img src="https://via.placeholder.com/200x150?text=اولكر+هاني+ميلر+كيس+152+غ" alt="اولكر هاني ميلر كيس 152 غ">
+            <h3>اولكر هاني ميلر كيس 152 غ</h3>
+            <p>السعر: 15.750 ل.س</p>
+            <button onclick="addToCart('اولكر هاني ميلر كيس 152 غ', 15750)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="بسكويت">
+            <img src="https://via.placeholder.com/200x150?text=ايتي+بورشاك+كيس+150+غ" alt="ايتي بورشاك كيس 150 غ">
+            <h3>ايتي بورشاك كيس 150 غ</h3>
+            <p>السعر: 15.750 ل.س</p>
+            <button onclick="addToCart('ايتي بورشاك كيس 150 غ', 15750)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="بسكويت">
+            <img src="https://via.placeholder.com/200x150?text=غالاكسي+شوكولا+مينياتشورز+كيس+13+قطعة+117+غ" alt="غالاكسي شوكولا مينياتشورز كيس 13 قطعة 117 غ">
+            <h3>غالاكسي شوكولا مينياتشورز كيس 13 قطعة 117 غ</h3>
+            <p>السعر: 5 ل.س</p>
+            <button onclick="addToCart('غالاكسي شوكولا مينياتشورز كيس 13 قطعة 117 غ', 5)">أضف إلى السلة</button>
+          </div>
+        </section>
+
+        <!-- شيبسات -->
+        <div style="text-align: center; margin-bottom: 20px;">
+          <button class="filter-btn" onclick="filterProducts('شيبسات', this)">شيبسات</button>
+        </div>
+        <section class="products">
+          <div class="product" data-category="شيبسات">
+            <img src="https://via.placeholder.com/200x150?text=جوريا+شيبس+منفوش+85+غ" alt="جوريا شيبس منفوش 85 غ">
+            <h3>جوريا شيبس منفوش 85 غ</h3>
+            <p>السعر: 5.000 ل.س</p>
+            <button onclick="addToCart('جوريا شيبس منفوش 85 غ', 5000)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="شيبسات">
+            <img src="https://via.placeholder.com/200x150?text=كويكلي+شيبس+ديربي+جامبو" alt="كويكلي شيبس ديربي جامبو">
+            <h3>كويكلي شيبس ديربي جامبو</h3>
+            <p>السعر: 10.000 ل.س</p>
+            <button onclick="addToCart('كويكلي شيبس ديربي جامبو', 10000)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="شيبسات">
+            <img src="https://via.placeholder.com/200x150?text=كويكلي+شيبس+ديربي+وسط" alt="كويكلي شيبس ديربي وسط">
+            <h3>كويكلي شيبس ديربي وسط</h3>
+            <p>السعر: 5.000 ل.س</p>
+            <button onclick="addToCart('كويكلي شيبس ديربي وسط', 5000)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="شيبسات">
+            <img src="https://via.placeholder.com/200x150?text=كويكلي+شيبس+ديربي+صغير" alt="كويكلي شيبس ديربي صغير">
+            <h3>كويكلي شيبس ديربي صغير</h3>
+            <p>السعر: 2.000 ل.س</p>
+            <button onclick="addToCart('كويكلي شيبس ديربي صغير', 2000)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="شيبسات">
+            <img src="https://via.placeholder.com/200x150?text=بافي+شيبس+جريش+درة+جامبو+100+غ" alt="بافي شيبس جريش درة جامبو 100 غ">
+            <h3>بافي شيبس جريش درة جامبو 100 غ</h3>
+            <p>السعر: 4.000 ل.س</p>
+            <button onclick="addToCart('بافي شيبس جريش درة جامبو 100 غ', 4000)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="شيبسات">
+            <img src="https://via.placeholder.com/200x150?text=بافي+شيبس+رقائق+35+غ" alt="بافي شيبس رقائق 35 غ">
+            <h3>بافي شيبس رقائق 35 غ</h3>
+            <p>السعر: 3.000 ل.س</p>
+            <button onclick="addToCart('بافي شيبس رقائق 35 غ', 3000)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="شيبسات">
+            <img src="https://via.placeholder.com/200x150?text=بافي+شيبس+جريش+درة+عادي+50+غ" alt="بافي شيبس جريش درة عادي 50 غ">
+            <h3>بافي شيبس جريش درة عادي 50 غ</h3>
+            <p>السعر: 2.000 ل.س</p>
+            <button onclick="addToCart('بافي شيبس جريش درة عادي 50 غ', 2000)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="شيبسات">
+            <img src="https://via.placeholder.com/200x150?text=ديربي+شيبس+اصلي+20+غ" alt="ديربي شيبس اصلي 20 غ">
+            <h3>ديربي شيبس اصلي 20 غ</h3>
+            <p>السعر: 2.000 ل.س</p>
+            <button onclick="addToCart('ديربي شيبس اصلي 20 غ', 2000)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="شيبسات">
+            <img src="https://via.placeholder.com/200x150?text=دارنيتو+اكس+فورتين+بوشار+33+غ" alt="دارنيتو اكس فورتين بوشار 33 غ">
+            <h3>دارنيتو اكس فورتين بوشار 33 غ</h3>
+            <p>السعر: 2.000 ل.س</p>
+            <button onclick="addToCart('دارنيتو اكس فورتين بوشار 33 غ', 2000)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="شيبسات">
+            <img src="https://via.placeholder.com/200x150?text=دارنيتو+شيبس+رقائق+38+غ" alt="دارنيتو شيبس رقائق 38 غ">
+            <h3>دارنيتو شيبس رقائق 38 غ</h3>
+            <p>السعر: 3.000 ل.س</p>
+            <button onclick="addToCart('دارنيتو شيبس رقائق 38 غ', 3000)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="شيبسات">
+            <img src="https://via.placeholder.com/200x150?text=دارنيتو+توريكس+70+غ" alt="دارنيتو توريكس 70 غ">
+            <h3>دارنيتو توريكس 70 غ</h3>
+            <p>السعر: 3.500 ل.س</p>
+            <button onclick="addToCart('دارنيتو توريكس 70 غ', 3500)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="شيبسات">
+            <img src="https://via.placeholder.com/200x150?text=دارنيتو+شيبس+ديربي+30+غ" alt="دارنيتو شيبس ديربي 30 غ">
+            <h3>دارنيتو شيبس ديربي 30 غ</h3>
+            <p>السعر: 3.000 ل.س</p>
+            <button onclick="addToCart('دارنيتو شيبس ديربي 30 غ', 3000)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="شيبسات">
+            <img src="https://via.placeholder.com/200x150?text=دارنيتو+شيبس+رقائق+كبير+65+غ" alt="دارنيتو شيبس رقائق كبير 65 غ">
+            <h3>دارنيتو شيبس رقائق كبير 65 غ</h3>
+            <p>السعر: 5.000 ل.س</p>
+            <button onclick="addToCart('دارنيتو شيبس رقائق كبير 65 غ', 5000)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="شيبسات">
+            <img src="https://via.placeholder.com/200x150?text=براعم+شيبس+شبك+30+غ" alt="براعم شيبس شبك 30 غ">
+            <h3>براعم شيبس شبك 30 غ</h3>
+            <p>السعر: 2.000 ل.س</p>
+            <button onclick="addToCart('براعم شيبس شبك 30 غ', 2000)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="شيبسات">
+            <img src="https://via.placeholder.com/200x150?text=براعم+شيبس+منفوش+40+غ" alt="براعم شيبس منفوش 40 غ">
+            <h3>براعم شيبس منفوش 40 غ</h3>
+            <p>السعر: 2.500 ل.س</p>
+            <button onclick="addToCart('براعم شيبس منفوش 40 غ', 2500)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="شيبسات">
+            <img src="https://via.placeholder.com/200x150?text=براعم+شيبس+منفوش+كبير+75+غ" alt="براعم شيبس منفوش كبير 75 غ">
+            <h3>براعم شيبس منفوش كبير 75 غ</h3>
+            <p>السعر: 4.000 ل.س</p>
+            <button onclick="addToCart('براعم شيبس منفوش كبير 75 غ', 4000)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="شيبسات">
+            <img src="https://via.placeholder.com/200x150?text=سمورة+شيبس+قائق+35+غ" alt="سمورة شيبس قائق 35 غ">
+            <h3>سمورة شيبس قائق 35 غ</h3>
+            <p>السعر: 2.000 ل.س</p>
+            <button onclick="addToCart('سمورة شيبس قائق 35 غ', 2000)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="شيبسات">
+            <img src="https://via.placeholder.com/200x150?text=باباي+شيبس+منفوش+30+غ" alt="باباي شيبس منفوش 30 غ">
+            <h3>باباي شيبس منفوش 30 غ</h3>
+            <p>السعر: 1.000 ل.س</p>
+            <button onclick="addToCart('باباي شيبس منفوش 30 غ', 1000)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="شيبسات">
+            <img src="https://via.placeholder.com/200x150?text=بافي+شيبس+رقاق+60+غ" alt="بافي شيبس رقاق 60 غ">
+            <h3>بافي شيبس رقاق 60 غ</h3>
+            <p>السعر: 5.000 ل.س</p>
+            <button onclick="addToCart('بافي شيبس رقاق 60 غ', 5000)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="شيبسات">
+            <img src="https://via.placeholder.com/200x150?text=السودا+باتيسري+برازق+250+غ" alt="السودا باتيسري برازق 250 غ">
+            <h3>السودا باتيسري برازق 250 غ</h3>
+            <p>السعر: 18.000 ل.س</p>
+            <button onclick="addToCart('السودا باتيسري برازق 250 غ', 18000)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="شيبسات">
+            <img src="https://via.placeholder.com/200x150?text=شيبس+ماندو+اصابع+الذرة+80غ" alt="شيبس ماندو اصابع الذرة 80غ">
+            <h3>شيبس ماندو اصابع الذرة 80غ</h3>
+            <p>السعر: 4.000 ل.س</p>
+            <button onclick="addToCart('شيبس ماندو اصابع الذرة 80غ', 4000)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="شيبسات">
+            <img src="https://via.placeholder.com/200x150?text=شيبس+ماندو+كرانشي+90غ" alt="شيبس ماندو كرانشي 90غ">
+            <h3>شيبس ماندو كرانشي 90غ</h3>
+            <p>السعر: 5.000 ل.س</p>
+            <button onclick="addToCart('شيبس ماندو كرانشي 90غ', 5000)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="شيبسات">
+            <img src="https://via.placeholder.com/200x150?text=جوريا+شيبس+منفوش" alt="جوريا شيبس منفوش">
+            <h3>جوريا شيبس منفوش</h3>
+            <p>السعر: 2.000 ل.س</p>
+            <button onclick="addToCart('جوريا شيبس منفوش', 2000)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="شيبسات">
+            <img src="https://via.placeholder.com/200x150?text=روكي+شيبس+ديربي+صغير" alt="روكي شيبس ديربي صغير">
+            <h3>روكي شيبس ديربي صغير</h3>
+            <p>السعر: 2.500 ل.س</p>
+            <button onclick="addToCart('روكي شيبس ديربي صغير', 2500)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="شيبسات">
+            <img src="https://via.placeholder.com/200x150?text=السودا+باتيسري+غريبة+300+غ" alt="السودا باتيسري غريبة 300 غ">
+            <h3>السودا باتيسري غريبة 300 غ</h3>
+            <p>السعر: 18.000 ل.س</p>
+            <button onclick="addToCart('السودا باتيسري غريبة 300 غ', 18000)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="شيبسات">
+            <img src="https://via.placeholder.com/200x150?text=السودا+باتيسري+معمول+تمر+-+عجوة+500+غ" alt="السودا باتيسري معمول تمر - عجوة 500 غ">
+            <h3>السودا باتيسري معمول تمر - عجوة 500 غ</h3>
+            <p>السعر: 20.000 ل.س</p>
+            <button onclick="addToCart('السودا باتيسري معمول تمر - عجوة 500 غ', 20000)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="شيبسات">
+            <img src="https://via.placeholder.com/200x150?text=السودا+باتيسري+بيتيفور+صب+فرمسيه+300+غ" alt="السودا باتيسري بيتيفور صب فرمسيه 300 غ">
+            <h3>السودا باتيسري بيتيفور صب فرمسيه 300 غ</h3>
+            <p>السعر: 17.000 ل.س</p>
+            <button onclick="addToCart('السودا باتيسري بيتيفور صب فرمسيه 300 غ', 17000)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="شيبسات">
+            <img src="https://via.placeholder.com/200x150?text=بطاطا+سيما+دريم+60غ" alt="بطاطا سيما دريم 60غ">
+            <h3>بطاطا سيما دريم 60غ</h3>
+            <p>السعر: 5.000 ل.س</p>
+            <button onclick="addToCart('بطاطا سيما دريم 60غ', 5000)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="شيبسات">
+            <img src="https://via.placeholder.com/200x150?text=برينغلز+شيبس+كبير+165+غ" alt="برينغلز شيبس كبير 165 غ">
+            <h3>برينغلز شيبس كبير 165 غ</h3>
+            <p>السعر: 19.425 ل.س</p>
+            <button onclick="addToCart('برينغلز شيبس كبير 165 غ', 19425)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="شيبسات">
+            <img src="https://via.placeholder.com/200x150?text=برينغلز+شيبس+صغير+40+غ" alt="برينغلز شيبس صغير 40 غ">
+            <h3>برينغلز شيبس صغير 40 غ</h3>
+            <p>السعر: 9.450 ل.س</p>
+            <button onclick="addToCart('برينغلز شيبس صغير 40 غ', 9450)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="شيبسات">
+            <img src="https://via.placeholder.com/200x150?text=ماستر+++سيتوس+شيبس+عادي+70+-+80+غ" alt="ماستر + سيتوس شيبس عادي 70 - 80 غ">
+            <h3>ماستر + سيتوس شيبس عادي 70 - 80 غ</h3>
+            <p>السعر: 6.300 ل.س</p>
+            <button onclick="addToCart('ماستر + سيتوس شيبس عادي 70 - 80 غ', 6300)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="شيبسات">
+            <img src="https://via.placeholder.com/200x150?text=باتيس+شيبس+رقائق+صحن+100+غ" alt="باتيس شيبس رقائق صحن 100 غ">
+            <h3>باتيس شيبس رقائق صحن 100 غ</h3>
+            <p>السعر: 1 ل.س</p>
+            <button onclick="addToCart('باتيس شيبس رقائق صحن 100 غ', 1)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="شيبسات">
+            <img src="https://via.placeholder.com/200x150?text=دوريتوس+تورتيلا+شيبس+21+غ" alt="دوريتوس تورتيلا شيبس 21 غ">
+            <h3>دوريتوس تورتيلا شيبس 21 غ</h3>
+            <p>السعر: 2.888 ل.س</p>
+            <button onclick="addToCart('دوريتوس تورتيلا شيبس 21 غ', 2888)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="شيبسات">
+            <img src="https://via.placeholder.com/200x150?text=دنيا+تورتيلا+شيبس+40+غ" alt="دنيا تورتيلا شيبس 40 غ">
+            <h3>دنيا تورتيلا شيبس 40 غ</h3>
+            <p>السعر: 2.888 ل.س</p>
+            <button onclick="addToCart('دنيا تورتيلا شيبس 40 غ', 2888)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="شيبسات">
+            <img src="https://via.placeholder.com/200x150?text=ماستر+فريتسي+اصابع+37+غ" alt="ماستر فريتسي اصابع 37 غ">
+            <h3>ماستر فريتسي اصابع 37 غ</h3>
+            <p>السعر: 2.100 ل.س</p>
+            <button onclick="addToCart('ماستر فريتسي اصابع 37 غ', 2100)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="شيبسات">
+            <img src="https://via.placeholder.com/200x150?text=ماستر+كيتل+++سليم+شيبس+76+غ" alt="ماستر كيتل + سليم شيبس 76 غ">
+            <h3>ماستر كيتل + سليم شيبس 76 غ</h3>
+            <p>السعر: 5.250 ل.س</p>
+            <button onclick="addToCart('ماستر كيتل + سليم شيبس 76 غ', 5250)">أضف إلى السلة</button>
+          </div>
+        </section>
+
+        <!-- معلبات -->
+        <div style="text-align: center; margin-bottom: 20px;">
+          <button class="filter-btn" onclick="filterProducts('معلبات', this)">معلبات</button>
+        </div>
+        <section class="products">
+          <div class="product" data-category="معلبات">
+            <img src="https://via.placeholder.com/200x150?text=ايما+ملوخية+مجففة+كرتون+200+غ" alt="ايما ملوخية مجففة كرتون 200 غ">
+            <h3>ايما ملوخية مجففة كرتون 200 غ</h3>
+            <p>السعر: 17.500 ل.س</p>
+            <button onclick="addToCart('ايما ملوخية مجففة كرتون 200 غ', 17500)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="معلبات">
+            <img src="https://via.placeholder.com/200x150?text=ليو+سردين+مغربي+تنك+125+غ" alt="ليو سردين مغربي تنك 125 غ">
+            <h3>ليو سردين مغربي تنك 125 غ</h3>
+            <p>السعر: 8.000 ل.س</p>
+            <button onclick="addToCart('ليو سردين مغربي تنك 125 غ', 8000)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="معلبات">
+            <img src="https://via.placeholder.com/200x150?text=هنا+مرتديلا+دجاج+200+غ" alt="هنا مرتديلا دجاج 200 غ">
+            <h3>هنا مرتديلا دجاج 200 غ</h3>
+            <p>السعر: 7.000 ل.س</p>
+            <button onclick="addToCart('هنا مرتديلا دجاج 200 غ', 7000)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="معلبات">
+            <img src="https://via.placeholder.com/200x150?text=غدق+فول+مسلوق+تنك+350+غ" alt="غدق فول مسلوق تنك 350 غ">
+            <h3>غدق فول مسلوق تنك 350 غ</h3>
+            <p>السعر: 6.000 ل.س</p>
+            <button onclick="addToCart('غدق فول مسلوق تنك 350 غ', 6000)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="معلبات">
+            <img src="https://via.placeholder.com/200x150?text=غدق+حمص+ناعم+تنك+370+غ" alt="غدق حمص ناعم تنك 370 غ">
+            <h3>غدق حمص ناعم تنك 370 غ</h3>
+            <p>السعر: 7.500 ل.س</p>
+            <button onclick="addToCart('غدق حمص ناعم تنك 370 غ', 7500)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="معلبات">
+            <img src="https://via.placeholder.com/200x150?text=ليو+تونا+سكيب+جاك+تنك+140+غ" alt="ليو تونا سكيب جاك تنك 140 غ">
+            <h3>ليو تونا سكيب جاك تنك 140 غ</h3>
+            <p>السعر: 11.000 ل.س</p>
+            <button onclick="addToCart('ليو تونا سكيب جاك تنك 140 غ', 11000)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="معلبات">
+            <img src="https://via.placeholder.com/200x150?text=ليو+فاصوليا+بيضا+مطبوخة+تنك+800+غ" alt="ليو فاصوليا بيضا مطبوخة تنك 800 غ">
+            <h3>ليو فاصوليا بيضا مطبوخة تنك 800 غ</h3>
+            <p>السعر: 9.500 ل.س</p>
+            <button onclick="addToCart('ليو فاصوليا بيضا مطبوخة تنك 800 غ', 9500)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="معلبات">
+            <img src="https://via.placeholder.com/200x150?text=ليو+بازيلا+حب+مطبوخة+تنك+800+غ" alt="ليو بازيلا حب مطبوخة تنك 800 غ">
+            <h3>ليو بازيلا حب مطبوخة تنك 800 غ</h3>
+            <p>السعر: 9.500 ل.س</p>
+            <button onclick="addToCart('ليو بازيلا حب مطبوخة تنك 800 غ', 9500)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="معلبات">
+            <img src="https://via.placeholder.com/200x150?text=ايما+درة+حلوة+تنك+400+غ" alt="ايما درة حلوة تنك 400 غ">
+            <h3>ايما درة حلوة تنك 400 غ</h3>
+            <p>السعر: 8.000 ل.س</p>
+            <button onclick="addToCart('ايما درة حلوة تنك 400 غ', 8000)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="معلبات">
+            <img src="https://via.placeholder.com/200x150?text=الاحلام+بازيلا+زجاج+600+غ" alt="الاحلام بازيلا زجاج 600 غ">
+            <h3>الاحلام بازيلا زجاج 600 غ</h3>
+            <p>السعر: 11.500 ل.س</p>
+            <button onclick="addToCart('الاحلام بازيلا زجاج 600 غ', 11500)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="معلبات">
+            <img src="https://via.placeholder.com/200x150?text=سيريان+غورميه+يالنجي+ورق+عنب+زجاج+580+غ" alt="سيريان غورميه يالنجي ورق عنب زجاج 580 غ">
+            <h3>سيريان غورميه يالنجي ورق عنب زجاج 580 غ</h3>
+            <p>السعر: 40.000 ل.س</p>
+            <button onclick="addToCart('سيريان غورميه يالنجي ورق عنب زجاج 580 غ', 40000)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="معلبات">
+            <img src="https://via.placeholder.com/200x150?text=سيريان+غورميه+يالنجي+ورق+عنب+زجاج+280+غ" alt="سيريان غورميه يالنجي ورق عنب زجاج 280 غ">
+            <h3>سيريان غورميه يالنجي ورق عنب زجاج 280 غ</h3>
+            <p>السعر: 21.000 ل.س</p>
+            <button onclick="addToCart('سيريان غورميه يالنجي ورق عنب زجاج 280 غ', 21000)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="معلبات">
+            <img src="https://via.placeholder.com/200x150?text=الاحلام+زيتون+اسود+كلمتا+زجاج+700+غ" alt="الاحلام زيتون اسود كلمتا زجاج 700 غ">
+            <h3>الاحلام زيتون اسود كلمتا زجاج 700 غ</h3>
+            <p>السعر: 27.000 ل.س</p>
+            <button onclick="addToCart('الاحلام زيتون اسود كلمتا زجاج 700 غ', 27000)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="معلبات">
+            <img src="https://via.placeholder.com/200x150?text=سيريان+غورميه+ارضي+شوكي+زجاج+600+غ" alt="سيريان غورميه ارضي شوكي زجاج 600 غ">
+            <h3>سيريان غورميه ارضي شوكي زجاج 600 غ</h3>
+            <p>السعر: 18.000 ل.س</p>
+            <button onclick="addToCart('سيريان غورميه ارضي شوكي زجاج 600 غ', 18000)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="معلبات">
+            <img src="https://via.placeholder.com/200x150?text=الاحلام+زيتون+محشي+فليفلة+زجاج+700+غ" alt="الاحلام زيتون محشي فليفلة زجاج 700 غ">
+            <h3>الاحلام زيتون محشي فليفلة زجاج 700 غ</h3>
+            <p>السعر: 42.500 ل.س</p>
+            <button onclick="addToCart('الاحلام زيتون محشي فليفلة زجاج 700 غ', 42500)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="معلبات">
+            <img src="https://via.placeholder.com/200x150?text=الاحلام+زيتون+اخضر+حلبي+زجاج+700+غ" alt="الاحلام زيتون اخضر حلبي زجاج 700 غ">
+            <h3>الاحلام زيتون اخضر حلبي زجاج 700 غ</h3>
+            <p>السعر: 32.000 ل.س</p>
+            <button onclick="addToCart('الاحلام زيتون اخضر حلبي زجاج 700 غ', 32000)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="معلبات">
+            <img src="https://via.placeholder.com/200x150?text=سيريان+غورميه+درة+حلوة+زجاج+360+غ" alt="سيريان غورميه درة حلوة زجاج 360 غ">
+            <h3>سيريان غورميه درة حلوة زجاج 360 غ</h3>
+            <p>السعر: 11.000 ل.س</p>
+            <button onclick="addToCart('سيريان غورميه درة حلوة زجاج 360 غ', 11000)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="معلبات">
+            <img src="https://via.placeholder.com/200x150?text=الدرة+مربى+فريز+بلاستيك+500+غ" alt="الدرة مربى فريز بلاستيك 500 غ">
+            <h3>الدرة مربى فريز بلاستيك 500 غ</h3>
+            <p>السعر: 12.500 ل.س</p>
+            <button onclick="addToCart('الدرة مربى فريز بلاستيك 500 غ', 12500)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="معلبات">
+            <img src="https://via.placeholder.com/200x150?text=الدرة+مربى+تين+بلاستيك+500+غ" alt="الدرة مربى تين بلاستيك 500 غ">
+            <h3>الدرة مربى تين بلاستيك 500 غ</h3>
+            <p>السعر: 12.500 ل.س</p>
+            <button onclick="addToCart('الدرة مربى تين بلاستيك 500 غ', 12500)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="معلبات">
+            <img src="https://via.placeholder.com/200x150?text=الدرة+مربى+كرز+بلاستيك+500+غ" alt="الدرة مربى كرز بلاستيك 500 غ">
+            <h3>الدرة مربى كرز بلاستيك 500 غ</h3>
+            <p>السعر: 12.500 ل.س</p>
+            <button onclick="addToCart('الدرة مربى كرز بلاستيك 500 غ', 12500)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="معلبات">
+            <img src="https://via.placeholder.com/200x150?text=غولدن+لايف+فاصوليا+بيضا+حب+1+كغ" alt="غولدن لايف فاصوليا بيضا حب 1 كغ">
+            <h3>غولدن لايف فاصوليا بيضا حب 1 كغ</h3>
+            <p>السعر: 17.500 ل.س</p>
+            <button onclick="addToCart('غولدن لايف فاصوليا بيضا حب 1 كغ', 17500)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="معلبات">
+            <img src="https://via.placeholder.com/200x150?text=حسين+الناصر+حمص+حب+1+كغ" alt="حسين الناصر حمص حب 1 كغ">
+            <h3>حسين الناصر حمص حب 1 كغ</h3>
+            <p>السعر: 16.000 ل.س</p>
+            <button onclick="addToCart('حسين الناصر حمص حب 1 كغ', 16000)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="معلبات">
+            <img src="https://via.placeholder.com/200x150?text=الربيع+حمص+حب+1+كغ" alt="الربيع حمص حب 1 كغ">
+            <h3>الربيع حمص حب 1 كغ</h3>
+            <p>السعر: 18.000 ل.س</p>
+            <button onclick="addToCart('الربيع حمص حب 1 كغ', 18000)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="معلبات">
+            <img src="https://via.placeholder.com/200x150?text=ايما+زيت+زيتون+بلاستيك+500+مل" alt="ايما زيت زيتون بلاستيك 500 مل">
+            <h3>ايما زيت زيتون بلاستيك 500 مل</h3>
+            <p>السعر: 28.000 ل.س</p>
+            <button onclick="addToCart('ايما زيت زيتون بلاستيك 500 مل', 28000)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="معلبات">
+            <img src="https://via.placeholder.com/200x150?text=الدرة+زعتر+ظرف+60+غ" alt="الدرة زعتر ظرف 60 غ">
+            <h3>الدرة زعتر ظرف 60 غ</h3>
+            <p>السعر: 4.500 ل.س</p>
+            <button onclick="addToCart('الدرة زعتر ظرف 60 غ', 4500)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="معلبات">
+            <img src="https://via.placeholder.com/200x150?text=حجار+حمص+حب+1+كغ" alt="حجار حمص حب 1 كغ">
+            <h3>حجار حمص حب 1 كغ</h3>
+            <p>السعر: 15.000 ل.س</p>
+            <button onclick="addToCart('حجار حمص حب 1 كغ', 15000)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="معلبات">
+            <img src="https://via.placeholder.com/200x150?text=حجار+درة+بوشار+1+كغ" alt="حجار درة بوشار 1 كغ">
+            <h3>حجار درة بوشار 1 كغ</h3>
+            <p>السعر: 10.000 ل.س</p>
+            <button onclick="addToCart('حجار درة بوشار 1 كغ', 10000)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="معلبات">
+            <img src="https://via.placeholder.com/200x150?text=حجار+فاصوليا+حب+1+كغ" alt="حجار فاصوليا حب 1 كغ">
+            <h3>حجار فاصوليا حب 1 كغ</h3>
+            <p>السعر: 17.000 ل.س</p>
+            <button onclick="addToCart('حجار فاصوليا حب 1 كغ', 17000)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="معلبات">
+            <img src="https://via.placeholder.com/200x150?text=زيت+زيتون+العوينية+1لتر" alt="زيت زيتون العوينية 1لتر">
+            <h3>زيت زيتون العوينية 1لتر</h3>
+            <p>السعر: 28.000 ل.س</p>
+            <button onclick="addToCart('زيت زيتون العوينية 1لتر', 28000)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="معلبات">
+            <img src="https://via.placeholder.com/200x150?text=هنا+مرتديلا+دجاج+340غ+40غرام+عرض+دجاج" alt="هنا مرتديلا دجاج 340غ+40غرام عرض دجاج">
+            <h3>هنا مرتديلا دجاج 340غ+40غرام عرض دجاج</h3>
+            <p>السعر: 12.500 ل.س</p>
+            <button onclick="addToCart('هنا مرتديلا دجاج 340غ+40غرام عرض دجاج', 12500)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="معلبات">
+            <img src="https://via.placeholder.com/200x150?text=هنا+دجاج+مرتديلا+بوري+850غ" alt="هنا دجاج مرتديلا بوري 850غ">
+            <h3>هنا دجاج مرتديلا بوري 850غ</h3>
+            <p>السعر: 23.000 ل.س</p>
+            <button onclick="addToCart('هنا دجاج مرتديلا بوري 850غ', 23000)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="معلبات">
+            <img src="https://via.placeholder.com/200x150?text=بودرة+الكاكاو+سانتي+سويت+40غ" alt="بودرة الكاكاو سانتي سويت 40غ">
+            <h3>بودرة الكاكاو سانتي سويت 40غ</h3>
+            <p>السعر: 11.500 ل.س</p>
+            <button onclick="addToCart('بودرة الكاكاو سانتي سويت 40غ', 11500)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="معلبات">
+            <img src="https://via.placeholder.com/200x150?text=سوبرينا+عضير+بودرة+ظرف+40+غ" alt="سوبرينا عضير بودرة ظرف 40 غ">
+            <h3>سوبرينا عضير بودرة ظرف 40 غ</h3>
+            <p>السعر: 2.000 ل.س</p>
+            <button onclick="addToCart('سوبرينا عضير بودرة ظرف 40 غ', 2000)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="معلبات">
+            <img src="https://via.placeholder.com/200x150?text=نستله+نيدو+حليب+بودرة+تنك+400+غ+احمر" alt="نستله نيدو حليب بودرة تنك 400 غ احمر">
+            <h3>نستله نيدو حليب بودرة تنك 400 غ احمر</h3>
+            <p>السعر: 6 ل.س</p>
+            <button onclick="addToCart('نستله نيدو حليب بودرة تنك 400 غ احمر', 6)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="معلبات">
+            <img src="https://via.placeholder.com/200x150?text=نستله+نيدو+حليب+بودرة+تنك+900+غ+احمر" alt="نستله نيدو حليب بودرة تنك 900 غ احمر">
+            <h3>نستله نيدو حليب بودرة تنك 900 غ احمر</h3>
+            <p>السعر: 128.100 ل.س</p>
+            <button onclick="addToCart('نستله نيدو حليب بودرة تنك 900 غ احمر', 128100)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="معلبات">
+            <img src="https://via.placeholder.com/200x150?text=نستله+نيدو+حليب+بودرة+تنك+400+غ+اخضر" alt="نستله نيدو حليب بودرة تنك 400 غ اخضر">
+            <h3>نستله نيدو حليب بودرة تنك 400 غ اخضر</h3>
+            <p>السعر: 6 ل.س</p>
+            <button onclick="addToCart('نستله نيدو حليب بودرة تنك 400 غ اخضر', 6)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="معلبات">
+            <img src="https://via.placeholder.com/200x150?text=نستله+نيدو+حليب+بودرة+كيس+400+غ" alt="نستله نيدو حليب بودرة كيس 400 غ">
+            <h3>نستله نيدو حليب بودرة كيس 400 غ</h3>
+            <p>السعر: 5 ل.س</p>
+            <button onclick="addToCart('نستله نيدو حليب بودرة كيس 400 غ', 5)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="معلبات">
+            <img src="https://via.placeholder.com/200x150?text=التغذية+هوت+دوغ+دجاج+11+قطعة+380+غ" alt="التغذية هوت دوغ دجاج 11 قطعة 380 غ">
+            <h3>التغذية هوت دوغ دجاج 11 قطعة 380 غ</h3>
+            <p>السعر: 18.375 ل.س</p>
+            <button onclick="addToCart('التغذية هوت دوغ دجاج 11 قطعة 380 غ', 18375)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="معلبات">
+            <img src="https://via.placeholder.com/200x150?text=نيرز+مرتديلا+بقر+200+غ" alt="نيرز مرتديلا بقر 200 غ">
+            <h3>نيرز مرتديلا بقر 200 غ</h3>
+            <p>السعر: 2 ل.س</p>
+            <button onclick="addToCart('نيرز مرتديلا بقر 200 غ', 2)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="معلبات">
+            <img src="https://via.placeholder.com/200x150?text=كينت+جيليه+بودرة+85+غ" alt="كينت جيليه بودرة 85 غ">
+            <h3>كينت جيليه بودرة 85 غ</h3>
+            <p>السعر: 4.725 ل.س</p>
+            <button onclick="addToCart('كينت جيليه بودرة 85 غ', 4725)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="معلبات">
+            <img src="https://via.placeholder.com/200x150?text=التونسا+عصير+بودرة+ظرف+9+غ" alt="التونسا عصير بودرة ظرف 9 غ">
+            <h3>التونسا عصير بودرة ظرف 9 غ</h3>
+            <p>السعر: 1.050 ل.س</p>
+            <button onclick="addToCart('التونسا عصير بودرة ظرف 9 غ', 1050)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="معلبات">
+            <img src="https://via.placeholder.com/200x150?text=كينت+كاسترد+بودرة+130+غ" alt="كينت كاسترد بودرة 130 غ">
+            <h3>كينت كاسترد بودرة 130 غ</h3>
+            <p>السعر: 6.825 ل.س</p>
+            <button onclick="addToCart('كينت كاسترد بودرة 130 غ', 6825)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="معلبات">
+            <img src="https://via.placeholder.com/200x150?text=زوان+مرتديلا+بقر+200+غ" alt="زوان مرتديلا بقر 200 غ">
+            <h3>زوان مرتديلا بقر 200 غ</h3>
+            <p>السعر: 27.300 ل.س</p>
+            <button onclick="addToCart('زوان مرتديلا بقر 200 غ', 27300)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="معلبات">
+            <img src="https://via.placeholder.com/200x150?text=زوان+مرتديلا+دجاج+200+غ" alt="زوان مرتديلا دجاج 200 غ">
+            <h3>زوان مرتديلا دجاج 200 غ</h3>
+            <p>السعر: 24.150 ل.س</p>
+            <button onclick="addToCart('زوان مرتديلا دجاج 200 غ', 24150)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="معلبات">
+            <img src="https://via.placeholder.com/200x150?text=نيرز+مرتديلا+دجاج+340+غ" alt="نيرز مرتديلا دجاج 340 غ">
+            <h3>نيرز مرتديلا دجاج 340 غ</h3>
+            <p>السعر: 3 ل.س</p>
+            <button onclick="addToCart('نيرز مرتديلا دجاج 340 غ', 3)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="معلبات">
+            <img src="https://via.placeholder.com/200x150?text=التغذية+مرتديلا+بقر+340+غ+-+مدور" alt="التغذية مرتديلا بقر 340 غ - مدور">
+            <h3>التغذية مرتديلا بقر 340 غ - مدور</h3>
+            <p>السعر: 16.275 ل.س</p>
+            <button onclick="addToCart('التغذية مرتديلا بقر 340 غ - مدور', 16275)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="معلبات">
+            <img src="https://via.placeholder.com/200x150?text=التغذية+مرتديلا+دجاج+200+غ+-+مدور" alt="التغذية مرتديلا دجاج 200 غ - مدور">
+            <h3>التغذية مرتديلا دجاج 200 غ - مدور</h3>
+            <p>السعر: 9.450 ل.س</p>
+            <button onclick="addToCart('التغذية مرتديلا دجاج 200 غ - مدور', 9450)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="معلبات">
+            <img src="https://via.placeholder.com/200x150?text=التغذية+مرتديلا+بقر+200+غ+-+مدور" alt="التغذية مرتديلا بقر 200 غ - مدور">
+            <h3>التغذية مرتديلا بقر 200 غ - مدور</h3>
+            <p>السعر: 1 ل.س</p>
+            <button onclick="addToCart('التغذية مرتديلا بقر 200 غ - مدور', 1)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="معلبات">
+            <img src="https://via.placeholder.com/200x150?text=هنا+مرتديلا+دجاج+380+غ+-+تركي" alt="هنا مرتديلا دجاج 380 غ - تركي">
+            <h3>هنا مرتديلا دجاج 380 غ - تركي</h3>
+            <p>السعر: 11.550 ل.س</p>
+            <button onclick="addToCart('هنا مرتديلا دجاج 380 غ - تركي', 11550)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="معلبات">
+            <img src="https://via.placeholder.com/200x150?text=سردين+مغربي+تنك+125+غ++مشكل" alt="سردين مغربي تنك 125 غ / مشكل">
+            <h3>سردين مغربي تنك 125 غ / مشكل</h3>
+            <p>السعر: 6.562 ل.س</p>
+            <button onclick="addToCart('سردين مغربي تنك 125 غ / مشكل', 6562)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="معلبات">
+            <img src="https://via.placeholder.com/200x150?text=حدائق+شتورة+بازيلا+خضرا+تنك+400+غ" alt="حدائق شتورة بازيلا خضرا تنك 400 غ">
+            <h3>حدائق شتورة بازيلا خضرا تنك 400 غ</h3>
+            <p>السعر: 7.875 ل.س</p>
+            <button onclick="addToCart('حدائق شتورة بازيلا خضرا تنك 400 غ', 7875)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="معلبات">
+            <img src="https://via.placeholder.com/200x150?text=حدائق+شتورة+بازيلا+خضرا+و+جزر+تنك+400+غ" alt="حدائق شتورة بازيلا خضرا و جزر تنك 400 غ">
+            <h3>حدائق شتورة بازيلا خضرا و جزر تنك 400 غ</h3>
+            <p>السعر: 7.875 ل.س</p>
+            <button onclick="addToCart('حدائق شتورة بازيلا خضرا و جزر تنك 400 غ', 7875)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="معلبات">
+            <img src="https://via.placeholder.com/200x150?text=امواج+فطر+مفطع+تنك+400+غ" alt="امواج فطر مفطع تنك 400 غ">
+            <h3>امواج فطر مفطع تنك 400 غ</h3>
+            <p>السعر: 6.300 ل.س</p>
+            <button onclick="addToCart('امواج فطر مفطع تنك 400 غ', 6300)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="معلبات">
+            <img src="https://via.placeholder.com/200x150?text=تانغ+عصير+بودرة+ظرف+25+غ" alt="تانغ عصير بودرة ظرف 25 غ">
+            <h3>تانغ عصير بودرة ظرف 25 غ</h3>
+            <p>السعر: 4.200 ل.س</p>
+            <button onclick="addToCart('تانغ عصير بودرة ظرف 25 غ', 4200)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="معلبات">
+            <img src="https://via.placeholder.com/200x150?text=كينت+شراب+كاكاو+بودرة+كيس+180+غ" alt="كينت شراب كاكاو بودرة كيس 180 غ">
+            <h3>كينت شراب كاكاو بودرة كيس 180 غ</h3>
+            <p>السعر: 16.800 ل.س</p>
+            <button onclick="addToCart('كينت شراب كاكاو بودرة كيس 180 غ', 16800)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="معلبات">
+            <img src="https://via.placeholder.com/200x150?text=نستله+نيو+حليب+بودرة+ظرف+25+غ" alt="نستله نيو حليب بودرة ظرف 25 غ">
+            <h3>نستله نيو حليب بودرة ظرف 25 غ</h3>
+            <p>السعر: 2.625 ل.س</p>
+            <button onclick="addToCart('نستله نيو حليب بودرة ظرف 25 غ', 2625)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="معلبات">
+            <img src="https://via.placeholder.com/200x150?text=نستله+نيدو+حليب+بودرة+ظرف+25+غ" alt="نستله نيدو حليب بودرة ظرف 25 غ">
+            <h3>نستله نيدو حليب بودرة ظرف 25 غ</h3>
+            <p>السعر: 2.625 ل.س</p>
+            <button onclick="addToCart('نستله نيدو حليب بودرة ظرف 25 غ', 2625)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="معلبات">
+            <img src="https://via.placeholder.com/200x150?text=حدائق+شتورة+فول+تنك+600+غ" alt="حدائق شتورة فول تنك 600 غ">
+            <h3>حدائق شتورة فول تنك 600 غ</h3>
+            <p>السعر: 8.925 ل.س</p>
+            <button onclick="addToCart('حدائق شتورة فول تنك 600 غ', 8925)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="معلبات">
+            <img src="https://via.placeholder.com/200x150?text=زيت+عافية+زيت+الدرة+1.5" alt="زيت عافية زيت الدرة 1.5">
+            <h3>زيت عافية زيت الدرة 1.5</h3>
+            <p>السعر: 44.100 ل.س</p>
+            <button onclick="addToCart('زيت عافية زيت الدرة 1.5', 44100)">أضف إلى السلة</button>
+          </div>
+        </section>
+
+        <!-- ألبان وأجبان -->
+        <div style="text-align: center; margin-bottom: 20px;">
+          <button class="filter-btn" onclick="filterProducts('ألبان وأجبان', this)">ألبان وأجبان</button>
+        </div>
+        <section class="products">
+          <div class="product" data-category="ألبان وأجبان">
+            <img src="https://via.placeholder.com/200x150?text=المراعي+جبنة+مطبوخة+بالقشطه" alt="المراعي جبنة مطبوخة بالقشطه">
+            <h3>المراعي جبنة مطبوخة بالقشطه</h3>
+            <p>السعر: 12.000 ل.س</p>
+            <button onclick="addToCart('المراعي جبنة مطبوخة بالقشطه', 12000)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="ألبان وأجبان">
+            <img src="https://via.placeholder.com/200x150?text=الوديان+حليب+بلاستيك+1+لتر" alt="الوديان حليب بلاستيك 1 لتر">
+            <h3>الوديان حليب بلاستيك 1 لتر</h3>
+            <p>السعر: 11.000 ل.س</p>
+            <button onclick="addToCart('الوديان حليب بلاستيك 1 لتر', 11000)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="ألبان وأجبان">
+            <img src="https://via.placeholder.com/200x150?text=هوى+الشام+حليب+بروتين+300+مل" alt="هوى الشام حليب بروتين 300 مل">
+            <h3>هوى الشام حليب بروتين 300 مل</h3>
+            <p>السعر: 12.500 ل.س</p>
+            <button onclick="addToCart('هوى الشام حليب بروتين 300 مل', 12500)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="ألبان وأجبان">
+            <img src="https://via.placeholder.com/200x150?text=نيو+بارك+عرض+كريمة+طبخ+800+غ+++خليط+بشاميل+160+غ" alt="نيو بارك عرض كريمة طبخ 800 غ + خليط بشاميل 160 غ">
+            <h3>نيو بارك عرض كريمة طبخ 800 غ + خليط بشاميل 160 غ</h3>
+            <p>السعر: 23.000 ل.س</p>
+            <button onclick="addToCart('نيو بارك عرض كريمة طبخ 800 غ + خليط بشاميل 160 غ', 23000)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="ألبان وأجبان">
+            <img src="https://via.placeholder.com/200x150?text=نيو+بارك+حليب+مكثف+تنك+80+غ" alt="نيو بارك حليب مكثف تنك 80 غ">
+            <h3>نيو بارك حليب مكثف تنك 80 غ</h3>
+            <p>السعر: 6.500 ل.س</p>
+            <button onclick="addToCart('نيو بارك حليب مكثف تنك 80 غ', 6500)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="ألبان وأجبان">
+            <img src="https://via.placeholder.com/200x150?text=نيو+بارك+قشطة+كريم+تنك+155+غ" alt="نيو بارك قشطة كريم تنك 155 غ">
+            <h3>نيو بارك قشطة كريم تنك 155 غ</h3>
+            <p>السعر: 9.500 ل.س</p>
+            <button onclick="addToCart('نيو بارك قشطة كريم تنك 155 غ', 9500)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="ألبان وأجبان">
+            <img src="https://via.placeholder.com/200x150?text=نيو+بارك+عرض+جبنة+كريمية+275+غ" alt="نيو بارك عرض جبنة كريمية 275 غ">
+            <h3>نيو بارك عرض جبنة كريمية 275 غ</h3>
+            <p>السعر: 11.000 ل.س</p>
+            <button onclick="addToCart('نيو بارك عرض جبنة كريمية 275 غ', 11000)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="ألبان وأجبان">
+            <img src="https://via.placeholder.com/200x150?text=سكاي+تشيز+جبنة+مثلثات+8+قطع+120+غ" alt="سكاي تشيز جبنة مثلثات 8 قطع 120 غ">
+            <h3>سكاي تشيز جبنة مثلثات 8 قطع 120 غ</h3>
+            <p>السعر: 10.000 ل.س</p>
+            <button onclick="addToCart('سكاي تشيز جبنة مثلثات 8 قطع 120 غ', 10000)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="ألبان وأجبان">
+            <img src="https://via.placeholder.com/200x150?text=السهول+جبنة+كريمية+بلاستيك+350+غ" alt="السهول جبنة كريمية بلاستيك 350 غ">
+            <h3>السهول جبنة كريمية بلاستيك 350 غ</h3>
+            <p>السعر: 16.000 ل.س</p>
+            <button onclick="addToCart('السهول جبنة كريمية بلاستيك 350 غ', 16000)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="ألبان وأجبان">
+            <img src="https://via.placeholder.com/200x150?text=سكاي+تشيز+جبنة+مثلثات+24+قطعة+360+غ" alt="سكاي تشيز جبنة مثلثات 24 قطعة 360 غ">
+            <h3>سكاي تشيز جبنة مثلثات 24 قطعة 360 غ</h3>
+            <p>السعر: 28.000 ل.س</p>
+            <button onclick="addToCart('سكاي تشيز جبنة مثلثات 24 قطعة 360 غ', 28000)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="ألبان وأجبان">
+            <img src="https://via.placeholder.com/200x150?text=طيبة+زبدة+نباتية+200+غ" alt="طيبة زبدة نباتية 200 غ">
+            <h3>طيبة زبدة نباتية 200 غ</h3>
+            <p>السعر: 4.500 ل.س</p>
+            <button onclick="addToCart('طيبة زبدة نباتية 200 غ', 4500)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="ألبان وأجبان">
+            <img src="https://via.placeholder.com/200x150?text=المراعي+الدمشقية+جبنة+مربعات+6+قطع+90+غ" alt="المراعي الدمشقية جبنة مربعات 6 قطع 90 غ">
+            <h3>المراعي الدمشقية جبنة مربعات 6 قطع 90 غ</h3>
+            <p>السعر: 6.500 ل.س</p>
+            <button onclick="addToCart('المراعي الدمشقية جبنة مربعات 6 قطع 90 غ', 6500)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="ألبان وأجبان">
+            <img src="https://via.placeholder.com/200x150?text=المراعي+الدمشقية+جبنة+مربعات+12+قطعة+180غ" alt="المراعي الدمشقية جبنة مربعات 12 قطعة 180غ">
+            <h3>المراعي الدمشقية جبنة مربعات 12 قطعة 180غ</h3>
+            <p>السعر: 11.000 ل.س</p>
+            <button onclick="addToCart('المراعي الدمشقية جبنة مربعات 12 قطعة 180غ', 11000)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="ألبان وأجبان">
+            <img src="https://via.placeholder.com/200x150?text=نيو+بارك+كريمة+طبخ+160+غ" alt="نيو بارك كريمة طبخ 160 غ">
+            <h3>نيو بارك كريمة طبخ 160 غ</h3>
+            <p>السعر: 7.000 ل.س</p>
+            <button onclick="addToCart('نيو بارك كريمة طبخ 160 غ', 7000)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="ألبان وأجبان">
+            <img src="https://via.placeholder.com/200x150?text=الخير+سمنة+نباتية+تنك+1+كغ" alt="الخير سمنة نباتية تنك 1 كغ">
+            <h3>الخير سمنة نباتية تنك 1 كغ</h3>
+            <p>السعر: 30.000 ل.س</p>
+            <button onclick="addToCart('الخير سمنة نباتية تنك 1 كغ', 30000)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="ألبان وأجبان">
+            <img src="https://via.placeholder.com/200x150?text=لبنيتو+نيوبارك+كريميه+300غ" alt="لبنيتو نيوبارك كريميه 300غ">
+            <h3>لبنيتو نيوبارك كريميه 300غ</h3>
+            <p>السعر: 14.000 ل.س</p>
+            <button onclick="addToCart('لبنيتو نيوبارك كريميه 300غ', 14000)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="ألبان وأجبان">
+            <img src="https://via.placeholder.com/200x150?text=سمنة+طيبة+سمن+نباتي+500غ" alt="سمنة طيبة سمن نباتي 500غ">
+            <h3>سمنة طيبة سمن نباتي 500غ</h3>
+            <p>السعر: 12.500 ل.س</p>
+            <button onclick="addToCart('سمنة طيبة سمن نباتي 500غ', 12500)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="ألبان وأجبان">
+            <img src="https://via.placeholder.com/200x150?text=الزهرة+سمنة+سمن+نباتي+1كغ" alt="الزهرة سمنة سمن نباتي 1كغ">
+            <h3>الزهرة سمنة سمن نباتي 1كغ</h3>
+            <p>السعر: 24.500 ل.س</p>
+            <button onclick="addToCart('الزهرة سمنة سمن نباتي 1كغ', 24500)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="ألبان وأجبان">
+            <img src="https://via.placeholder.com/200x150?text=حليب+جينا+ظرف+22غ" alt="حليب جينا ظرف 22غ">
+            <h3>حليب جينا ظرف 22غ</h3>
+            <p>السعر: 0 ل.س</p>
+            <button onclick="addToCart('حليب جينا ظرف 22غ', 0)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="ألبان وأجبان">
+            <img src="https://via.placeholder.com/200x150?text=فرزات+سمنة+نباتية+بلاستيك+700+مل" alt="فرزات سمنة نباتية بلاستيك 700 مل">
+            <h3>فرزات سمنة نباتية بلاستيك 700 مل</h3>
+            <p>السعر: 18.375 ل.س</p>
+            <button onclick="addToCart('فرزات سمنة نباتية بلاستيك 700 مل', 18375)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="ألبان وأجبان">
+            <img src="https://via.placeholder.com/200x150?text=يونات+سمنة+نباتية+بلاستيك+700+مل" alt="يونات سمنة نباتية بلاستيك 700 مل">
+            <h3>يونات سمنة نباتية بلاستيك 700 مل</h3>
+            <p>السعر: 18.375 ل.س</p>
+            <button onclick="addToCart('يونات سمنة نباتية بلاستيك 700 مل', 18375)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="ألبان وأجبان">
+            <img src="https://via.placeholder.com/200x150?text=فيتا+سمنة+نباتية+تنك+1+لتر" alt="فيتا سمنة نباتية تنك 1 لتر">
+            <h3>فيتا سمنة نباتية تنك 1 لتر</h3>
+            <p>السعر: 28.875 ل.س</p>
+            <button onclick="addToCart('فيتا سمنة نباتية تنك 1 لتر', 28875)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="ألبان وأجبان">
+            <img src="https://via.placeholder.com/200x150?text=كيري+جبنة+مطبوخة+6+قطع+100+غ" alt="كيري جبنة مطبوخة 6 قطع 100 غ">
+            <h3>كيري جبنة مطبوخة 6 قطع 100 غ</h3>
+            <p>السعر: 17.850 ل.س</p>
+            <button onclick="addToCart('كيري جبنة مطبوخة 6 قطع 100 غ', 17850)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="ألبان وأجبان">
+            <img src="https://via.placeholder.com/200x150?text=بوك+جبنة+مثلثات+24+قطعة+360+غ" alt="بوك جبنة مثلثات 24 قطعة 360 غ">
+            <h3>بوك جبنة مثلثات 24 قطعة 360 غ</h3>
+            <p>السعر: 28.875 ل.س</p>
+            <button onclick="addToCart('بوك جبنة مثلثات 24 قطعة 360 غ', 28875)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="ألبان وأجبان">
+            <img src="https://via.placeholder.com/200x150?text=ابو+الولد+جبنة+مثلثات+8+قطع+112+غ+-+مصر" alt="ابو الولد جبنة مثلثات 8 قطع 112 غ - مصر">
+            <h3>ابو الولد جبنة مثلثات 8 قطع 112 غ - مصر</h3>
+            <p>السعر: 13.650 ل.س</p>
+            <button onclick="addToCart('ابو الولد جبنة مثلثات 8 قطع 112 غ - مصر', 13650)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="ألبان وأجبان">
+            <img src="https://via.placeholder.com/200x150?text=بيلا+غو+جبنة+مثلثات+8+قطع+108+غ+مصر" alt="بيلا غو جبنة مثلثات 8 قطع 108 غ مصر">
+            <h3>بيلا غو جبنة مثلثات 8 قطع 108 غ مصر</h3>
+            <p>السعر: 7.350 ل.س</p>
+            <button onclick="addToCart('بيلا غو جبنة مثلثات 8 قطع 108 غ مصر', 7350)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="ألبان وأجبان">
+            <img src="https://via.placeholder.com/200x150?text=لافاش+كيري+جبنة+مثلثات+8+قطع+104+غ+مصري" alt="لافاش كيري جبنة مثلثات 8 قطع 104 غ مصري">
+            <h3>لافاش كيري جبنة مثلثات 8 قطع 104 غ مصري</h3>
+            <p>السعر: 15.750 ل.س</p>
+            <button onclick="addToCart('لافاش كيري جبنة مثلثات 8 قطع 104 غ مصري', 15750)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="ألبان وأجبان">
+            <img src="https://via.placeholder.com/200x150?text=بوك+جبنة+مثلثات+8+قطع+120+غ+بحرين" alt="بوك جبنة مثلثات 8 قطع 120 غ بحرين">
+            <h3>بوك جبنة مثلثات 8 قطع 120 غ بحرين</h3>
+            <p>السعر: 8.925 ل.س</p>
+            <button onclick="addToCart('بوك جبنة مثلثات 8 قطع 120 غ بحرين', 8925)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="ألبان وأجبان">
+            <img src="https://via.placeholder.com/200x150?text=تورا+بيكا+كريمة+لاتيه+ظرف+30+غ" alt="تورا بيكا كريمة لاتيه ظرف 30 غ">
+            <h3>تورا بيكا كريمة لاتيه ظرف 30 غ</h3>
+            <p>السعر: 3.150 ل.س</p>
+            <button onclick="addToCart('تورا بيكا كريمة لاتيه ظرف 30 غ', 3150)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="ألبان وأجبان">
+            <img src="https://via.placeholder.com/200x150?text=هابي+كاو+جبنة+شرائح+10+قطع+200+غ" alt="هابي كاو جبنة شرائح 10 قطع 200 غ">
+            <h3>هابي كاو جبنة شرائح 10 قطع 200 غ</h3>
+            <p>السعر: 19.950 ل.س</p>
+            <button onclick="addToCart('هابي كاو جبنة شرائح 10 قطع 200 غ', 19950)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="ألبان وأجبان">
+            <img src="https://via.placeholder.com/200x150?text=سمنة+اصيل+1كغ++150مل" alt="سمنة اصيل 1كغ +150مل">
+            <h3>سمنة اصيل 1كغ +150مل</h3>
+            <p>السعر: 39.375 ل.س</p>
+            <button onclick="addToCart('سمنة اصيل 1كغ +150مل', 39375)">أضف إلى السلة</button>
+          </div>
+        </section>
+
+        <!-- مشروبات -->
+        <div style="text-align: center; margin-bottom: 20px;">
+          <button class="filter-btn" onclick="filterProducts('مشروبات', this)">مشروبات</button>
+        </div>
+        <section class="products">
+          <div class="product" data-category="مشروبات">
+            <img src="https://via.placeholder.com/200x150?text=خارطة+متة+خضرا+دهبية+200غ" alt="خارطة متة خضرا دهبية 200غ">
+            <h3>خارطة متة خضرا دهبية 200غ</h3>
+            <p>السعر: 9.500 ل.س</p>
+            <button onclick="addToCart('خارطة متة خضرا دهبية 200غ', 9500)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="مشروبات">
+            <img src="https://via.placeholder.com/200x150?text=خارطة+متة+خضرا+دهبية+250+غ" alt="خارطة متة خضرا دهبية 250 غ">
+            <h3>خارطة متة خضرا دهبية 250 غ</h3>
+            <p>السعر: 12.500 ل.س</p>
+            <button onclick="addToCart('خارطة متة خضرا دهبية 250 غ', 12500)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="مشروبات">
+            <img src="https://via.placeholder.com/200x150?text=خارطة+متة+خضرا+دهبية+500+غ" alt="خارطة متة خضرا دهبية 500 غ">
+            <h3>خارطة متة خضرا دهبية 500 غ</h3>
+            <p>السعر: 23.500 ل.س</p>
+            <button onclick="addToCart('خارطة متة خضرا دهبية 500 غ', 23500)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="مشروبات">
+            <img src="https://via.placeholder.com/200x150?text=حسين+الناصر+شاي+ظرف+25+قطعة+56+غ" alt="حسين الناصر شاي ظرف 25 قطعة 56 غ">
+            <h3>حسين الناصر شاي ظرف 25 قطعة 56 غ</h3>
+            <p>السعر: 8.000 ل.س</p>
+            <button onclick="addToCart('حسين الناصر شاي ظرف 25 قطعة 56 غ', 8000)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="مشروبات">
+            <img src="https://via.placeholder.com/200x150?text=حسين+الناصر+شاي+ظرف+100+قطعة+224+غ" alt="حسين الناصر شاي ظرف 100 قطعة 224 غ">
+            <h3>حسين الناصر شاي ظرف 100 قطعة 224 غ</h3>
+            <p>السعر: 26.500 ل.س</p>
+            <button onclick="addToCart('حسين الناصر شاي ظرف 100 قطعة 224 غ', 26500)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="مشروبات">
+            <img src="https://via.placeholder.com/200x150?text=ليالينا+شاي+ظرف+25+قطعة+50+غ" alt="ليالينا شاي ظرف 25 قطعة 50 غ">
+            <h3>ليالينا شاي ظرف 25 قطعة 50 غ</h3>
+            <p>السعر: 7.500 ل.س</p>
+            <button onclick="addToCart('ليالينا شاي ظرف 25 قطعة 50 غ', 7500)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="مشروبات">
+            <img src="https://via.placeholder.com/200x150?text=ليالينا+شاي+فلش+100+غ" alt="ليالينا شاي فلش 100 غ">
+            <h3>ليالينا شاي فلش 100 غ</h3>
+            <p>السعر: 13.500 ل.س</p>
+            <button onclick="addToCart('ليالينا شاي فلش 100 غ', 13500)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="مشروبات">
+            <img src="https://via.placeholder.com/200x150?text=حسين+الناصر+شاي+فلش+200+غ" alt="حسين الناصر شاي فلش 200 غ">
+            <h3>حسين الناصر شاي فلش 200 غ</h3>
+            <p>السعر: 22.000 ل.س</p>
+            <button onclick="addToCart('حسين الناصر شاي فلش 200 غ', 22000)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="مشروبات">
+            <img src="https://via.placeholder.com/200x150?text=تي+لاند+اللحام+شاي+فلش+450+غ" alt="تي لاند اللحام شاي فلش 450 غ">
+            <h3>تي لاند اللحام شاي فلش 450 غ</h3>
+            <p>السعر: 39.000 ل.س</p>
+            <button onclick="addToCart('تي لاند اللحام شاي فلش 450 غ', 39000)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="مشروبات">
+            <img src="https://via.placeholder.com/200x150?text=كامبو+قهوة+اكسترا+بدون+هال+بني+200+غ" alt="كامبو قهوة اكسترا بدون هال بني 200 غ">
+            <h3>كامبو قهوة اكسترا بدون هال بني 200 غ</h3>
+            <p>السعر: 27.000 ل.س</p>
+            <button onclick="addToCart('كامبو قهوة اكسترا بدون هال بني 200 غ', 27000)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="مشروبات">
+            <img src="https://via.placeholder.com/200x150?text=توليدو+شاي+فلش+تنك+400+غ" alt="توليدو شاي فلش تنك 400 غ">
+            <h3>توليدو شاي فلش تنك 400 غ</h3>
+            <p>السعر: 75.000 ل.س</p>
+            <button onclick="addToCart('توليدو شاي فلش تنك 400 غ', 75000)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="مشروبات">
+            <img src="https://via.placeholder.com/200x150?text=الحموي+قهوة+اخضر+هال+100+غ" alt="الحموي قهوة اخضر هال 100 غ">
+            <h3>الحموي قهوة اخضر هال 100 غ</h3>
+            <p>السعر: 16.000 ل.س</p>
+            <button onclick="addToCart('الحموي قهوة اخضر هال 100 غ', 16000)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="مشروبات">
+            <img src="https://via.placeholder.com/200x150?text=الحموي+قهوة+اخضر+هال+200+غ" alt="الحموي قهوة اخضر هال 200 غ">
+            <h3>الحموي قهوة اخضر هال 200 غ</h3>
+            <p>السعر: 32.000 ل.س</p>
+            <button onclick="addToCart('الحموي قهوة اخضر هال 200 غ', 32000)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="مشروبات">
+            <img src="https://via.placeholder.com/200x150?text=الحموي+قهوة+اخضر+هال+500+غ" alt="الحموي قهوة اخضر هال 500 غ">
+            <h3>الحموي قهوة اخضر هال 500 غ</h3>
+            <p>السعر: 86.000 ل.س</p>
+            <button onclick="addToCart('الحموي قهوة اخضر هال 500 غ', 86000)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="مشروبات">
+            <img src="https://via.placeholder.com/200x150?text=الحموي+قهوة+احمر+سادة+100+غ" alt="الحموي قهوة احمر سادة 100 غ">
+            <h3>الحموي قهوة احمر سادة 100 غ</h3>
+            <p>السعر: 14.000 ل.س</p>
+            <button onclick="addToCart('الحموي قهوة احمر سادة 100 غ', 14000)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="مشروبات">
+            <img src="https://via.placeholder.com/200x150?text=الحموي+قهوة+روزيه+سادة+100+غ" alt="الحموي قهوة روزيه سادة 100 غ">
+            <h3>الحموي قهوة روزيه سادة 100 غ</h3>
+            <p>السعر: 12.000 ل.س</p>
+            <button onclick="addToCart('الحموي قهوة روزيه سادة 100 غ', 12000)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="مشروبات">
+            <img src="https://via.placeholder.com/200x150?text=الحموي+قهوة+اصفر+هال+خفيف+100+غ" alt="الحموي قهوة اصفر هال خفيف 100 غ">
+            <h3>الحموي قهوة اصفر هال خفيف 100 غ</h3>
+            <p>السعر: 16.500 ل.س</p>
+            <button onclick="addToCart('الحموي قهوة اصفر هال خفيف 100 غ', 16500)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="مشروبات">
+            <img src="https://via.placeholder.com/200x150?text=سيتي+كافيه+كريمر+مبيض+بلاستيك+170+غ" alt="سيتي كافيه كريمر مبيض بلاستيك 170 غ">
+            <h3>سيتي كافيه كريمر مبيض بلاستيك 170 غ</h3>
+            <p>السعر: 17.000 ل.س</p>
+            <button onclick="addToCart('سيتي كافيه كريمر مبيض بلاستيك 170 غ', 17000)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="مشروبات">
+            <img src="https://via.placeholder.com/200x150?text=الفائز+شراب+كاكاو+ظرف+36+غ" alt="الفائز شراب كاكاو ظرف 36 غ">
+            <h3>الفائز شراب كاكاو ظرف 36 غ</h3>
+            <p>السعر: 1.750 ل.س</p>
+            <button onclick="addToCart('الفائز شراب كاكاو ظرف 36 غ', 1750)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="مشروبات">
+            <img src="https://via.placeholder.com/200x150?text=الشامي+قهوة+فضي+هال+وسط+200+غ" alt="الشامي قهوة فضي هال وسط 200 غ">
+            <h3>الشامي قهوة فضي هال وسط 200 غ</h3>
+            <p>السعر: 30.000 ل.س</p>
+            <button onclick="addToCart('الشامي قهوة فضي هال وسط 200 غ', 30000)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="مشروبات">
+            <img src="https://via.placeholder.com/200x150?text=الشامي+قهوة+دهبي+هال+شامية+200+غ" alt="الشامي قهوة دهبي هال شامية 200 غ">
+            <h3>الشامي قهوة دهبي هال شامية 200 غ</h3>
+            <p>السعر: 32.000 ل.س</p>
+            <button onclick="addToCart('الشامي قهوة دهبي هال شامية 200 غ', 32000)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="مشروبات">
+            <img src="https://via.placeholder.com/200x150?text=الشامي+قهوة+ازرق+هال+اكسترا+200+غ" alt="الشامي قهوة ازرق هال اكسترا 200 غ">
+            <h3>الشامي قهوة ازرق هال اكسترا 200 غ</h3>
+            <p>السعر: 30.000 ل.س</p>
+            <button onclick="addToCart('الشامي قهوة ازرق هال اكسترا 200 غ', 30000)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="مشروبات">
+            <img src="https://via.placeholder.com/200x150?text=العطار+شاي+سيلاني+ظرف+25+قطعة" alt="العطار شاي سيلاني ظرف 25 قطعة">
+            <h3>العطار شاي سيلاني ظرف 25 قطعة</h3>
+            <p>السعر: 7.500 ل.س</p>
+            <button onclick="addToCart('العطار شاي سيلاني ظرف 25 قطعة', 7500)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="مشروبات">
+            <img src="https://via.placeholder.com/200x150?text=الحموي+قهوة+احمر+سادة+200+غ" alt="الحموي قهوة احمر سادة 200 غ">
+            <h3>الحموي قهوة احمر سادة 200 غ</h3>
+            <p>السعر: 25.000 ل.س</p>
+            <button onclick="addToCart('الحموي قهوة احمر سادة 200 غ', 25000)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="مشروبات">
+            <img src="https://via.placeholder.com/200x150?text=الحموي+قهوة+روزيه+سادة+200+غ" alt="الحموي قهوة روزيه سادة 200 غ">
+            <h3>الحموي قهوة روزيه سادة 200 غ</h3>
+            <p>السعر: 26.000 ل.س</p>
+            <button onclick="addToCart('الحموي قهوة روزيه سادة 200 غ', 26000)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="مشروبات">
+            <img src="https://via.placeholder.com/200x150?text=سكويز+عصير+طبيعي+ظرف+1لتر" alt="سكويز عصير طبيعي ظرف 1لتر">
+            <h3>سكويز عصير طبيعي ظرف 1لتر</h3>
+            <p>السعر: 2.500 ل.س</p>
+            <button onclick="addToCart('سكويز عصير طبيعي ظرف 1لتر', 2500)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="مشروبات">
+            <img src="https://via.placeholder.com/200x150?text=مبيض+الافراح+للغسالات+الاوتاماتيك+180غ" alt="مبيض الافراح للغسالات الاوتاماتيك 180غ">
+            <h3>مبيض الافراح للغسالات الاوتاماتيك 180غ</h3>
+            <p>السعر: 0 ل.س</p>
+            <button onclick="addToCart('مبيض الافراح للغسالات الاوتاماتيك 180غ', 0)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="مشروبات">
+            <img src="https://via.placeholder.com/200x150?text=سيتي+كافيه+قهوة+سريعة+التحضير+ظرف+2+غ" alt="سيتي كافيه قهوة سريعة التحضير ظرف 2 غ">
+            <h3>سيتي كافيه قهوة سريعة التحضير ظرف 2 غ</h3>
+            <p>السعر: 1.000 ل.س</p>
+            <button onclick="addToCart('سيتي كافيه قهوة سريعة التحضير ظرف 2 غ', 1000)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="مشروبات">
+            <img src="https://via.placeholder.com/200x150?text=كامبو+قهوة+سريعة+التحضير+ظرف+2+غ" alt="كامبو قهوة سريعة التحضير ظرف 2 غ">
+            <h3>كامبو قهوة سريعة التحضير ظرف 2 غ</h3>
+            <p>السعر: 750 ل.س</p>
+            <button onclick="addToCart('كامبو قهوة سريعة التحضير ظرف 2 غ', 750)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="مشروبات">
+            <img src="https://via.placeholder.com/200x150?text=ستي+كافيه+كابوتشينو+ظرف+17+غ" alt="ستي كافيه كابوتشينو ظرف 17 غ">
+            <h3>ستي كافيه كابوتشينو ظرف 17 غ</h3>
+            <p>السعر: 2.500 ل.س</p>
+            <button onclick="addToCart('ستي كافيه كابوتشينو ظرف 17 غ', 2500)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="مشروبات">
+            <img src="https://via.placeholder.com/200x150?text=سيتي+كافيه+كابوتشينو+ظرف+17+غ" alt="سيتي كافيه كابوتشينو ظرف 17 غ">
+            <h3>سيتي كافيه كابوتشينو ظرف 17 غ</h3>
+            <p>السعر: 2.500 ل.س</p>
+            <button onclick="addToCart('سيتي كافيه كابوتشينو ظرف 17 غ', 2500)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="مشروبات">
+            <img src="https://via.placeholder.com/200x150?text=الحموي+قهوة+اصفر+هال+برايت+200+غ" alt="الحموي قهوة اصفر هال برايت 200 غ">
+            <h3>الحموي قهوة اصفر هال برايت 200 غ</h3>
+            <p>السعر: 25.000 ل.س</p>
+            <button onclick="addToCart('الحموي قهوة اصفر هال برايت 200 غ', 25000)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="مشروبات">
+            <img src="https://via.placeholder.com/200x150?text=فيرتيكا+عصير+طبيعي+ظرف+40غ" alt="فيرتيكا عصير طبيعي ظرف 40غ">
+            <h3>فيرتيكا عصير طبيعي ظرف 40غ</h3>
+            <p>السعر: 2.500 ل.س</p>
+            <button onclick="addToCart('فيرتيكا عصير طبيعي ظرف 40غ', 2500)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="مشروبات">
+            <img src="https://via.placeholder.com/200x150?text=سيتي+كافيه+غولد+2غ+قهوة+سريعة" alt="سيتي كافيه غولد 2غ قهوة سريعة">
+            <h3>سيتي كافيه غولد 2غ قهوة سريعة</h3>
+            <p>السعر: 1.000 ل.س</p>
+            <button onclick="addToCart('سيتي كافيه غولد 2غ قهوة سريعة', 1000)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="مشروبات">
+            <img src="https://via.placeholder.com/200x150?text=الشامي+قهوة+اخضر+سادة+200+غ" alt="الشامي قهوة اخضر سادة 200 غ">
+            <h3>الشامي قهوة اخضر سادة 200 غ</h3>
+            <p>السعر: 21.500 ل.س</p>
+            <button onclick="addToCart('الشامي قهوة اخضر سادة 200 غ', 21500)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="مشروبات">
+            <img src="https://via.placeholder.com/200x150?text=سلس+عصير+زجاج+750+مل" alt="سلس عصير زجاج 750 مل">
+            <h3>سلس عصير زجاج 750 مل</h3>
+            <p>السعر: 11.000 ل.س</p>
+            <button onclick="addToCart('سلس عصير زجاج 750 مل', 11000)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="مشروبات">
+            <img src="https://via.placeholder.com/200x150?text=سلس+عصير+كرتون+200+مل" alt="سلس عصير كرتون 200 مل">
+            <h3>سلس عصير كرتون 200 مل</h3>
+            <p>السعر: 3.000 ل.س</p>
+            <button onclick="addToCart('سلس عصير كرتون 200 مل', 3000)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="مشروبات">
+            <img src="https://via.placeholder.com/200x150?text=دريكيش+مياه+كبيرة+1.5+مل" alt="دريكيش مياه كبيرة 1.5 مل">
+            <h3>دريكيش مياه كبيرة 1.5 مل</h3>
+            <p>السعر: 5.000 ل.س</p>
+            <button onclick="addToCart('دريكيش مياه كبيرة 1.5 مل', 5000)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="مشروبات">
+            <img src="https://via.placeholder.com/200x150?text=وردان+مياه+كبيرة+1.5+لتر" alt="وردان مياه كبيرة 1.5 لتر">
+            <h3>وردان مياه كبيرة 1.5 لتر</h3>
+            <p>السعر: 3.000 ل.س</p>
+            <button onclick="addToCart('وردان مياه كبيرة 1.5 لتر', 3000)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="مشروبات">
+            <img src="https://via.placeholder.com/200x150?text=فيتا+جوس+عصير+بلاستيك+1+لنر" alt="فيتا جوس عصير بلاستيك 1 لنر">
+            <h3>فيتا جوس عصير بلاستيك 1 لنر</h3>
+            <p>السعر: 10.000 ل.س</p>
+            <button onclick="addToCart('فيتا جوس عصير بلاستيك 1 لنر', 10000)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="مشروبات">
+            <img src="https://via.placeholder.com/200x150?text=سلس+عصير+زجاج+250+مل" alt="سلس عصير زجاج 250 مل">
+            <h3>سلس عصير زجاج 250 مل</h3>
+            <p>السعر: 4.000 ل.س</p>
+            <button onclick="addToCart('سلس عصير زجاج 250 مل', 4000)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="مشروبات">
+            <img src="https://via.placeholder.com/200x150?text=موني+ون+عصير+كرتون+125+مل" alt="موني ون عصير كرتون 125 مل">
+            <h3>موني ون عصير كرتون 125 مل</h3>
+            <p>السعر: 1.000 ل.س</p>
+            <button onclick="addToCart('موني ون عصير كرتون 125 مل', 1000)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="مشروبات">
+            <img src="https://via.placeholder.com/200x150?text=يومي+عصير+كرتون+125+مل" alt="يومي عصير كرتون 125 مل">
+            <h3>يومي عصير كرتون 125 مل</h3>
+            <p>السعر: 1.500 ل.س</p>
+            <button onclick="addToCart('يومي عصير كرتون 125 مل', 1500)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="مشروبات">
+            <img src="https://via.placeholder.com/200x150?text=سيتي+كافيه+ايس+كوفي+تنك+180+مل" alt="سيتي كافيه ايس كوفي تنك 180 مل">
+            <h3>سيتي كافيه ايس كوفي تنك 180 مل</h3>
+            <p>السعر: 7.500 ل.س</p>
+            <button onclick="addToCart('سيتي كافيه ايس كوفي تنك 180 مل', 7500)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="مشروبات">
+            <img src="https://via.placeholder.com/200x150?text=السن+مياه+صغيرة+500+مل" alt="السن مياه صغيرة 500 مل">
+            <h3>السن مياه صغيرة 500 مل</h3>
+            <p>السعر: 2.500 ل.س</p>
+            <button onclick="addToCart('السن مياه صغيرة 500 مل', 2500)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="مشروبات">
+            <img src="https://via.placeholder.com/200x150?text=وردان+مياه+صغير+500+مل" alt="وردان مياه صغير 500 مل">
+            <h3>وردان مياه صغير 500 مل</h3>
+            <p>السعر: 2.000 ل.س</p>
+            <button onclick="addToCart('وردان مياه صغير 500 مل', 2000)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="مشروبات">
+            <img src="https://via.placeholder.com/200x150?text=زويا+مشروب+غازي+منكه+زجاج+275+مل" alt="زويا مشروب غازي منكه زجاج 275 مل">
+            <h3>زويا مشروب غازي منكه زجاج 275 مل</h3>
+            <p>السعر: 6.500 ل.س</p>
+            <button onclick="addToCart('زويا مشروب غازي منكه زجاج 275 مل', 6500)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="مشروبات">
+            <img src="https://via.placeholder.com/200x150?text=اوغاريت+مشروب+غازي+بلاستيك+350+مل" alt="اوغاريت مشروب غازي بلاستيك 350 مل">
+            <h3>اوغاريت مشروب غازي بلاستيك 350 مل</h3>
+            <p>السعر: 3.500 ل.س</p>
+            <button onclick="addToCart('اوغاريت مشروب غازي بلاستيك 350 مل', 3500)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="مشروبات">
+            <img src="https://via.placeholder.com/200x150?text=اوغاريت+مشروب+غازي+بلاستيك+1+لتر" alt="اوغاريت مشروب غازي بلاستيك 1 لتر">
+            <h3>اوغاريت مشروب غازي بلاستيك 1 لتر</h3>
+            <p>السعر: 7.500 ل.س</p>
+            <button onclick="addToCart('اوغاريت مشروب غازي بلاستيك 1 لتر', 7500)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="مشروبات">
+            <img src="https://via.placeholder.com/200x150?text=بيبسي+سفن+اب+ميرندا+بلاستيك+2.25+لتر" alt="بيبسي سفن اب ميرندا بلاستيك 2.25 لتر">
+            <h3>بيبسي سفن اب ميرندا بلاستيك 2.25 لتر</h3>
+            <p>السعر: 13.500 ل.س</p>
+            <button onclick="addToCart('بيبسي سفن اب ميرندا بلاستيك 2.25 لتر', 13500)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="مشروبات">
+            <img src="https://via.placeholder.com/200x150?text=دريكيش+مياه+صغير+500+مل" alt="دريكيش مياه صغير 500 مل">
+            <h3>دريكيش مياه صغير 500 مل</h3>
+            <p>السعر: 3.000 ل.س</p>
+            <button onclick="addToCart('دريكيش مياه صغير 500 مل', 3000)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="مشروبات">
+            <img src="https://via.placeholder.com/200x150?text=مندرين+مشروب+غازي+1+لتر" alt="مندرين مشروب غازي 1 لتر">
+            <h3>مندرين مشروب غازي 1 لتر</h3>
+            <p>السعر: 6.000 ل.س</p>
+            <button onclick="addToCart('مندرين مشروب غازي 1 لتر', 6000)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="مشروبات">
+            <img src="https://via.placeholder.com/200x150?text=بيبسي+1لتر" alt="بيبسي 1لتر">
+            <h3>بيبسي 1لتر</h3>
+            <p>السعر: 7.500 ل.س</p>
+            <button onclick="addToCart('بيبسي 1لتر', 7500)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="مشروبات">
+            <img src="https://via.placeholder.com/200x150?text=بيبسي+330مل" alt="بيبسي 330مل">
+            <h3>بيبسي 330مل</h3>
+            <p>السعر: 4.000 ل.س</p>
+            <button onclick="addToCart('بيبسي 330مل', 4000)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="مشروبات">
+            <img src="https://via.placeholder.com/200x150?text=بيور+شراب+شعير+250مل" alt="بيور شراب شعير 250مل">
+            <h3>بيور شراب شعير 250مل</h3>
+            <p>السعر: 4.000 ل.س</p>
+            <button onclick="addToCart('بيور شراب شعير 250مل', 4000)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="مشروبات">
+            <img src="https://via.placeholder.com/200x150?text=عصير+فروتي+طبيعي+330مل" alt="عصير فروتي طبيعي 330مل">
+            <h3>عصير فروتي طبيعي 330مل</h3>
+            <p>السعر: 5.000 ل.س</p>
+            <button onclick="addToCart('عصير فروتي طبيعي 330مل', 5000)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="مشروبات">
+            <img src="https://via.placeholder.com/200x150?text=عصير+فروتي+طبيعي+250مل" alt="عصير فروتي طبيعي 250مل">
+            <h3>عصير فروتي طبيعي 250مل</h3>
+            <p>السعر: 5.000 ل.س</p>
+            <button onclick="addToCart('عصير فروتي طبيعي 250مل', 5000)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="مشروبات">
+            <img src="https://via.placeholder.com/200x150?text=عصير+فروتي+طبيعي+1+لتر" alt="عصير فروتي طبيعي 1 لتر">
+            <h3>عصير فروتي طبيعي 1 لتر</h3>
+            <p>السعر: 12.000 ل.س</p>
+            <button onclick="addToCart('عصير فروتي طبيعي 1 لتر', 12000)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="مشروبات">
+            <img src="https://via.placeholder.com/200x150?text=مياه+صحة+قليل+الصوديم+1.5لتر" alt="مياه صحة قليل الصوديم 1.5لتر">
+            <h3>مياه صحة قليل الصوديم 1.5لتر</h3>
+            <p>السعر: 6.000 ل.س</p>
+            <button onclick="addToCart('مياه صحة قليل الصوديم 1.5لتر', 6000)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="مشروبات">
+            <img src="https://via.placeholder.com/200x150?text=مياه+بزبوزة+700مل+نسله" alt="مياه بزبوزة 700مل نسله">
+            <h3>مياه بزبوزة 700مل نسله</h3>
+            <p>السعر: 4.500 ل.س</p>
+            <button onclick="addToCart('مياه بزبوزة 700مل نسله', 4500)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="مشروبات">
+            <img src="https://via.placeholder.com/200x150?text=مياه+نسله+بيور+لايف+1.5لتر" alt="مياه نسله بيور لايف 1.5لتر">
+            <h3>مياه نسله بيور لايف 1.5لتر</h3>
+            <p>السعر: 5.000 ل.س</p>
+            <button onclick="addToCart('مياه نسله بيور لايف 1.5لتر', 5000)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="مشروبات">
+            <img src="https://via.placeholder.com/200x150?text=ليبتون+شاي+اخضر+ظرف+25+قطعة+37.5+غ" alt="ليبتون شاي اخضر ظرف 25 قطعة 37.5 غ">
+            <h3>ليبتون شاي اخضر ظرف 25 قطعة 37.5 غ</h3>
+            <p>السعر: 2 ل.س</p>
+            <button onclick="addToCart('ليبتون شاي اخضر ظرف 25 قطعة 37.5 غ', 2)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="مشروبات">
+            <img src="https://via.placeholder.com/200x150?text=نجار+قهوة+كلاسيك+اخضر+هال+180+غ" alt="نجار قهوة كلاسيك اخضر هال 180 غ">
+            <h3>نجار قهوة كلاسيك اخضر هال 180 غ</h3>
+            <p>السعر: 47.250 ل.س</p>
+            <button onclick="addToCart('نجار قهوة كلاسيك اخضر هال 180 غ', 47250)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="مشروبات">
+            <img src="https://via.placeholder.com/200x150?text=نجار+قهوة+كلاسيك+ازرق+سادة+180+غ" alt="نجار قهوة كلاسيك ازرق سادة 180 غ">
+            <h3>نجار قهوة كلاسيك ازرق سادة 180 غ</h3>
+            <p>السعر: 4 ل.س</p>
+            <button onclick="addToCart('نجار قهوة كلاسيك ازرق سادة 180 غ', 4)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="مشروبات">
+            <img src="https://via.placeholder.com/200x150?text=السمان+قهوة+عربية+ظرف+40+غ" alt="السمان قهوة عربية ظرف 40 غ">
+            <h3>السمان قهوة عربية ظرف 40 غ</h3>
+            <p>السعر: 14.700 ل.س</p>
+            <button onclick="addToCart('السمان قهوة عربية ظرف 40 غ', 14700)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="مشروبات">
+            <img src="https://via.placeholder.com/200x150?text=السمان+قهوة+خليجية+ظرف+50+غ" alt="السمان قهوة خليجية ظرف 50 غ">
+            <h3>السمان قهوة خليجية ظرف 50 غ</h3>
+            <p>السعر: 16.800 ل.س</p>
+            <button onclick="addToCart('السمان قهوة خليجية ظرف 50 غ', 16800)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="مشروبات">
+            <img src="https://via.placeholder.com/200x150?text=نستله+كوفي+ميت+مبيض+كيس+450+غ" alt="نستله كوفي ميت مبيض كيس 450 غ">
+            <h3>نستله كوفي ميت مبيض كيس 450 غ</h3>
+            <p>السعر: 28.875 ل.س</p>
+            <button onclick="addToCart('نستله كوفي ميت مبيض كيس 450 غ', 28875)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="مشروبات">
+            <img src="https://via.placeholder.com/200x150?text=تورا+بيكا+3+ب+1+ظرف+25+غ" alt="تورا بيكا 3 ب 1 ظرف 25 غ">
+            <h3>تورا بيكا 3 ب 1 ظرف 25 غ</h3>
+            <p>السعر: 2.625 ل.س</p>
+            <button onclick="addToCart('تورا بيكا 3 ب 1 ظرف 25 غ', 2625)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="مشروبات">
+            <img src="https://via.placeholder.com/200x150?text=تورا+بيكا+كابوتشينو+اورجينال+ظرف+25+ظرف" alt="تورا بيكا كابوتشينو اورجينال ظرف 25 ظرف">
+            <h3>تورا بيكا كابوتشينو اورجينال ظرف 25 ظرف</h3>
+            <p>السعر: 2.625 ل.س</p>
+            <button onclick="addToCart('تورا بيكا كابوتشينو اورجينال ظرف 25 ظرف', 2625)">أضف إلى السلة</button>
+          </div>
+        </section>
+
+        <!-- حلويات متنوعة -->
+        <div style="text-align: center; margin-bottom: 20px;">
+          <button class="filter-btn" onclick="filterProducts('حلويات متنوعة', this)">حلويات متنوعة</button>
+        </div>
+        <section class="products">
+          <div class="product" data-category="حلويات متنوعة">
+            <img src="https://via.placeholder.com/200x150?text=العنازة+راحة+ممسكة+علبة+175+غ" alt="العنازة راحة ممسكة علبة 175 غ">
+            <h3>العنازة راحة ممسكة علبة 175 غ</h3>
+            <p>السعر: 4.500 ل.س</p>
+            <button onclick="addToCart('العنازة راحة ممسكة علبة 175 غ', 4500)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="حلويات متنوعة">
+            <img src="https://via.placeholder.com/200x150?text=دريكيش+حلو+عربي+3+قطع+60+غ" alt="دريكيش حلو عربي 3 قطع 60 غ">
+            <h3>دريكيش حلو عربي 3 قطع 60 غ</h3>
+            <p>السعر: 2.500 ل.س</p>
+            <button onclick="addToCart('دريكيش حلو عربي 3 قطع 60 غ', 2500)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="حلويات متنوعة">
+            <img src="https://via.placeholder.com/200x150?text=الفردوس+حلاوة+طحينية+فستق+بلاستيك+700+غ" alt="الفردوس حلاوة طحينية فستق بلاستيك 700 غ">
+            <h3>الفردوس حلاوة طحينية فستق بلاستيك 700 غ</h3>
+            <p>السعر: 17.000 ل.س</p>
+            <button onclick="addToCart('الفردوس حلاوة طحينية فستق بلاستيك 700 غ', 17000)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="حلويات متنوعة">
+            <img src="https://via.placeholder.com/200x150?text=حسين+الناصر+حلاوة+طحينية+فستق+بلاستيك+400+غ" alt="حسين الناصر حلاوة طحينية فستق بلاستيك 400 غ">
+            <h3>حسين الناصر حلاوة طحينية فستق بلاستيك 400 غ</h3>
+            <p>السعر: 19.500 ل.س</p>
+            <button onclick="addToCart('حسين الناصر حلاوة طحينية فستق بلاستيك 400 غ', 19500)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="حلويات متنوعة">
+            <img src="https://via.placeholder.com/200x150?text=حسين+الناصر+حلاوة+طحينية+فستق+بلاستيك+800+غ" alt="حسين الناصر حلاوة طحينية فستق بلاستيك 800 غ">
+            <h3>حسين الناصر حلاوة طحينية فستق بلاستيك 800 غ</h3>
+            <p>السعر: 31.000 ل.س</p>
+            <button onclick="addToCart('حسين الناصر حلاوة طحينية فستق بلاستيك 800 غ', 31000)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="حلويات متنوعة">
+            <img src="https://via.placeholder.com/200x150?text=زهر+البستان+حلاوة+طحينية+فستق+بلاستيك+400+غ" alt="زهر البستان حلاوة طحينية فستق بلاستيك 400 غ">
+            <h3>زهر البستان حلاوة طحينية فستق بلاستيك 400 غ</h3>
+            <p>السعر: 19.500 ل.س</p>
+            <button onclick="addToCart('زهر البستان حلاوة طحينية فستق بلاستيك 400 غ', 19500)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="حلويات متنوعة">
+            <img src="https://via.placeholder.com/200x150?text=مسيلماني+حلاوة+طحينية+سمسم+بلاستيك+400+غ" alt="مسيلماني حلاوة طحينية سمسم بلاستيك 400 غ">
+            <h3>مسيلماني حلاوة طحينية سمسم بلاستيك 400 غ</h3>
+            <p>السعر: 16.000 ل.س</p>
+            <button onclick="addToCart('مسيلماني حلاوة طحينية سمسم بلاستيك 400 غ', 16000)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="حلويات متنوعة">
+            <img src="https://via.placeholder.com/200x150?text=الاحلام+حلاوة+طحينية+فستق+بلاستيك+400+غ" alt="الاحلام حلاوة طحينية فستق بلاستيك 400 غ">
+            <h3>الاحلام حلاوة طحينية فستق بلاستيك 400 غ</h3>
+            <p>السعر: 12.000 ل.س</p>
+            <button onclick="addToCart('الاحلام حلاوة طحينية فستق بلاستيك 400 غ', 12000)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="حلويات متنوعة">
+            <img src="https://via.placeholder.com/200x150?text=اشلميش+مجفف+صحي+زبيب+150غ" alt="اشلميش مجفف صحي زبيب 150غ">
+            <h3>اشلميش مجفف صحي زبيب 150غ</h3>
+            <p>السعر: 13.000 ل.س</p>
+            <button onclick="addToCart('اشلميش مجفف صحي زبيب 150غ', 13000)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="حلويات متنوعة">
+            <img src="https://via.placeholder.com/200x150?text=مشمش+مجفف+صحي+150غ" alt="مشمش مجفف صحي 150غ">
+            <h3>مشمش مجفف صحي 150غ</h3>
+            <p>السعر: 19.000 ل.س</p>
+            <button onclick="addToCart('مشمش مجفف صحي 150غ', 19000)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="حلويات متنوعة">
+            <img src="https://via.placeholder.com/200x150?text=جيليه+سانتي+سويت+80غ" alt="جيليه سانتي سويت 80غ">
+            <h3>جيليه سانتي سويت 80غ</h3>
+            <p>السعر: 6.000 ل.س</p>
+            <button onclick="addToCart('جيليه سانتي سويت 80غ', 6000)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="حلويات متنوعة">
+            <img src="https://via.placeholder.com/200x150?text=كريم+كراميل+سانتي+سويت+80غ" alt="كريم كراميل سانتي سويت 80غ">
+            <h3>كريم كراميل سانتي سويت 80غ</h3>
+            <p>السعر: 6.500 ل.س</p>
+            <button onclick="addToCart('كريم كراميل سانتي سويت 80غ', 6500)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="حلويات متنوعة">
+            <img src="https://via.placeholder.com/200x150?text=نشاء+الذرة+سانتي+سويت+100غ" alt="نشاء الذرة سانتي سويت 100غ">
+            <h3>نشاء الذرة سانتي سويت 100غ</h3>
+            <p>السعر: 5.500 ل.س</p>
+            <button onclick="addToCart('نشاء الذرة سانتي سويت 100غ', 5500)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="حلويات متنوعة">
+            <img src="https://via.placeholder.com/200x150?text=كافي+نارا+فحم+صناعي+700+غ" alt="كافي نارا فحم صناعي 700 غ">
+            <h3>كافي نارا فحم صناعي 700 غ</h3>
+            <p>السعر: 24.000 ل.س</p>
+            <button onclick="addToCart('كافي نارا فحم صناعي 700 غ', 24000)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="حلويات متنوعة">
+            <img src="https://via.placeholder.com/200x150?text=زاهي+مصاص+9+قطع+30+غ" alt="زاهي مصاص 9 قطع 30 غ">
+            <h3>زاهي مصاص 9 قطع 30 غ</h3>
+            <p>السعر: 2.000 ل.س</p>
+            <button onclick="addToCart('زاهي مصاص 9 قطع 30 غ', 2000)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="حلويات متنوعة">
+            <img src="https://via.placeholder.com/200x150?text=علكة+الاكرمين+2.2غ" alt="علكة الاكرمين 2.2غ">
+            <h3>علكة الاكرمين 2.2غ</h3>
+            <p>السعر: 500 ل.س</p>
+            <button onclick="addToCart('علكة الاكرمين 2.2غ', 500)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="حلويات متنوعة">
+            <img src="https://via.placeholder.com/200x150?text=قلعجية+حلاوة+شوشية+450+غ" alt="قلعجية حلاوة شوشية 450 غ">
+            <h3>قلعجية حلاوة شوشية 450 غ</h3>
+            <p>السعر: 28.875 ل.س</p>
+            <button onclick="addToCart('قلعجية حلاوة شوشية 450 غ', 28875)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="حلويات متنوعة">
+            <img src="https://via.placeholder.com/200x150?text=سلوم+دبس+خرنوب+لبناني+بلاستيك+1+كغ" alt="سلوم دبس خرنوب لبناني بلاستيك 1 كغ">
+            <h3>سلوم دبس خرنوب لبناني بلاستيك 1 كغ</h3>
+            <p>السعر: 39.900 ل.س</p>
+            <button onclick="addToCart('سلوم دبس خرنوب لبناني بلاستيك 1 كغ', 39900)">أضف إلى السلة</button>
+          </div>
+        </section>
+
+        <!-- بقالة أساسية -->
+        <div style="text-align: center; margin-bottom: 20px;">
+          <button class="filter-btn" onclick="filterProducts('بقالة أساسية', this)">بقالة أساسية</button>
+        </div>
+        <section class="products">
+          <div class="product" data-category="بقالة أساسية">
+            <img src="https://via.placeholder.com/200x150?text=اكزوتيك+كرية+شانتيه+بطعم+الفانيليا" alt="اكزوتيك كرية شانتيه بطعم الفانيليا">
+            <h3>اكزوتيك كرية شانتيه بطعم الفانيليا</h3>
+            <p>السعر: 12.000 ل.س</p>
+            <button onclick="addToCart('اكزوتيك كرية شانتيه بطعم الفانيليا', 12000)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="بقالة أساسية">
+            <img src="https://via.placeholder.com/200x150?text=الاحلام+دبس+بندورة+زجاج+660+غ" alt="الاحلام دبس بندورة زجاج 660 غ">
+            <h3>الاحلام دبس بندورة زجاج 660 غ</h3>
+            <p>السعر: 15.500 ل.س</p>
+            <button onclick="addToCart('الاحلام دبس بندورة زجاج 660 غ', 15500)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="بقالة أساسية">
+            <img src="https://via.placeholder.com/200x150?text=زهر+البستان+دبس+بندورة+بلاستيك+1+كغ" alt="زهر البستان دبس بندورة بلاستيك 1 كغ">
+            <h3>زهر البستان دبس بندورة بلاستيك 1 كغ</h3>
+            <p>السعر: 15.000 ل.س</p>
+            <button onclick="addToCart('زهر البستان دبس بندورة بلاستيك 1 كغ', 15000)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="بقالة أساسية">
+            <img src="https://via.placeholder.com/200x150?text=زهر+البستان+طحينية+بلاستيك+400+غ" alt="زهر البستان طحينية بلاستيك 400 غ">
+            <h3>زهر البستان طحينية بلاستيك 400 غ</h3>
+            <p>السعر: 18.500 ل.س</p>
+            <button onclick="addToCart('زهر البستان طحينية بلاستيك 400 غ', 18500)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="بقالة أساسية">
+            <img src="https://via.placeholder.com/200x150?text=مسيلماني+طحينية+سمسم+بلاستيك+300+غ" alt="مسيلماني طحينية سمسم بلاستيك 300 غ">
+            <h3>مسيلماني طحينية سمسم بلاستيك 300 غ</h3>
+            <p>السعر: 13.500 ل.س</p>
+            <button onclick="addToCart('مسيلماني طحينية سمسم بلاستيك 300 غ', 13500)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="بقالة أساسية">
+            <img src="https://via.placeholder.com/200x150?text=الاحلام+طحينية+سمسم+بلاستيك+400+غ" alt="الاحلام طحينية سمسم بلاستيك 400 غ">
+            <h3>الاحلام طحينية سمسم بلاستيك 400 غ</h3>
+            <p>السعر: 19.500 ل.س</p>
+            <button onclick="addToCart('الاحلام طحينية سمسم بلاستيك 400 غ', 19500)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="بقالة أساسية">
+            <img src="https://via.placeholder.com/200x150?text=الربيع+طحين+زيرو+كيس+1+كغ" alt="الربيع طحين زيرو كيس 1 كغ">
+            <h3>الربيع طحين زيرو كيس 1 كغ</h3>
+            <p>السعر: 7.500 ل.س</p>
+            <button onclick="addToCart('الربيع طحين زيرو كيس 1 كغ', 7500)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="بقالة أساسية">
+            <img src="https://via.placeholder.com/200x150?text=الشيف+نديم+عدس+مجروش+1+كغ" alt="الشيف نديم عدس مجروش 1 كغ">
+            <h3>الشيف نديم عدس مجروش 1 كغ</h3>
+            <p>السعر: 11.500 ل.س</p>
+            <button onclick="addToCart('الشيف نديم عدس مجروش 1 كغ', 11500)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="بقالة أساسية">
+            <img src="https://via.placeholder.com/200x150?text=الربيع+ملح+ناعم+كيس+300+غ" alt="الربيع ملح ناعم كيس 300 غ">
+            <h3>الربيع ملح ناعم كيس 300 غ</h3>
+            <p>السعر: 1.500 ل.س</p>
+            <button onclick="addToCart('الربيع ملح ناعم كيس 300 غ', 1500)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="بقالة أساسية">
+            <img src="https://via.placeholder.com/200x150?text=سويت+خميرة+جافة+ظرف+10+غ" alt="سويت خميرة جافة ظرف 10 غ">
+            <h3>سويت خميرة جافة ظرف 10 غ</h3>
+            <p>السعر: 1.250 ل.س</p>
+            <button onclick="addToCart('سويت خميرة جافة ظرف 10 غ', 1250)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="بقالة أساسية">
+            <img src="https://via.placeholder.com/200x150?text=ريم+فانيليا+ظرف+18+غ" alt="ريم فانيليا ظرف 18 غ">
+            <h3>ريم فانيليا ظرف 18 غ</h3>
+            <p>السعر: 1.250 ل.س</p>
+            <button onclick="addToCart('ريم فانيليا ظرف 18 غ', 1250)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="بقالة أساسية">
+            <img src="https://via.placeholder.com/200x150?text=ريم+بيكينغ+باودر+ظرف+18+غ" alt="ريم بيكينغ باودر ظرف 18 غ">
+            <h3>ريم بيكينغ باودر ظرف 18 غ</h3>
+            <p>السعر: 1.250 ل.س</p>
+            <button onclick="addToCart('ريم بيكينغ باودر ظرف 18 غ', 1250)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="بقالة أساسية">
+            <img src="https://via.placeholder.com/200x150?text=الربيع+برغل+اسمر+ناعم+1+كغ" alt="الربيع برغل اسمر ناعم 1 كغ">
+            <h3>الربيع برغل اسمر ناعم 1 كغ</h3>
+            <p>السعر: 10.000 ل.س</p>
+            <button onclick="addToCart('الربيع برغل اسمر ناعم 1 كغ', 10000)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="بقالة أساسية">
+            <img src="https://via.placeholder.com/200x150?text=زهر+البستان+كتشب+حر+بلاستيك+200+غ" alt="زهر البستان كتشب حر بلاستيك 200 غ">
+            <h3>زهر البستان كتشب حر بلاستيك 200 غ</h3>
+            <p>السعر: 7.000 ل.س</p>
+            <button onclick="addToCart('زهر البستان كتشب حر بلاستيك 200 غ', 7000)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="بقالة أساسية">
+            <img src="https://via.placeholder.com/200x150?text=الربيع+برغل+اسمر+خشن+1+كغ" alt="الربيع برغل اسمر خشن 1 كغ">
+            <h3>الربيع برغل اسمر خشن 1 كغ</h3>
+            <p>السعر: 10.000 ل.س</p>
+            <button onclick="addToCart('الربيع برغل اسمر خشن 1 كغ', 10000)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="بقالة أساسية">
+            <img src="https://via.placeholder.com/200x150?text=الربيع+برغل+ابيض+خشن+1+كغ" alt="الربيع برغل ابيض خشن 1 كغ">
+            <h3>الربيع برغل ابيض خشن 1 كغ</h3>
+            <p>السعر: 10.000 ل.س</p>
+            <button onclick="addToCart('الربيع برغل ابيض خشن 1 كغ', 10000)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="بقالة أساسية">
+            <img src="https://via.placeholder.com/200x150?text=الربيع+حنطة+مقشورة+1+كغ" alt="الربيع حنطة مقشورة 1 كغ">
+            <h3>الربيع حنطة مقشورة 1 كغ</h3>
+            <p>السعر: 9.000 ل.س</p>
+            <button onclick="addToCart('الربيع حنطة مقشورة 1 كغ', 9000)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="بقالة أساسية">
+            <img src="https://via.placeholder.com/200x150?text=الربيع+عدس+حب+ابيض+1+كغ" alt="الربيع عدس حب ابيض 1 كغ">
+            <h3>الربيع عدس حب ابيض 1 كغ</h3>
+            <p>السعر: 22.000 ل.س</p>
+            <button onclick="addToCart('الربيع عدس حب ابيض 1 كغ', 22000)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="بقالة أساسية">
+            <img src="https://via.placeholder.com/200x150?text=غولدن+لايف+فريكة+1+كغ" alt="غولدن لايف فريكة 1 كغ">
+            <h3>غولدن لايف فريكة 1 كغ</h3>
+            <p>السعر: 17.500 ل.س</p>
+            <button onclick="addToCart('غولدن لايف فريكة 1 كغ', 17500)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="بقالة أساسية">
+            <img src="https://via.placeholder.com/200x150?text=حسين+الناصر+رز+اسباني+1+كغ" alt="حسين الناصر رز اسباني 1 كغ">
+            <h3>حسين الناصر رز اسباني 1 كغ</h3>
+            <p>السعر: 17.000 ل.س</p>
+            <button onclick="addToCart('حسين الناصر رز اسباني 1 كغ', 17000)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="بقالة أساسية">
+            <img src="https://via.placeholder.com/200x150?text=حسين+الناصر+رز+قصير+1+كغ" alt="حسين الناصر رز قصير 1 كغ">
+            <h3>حسين الناصر رز قصير 1 كغ</h3>
+            <p>السعر: 11.500 ل.س</p>
+            <button onclick="addToCart('حسين الناصر رز قصير 1 كغ', 11500)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="بقالة أساسية">
+            <img src="https://via.placeholder.com/200x150?text=فيوريلا+شعيرية+350+غ" alt="فيوريلا شعيرية 350 غ">
+            <h3>فيوريلا شعيرية 350 غ</h3>
+            <p>السعر: 4.500 ل.س</p>
+            <button onclick="addToCart('فيوريلا شعيرية 350 غ', 4500)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="بقالة أساسية">
+            <img src="https://via.placeholder.com/200x150?text=حسين+الناصر+فريكة+1+كغ" alt="حسين الناصر فريكة 1 كغ">
+            <h3>حسين الناصر فريكة 1 كغ</h3>
+            <p>السعر: 20.000 ل.س</p>
+            <button onclick="addToCart('حسين الناصر فريكة 1 كغ', 20000)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="بقالة أساسية">
+            <img src="https://via.placeholder.com/200x150?text=حسين+الناصر+عدس+حب+اسود+1+كغ" alt="حسين الناصر عدس حب اسود 1 كغ">
+            <h3>حسين الناصر عدس حب اسود 1 كغ</h3>
+            <p>السعر: 10.500 ل.س</p>
+            <button onclick="addToCart('حسين الناصر عدس حب اسود 1 كغ', 10500)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="بقالة أساسية">
+            <img src="https://via.placeholder.com/200x150?text=الربع+سميد+1+كغ" alt="الربع سميد 1 كغ">
+            <h3>الربع سميد 1 كغ</h3>
+            <p>السعر: 10.000 ل.س</p>
+            <button onclick="addToCart('الربع سميد 1 كغ', 10000)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="بقالة أساسية">
+            <img src="https://via.placeholder.com/200x150?text=ابو+سيوف+رز+بسمتي+خيش+1+كغ" alt="ابو سيوف رز بسمتي خيش 1 كغ">
+            <h3>ابو سيوف رز بسمتي خيش 1 كغ</h3>
+            <p>السعر: 22.000 ل.س</p>
+            <button onclick="addToCart('ابو سيوف رز بسمتي خيش 1 كغ', 22000)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="بقالة أساسية">
+            <img src="https://via.placeholder.com/200x150?text=اصالة+زعتر+اخضر+اكسترا+400+غ" alt="اصالة زعتر اخضر اكسترا 400 غ">
+            <h3>اصالة زعتر اخضر اكسترا 400 غ</h3>
+            <p>السعر: 12.000 ل.س</p>
+            <button onclick="addToCart('اصالة زعتر اخضر اكسترا 400 غ', 12000)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="بقالة أساسية">
+            <img src="https://via.placeholder.com/200x150?text=اندومي+نودلز+ظرف+75+غ" alt="اندومي نودلز ظرف 75 غ">
+            <h3>اندومي نودلز ظرف 75 غ</h3>
+            <p>السعر: 3.000 ل.س</p>
+            <button onclick="addToCart('اندومي نودلز ظرف 75 غ', 3000)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="بقالة أساسية">
+            <img src="https://via.placeholder.com/200x150?text=ايما+خل+ابيض+بلاستيك+1+لتر" alt="ايما خل ابيض بلاستيك 1 لتر">
+            <h3>ايما خل ابيض بلاستيك 1 لتر</h3>
+            <p>السعر: 7.500 ل.س</p>
+            <button onclick="addToCart('ايما خل ابيض بلاستيك 1 لتر', 7500)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="بقالة أساسية">
+            <img src="https://via.placeholder.com/200x150?text=ايما+خل+احمر+بلاستيك+1+لتر" alt="ايما خل احمر بلاستيك 1 لتر">
+            <h3>ايما خل احمر بلاستيك 1 لتر</h3>
+            <p>السعر: 8.000 ل.س</p>
+            <button onclick="addToCart('ايما خل احمر بلاستيك 1 لتر', 8000)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="بقالة أساسية">
+            <img src="https://via.placeholder.com/200x150?text=جيسي+مرقة+دجاج+مكعب+2+قطعة+20+غ" alt="جيسي مرقة دجاج مكعب 2 قطعة 20 غ">
+            <h3>جيسي مرقة دجاج مكعب 2 قطعة 20 غ</h3>
+            <p>السعر: 1.500 ل.س</p>
+            <button onclick="addToCart('جيسي مرقة دجاج مكعب 2 قطعة 20 غ', 1500)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="بقالة أساسية">
+            <img src="https://via.placeholder.com/200x150?text=ديلو+فوود+مرقة+دجاج+ظرف+10+غ" alt="ديلو فوود مرقة دجاج ظرف 10 غ">
+            <h3>ديلو فوود مرقة دجاج ظرف 10 غ</h3>
+            <p>السعر: 1.000 ل.س</p>
+            <button onclick="addToCart('ديلو فوود مرقة دجاج ظرف 10 غ', 1000)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="بقالة أساسية">
+            <img src="https://via.placeholder.com/200x150?text=الربيع+رز+قصير+كامولينو+1+كغ" alt="الربيع رز قصير كامولينو 1 كغ">
+            <h3>الربيع رز قصير كامولينو 1 كغ</h3>
+            <p>السعر: 10.000 ل.س</p>
+            <button onclick="addToCart('الربيع رز قصير كامولينو 1 كغ', 10000)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="بقالة أساسية">
+            <img src="https://via.placeholder.com/200x150?text=حسين+الناصر+طحين+1+كغ" alt="حسين الناصر طحين 1 كغ">
+            <h3>حسين الناصر طحين 1 كغ</h3>
+            <p>السعر: 6.000 ل.س</p>
+            <button onclick="addToCart('حسين الناصر طحين 1 كغ', 6000)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="بقالة أساسية">
+            <img src="https://via.placeholder.com/200x150?text=حجار+برغل+ابيض+خشن+1+كغ" alt="حجار برغل ابيض خشن 1 كغ">
+            <h3>حجار برغل ابيض خشن 1 كغ</h3>
+            <p>السعر: 8.500 ل.س</p>
+            <button onclick="addToCart('حجار برغل ابيض خشن 1 كغ', 8500)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="بقالة أساسية">
+            <img src="https://via.placeholder.com/200x150?text=حجار+برغل+اسمر+ناعم+1+كغ" alt="حجار برغل اسمر ناعم 1 كغ">
+            <h3>حجار برغل اسمر ناعم 1 كغ</h3>
+            <p>السعر: 8.500 ل.س</p>
+            <button onclick="addToCart('حجار برغل اسمر ناعم 1 كغ', 8500)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="بقالة أساسية">
+            <img src="https://via.placeholder.com/200x150?text=حجار+عدس+مجروش+1+كغ" alt="حجار عدس مجروش 1 كغ">
+            <h3>حجار عدس مجروش 1 كغ</h3>
+            <p>السعر: 11.000 ل.س</p>
+            <button onclick="addToCart('حجار عدس مجروش 1 كغ', 11000)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="بقالة أساسية">
+            <img src="https://via.placeholder.com/200x150?text=حجار+عدس+حب+اسود+1+كغ" alt="حجار عدس حب اسود 1 كغ">
+            <h3>حجار عدس حب اسود 1 كغ</h3>
+            <p>السعر: 10.000 ل.س</p>
+            <button onclick="addToCart('حجار عدس حب اسود 1 كغ', 10000)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="بقالة أساسية">
+            <img src="https://via.placeholder.com/200x150?text=حجار+رز+كبسة+1+كغ" alt="حجار رز كبسة 1 كغ">
+            <h3>حجار رز كبسة 1 كغ</h3>
+            <p>السعر: 11.000 ل.س</p>
+            <button onclick="addToCart('حجار رز كبسة 1 كغ', 11000)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="بقالة أساسية">
+            <img src="https://via.placeholder.com/200x150?text=حجار+فريكة+1+كغ" alt="حجار فريكة 1 كغ">
+            <h3>حجار فريكة 1 كغ</h3>
+            <p>السعر: 17.000 ل.س</p>
+            <button onclick="addToCart('حجار فريكة 1 كغ', 17000)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="بقالة أساسية">
+            <img src="https://via.placeholder.com/200x150?text=بريستو+خلطة+الكبسة+خلطة+الشاورما+25غ" alt="بريستو خلطة الكبسة+خلطة الشاورما 25غ">
+            <h3>بريستو خلطة الكبسة+خلطة الشاورما 25غ</h3>
+            <p>السعر: 3.000 ل.س</p>
+            <button onclick="addToCart('بريستو خلطة الكبسة+خلطة الشاورما 25غ', 3000)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="بقالة أساسية">
+            <img src="https://via.placeholder.com/200x150?text=بريستو+خلطة+الدجاج+المشوي+خلطة+الدجاج+بالاعشاب+45غ" alt="بريستو خلطة الدجاج المشوي+خلطة الدجاج بالاعشاب 45غ">
+            <h3>بريستو خلطة الدجاج المشوي+خلطة الدجاج بالاعشاب 45غ</h3>
+            <p>السعر: 5.000 ل.س</p>
+            <button onclick="addToCart('بريستو خلطة الدجاج المشوي+خلطة الدجاج بالاعشاب 45غ', 5000)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="بقالة أساسية">
+            <img src="https://via.placeholder.com/200x150?text=زيت+نباتي+الزهرة+1+لتر" alt="زيت نباتي الزهرة 1 لتر">
+            <h3>زيت نباتي الزهرة 1 لتر</h3>
+            <p>السعر: 17.500 ل.س</p>
+            <button onclick="addToCart('زيت نباتي الزهرة 1 لتر', 17500)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="بقالة أساسية">
+            <img src="https://via.placeholder.com/200x150?text=كليستو+شامبو+خلاصات+طبيعية+350+مل" alt="كليستو شامبو خلاصات طبيعية 350 مل">
+            <h3>كليستو شامبو خلاصات طبيعية 350 مل</h3>
+            <p>السعر: 21.500 ل.س</p>
+            <button onclick="addToCart('كليستو شامبو خلاصات طبيعية 350 مل', 21500)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="بقالة أساسية">
+            <img src="https://via.placeholder.com/200x150?text=كليستو+بلسم+خلاصات+طبيعية+350+مل" alt="كليستو بلسم خلاصات طبيعية 350 مل">
+            <h3>كليستو بلسم خلاصات طبيعية 350 مل</h3>
+            <p>السعر: 19.500 ل.س</p>
+            <button onclick="addToCart('كليستو بلسم خلاصات طبيعية 350 مل', 19500)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="بقالة أساسية">
+            <img src="https://via.placeholder.com/200x150?text=الكرزة+محارم+عادية+500+غ" alt="الكرزة محارم عادية 500 غ">
+            <h3>الكرزة محارم عادية 500 غ</h3>
+            <p>السعر: 10.000 ل.س</p>
+            <button onclick="addToCart('الكرزة محارم عادية 500 غ', 10000)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="بقالة أساسية">
+            <img src="https://via.placeholder.com/200x150?text=اندومي+نودلز+كاسة+60+غ+-+اجنبي" alt="اندومي نودلز كاسة 60 غ - اجنبي">
+            <h3>اندومي نودلز كاسة 60 غ - اجنبي</h3>
+            <p>السعر: 7.350 ل.س</p>
+            <button onclick="addToCart('اندومي نودلز كاسة 60 غ - اجنبي', 7350)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="بقالة أساسية">
+            <img src="https://via.placeholder.com/200x150?text=ميا+مايونيز+زجاج+450+مل" alt="ميا مايونيز زجاج 450 مل">
+            <h3>ميا مايونيز زجاج 450 مل</h3>
+            <p>السعر: 39.375 ل.س</p>
+            <button onclick="addToCart('ميا مايونيز زجاج 450 مل', 39375)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="بقالة أساسية">
+            <img src="https://via.placeholder.com/200x150?text=وايت+بيل+خردل+255+غ" alt="وايت بيل خردل 255 غ">
+            <h3>وايت بيل خردل 255 غ</h3>
+            <p>السعر: 22.050 ل.س</p>
+            <button onclick="addToCart('وايت بيل خردل 255 غ', 22050)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="بقالة أساسية">
+            <img src="https://via.placeholder.com/200x150?text=يايلا+شعيرية+كيس+900+غ" alt="يايلا شعيرية كيس 900 غ">
+            <h3>يايلا شعيرية كيس 900 غ</h3>
+            <p>السعر: 14.175 ل.س</p>
+            <button onclick="addToCart('يايلا شعيرية كيس 900 غ', 14175)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="بقالة أساسية">
+            <img src="https://via.placeholder.com/200x150?text=كيلوغز+نودلز+ظرف+70+غ" alt="كيلوغز نودلز ظرف 70 غ">
+            <h3>كيلوغز نودلز ظرف 70 غ</h3>
+            <p>السعر: 3.150 ل.س</p>
+            <button onclick="addToCart('كيلوغز نودلز ظرف 70 غ', 3150)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="بقالة أساسية">
+            <img src="https://via.placeholder.com/200x150?text=كينت+شوربة+ظرف+66+-+71+غ" alt="كينت شوربة ظرف 66 - 71 غ">
+            <h3>كينت شوربة ظرف 66 - 71 غ</h3>
+            <p>السعر: 6.037 ل.س</p>
+            <button onclick="addToCart('كينت شوربة ظرف 66 - 71 غ', 6037)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="بقالة أساسية">
+            <img src="https://via.placeholder.com/200x150?text=نستله+ماجي+شوربة+ظرف+50+-+55+غ" alt="نستله ماجي شوربة ظرف 50 - 55 غ">
+            <h3>نستله ماجي شوربة ظرف 50 - 55 غ</h3>
+            <p>السعر: 7.350 ل.س</p>
+            <button onclick="addToCart('نستله ماجي شوربة ظرف 50 - 55 غ', 7350)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="بقالة أساسية">
+            <img src="https://via.placeholder.com/200x150?text=نستله+ماجي+مرقة+دجاج+مكعب+2+قطعة+18+غ" alt="نستله ماجي مرقة دجاج مكعب 2 قطعة 18 غ">
+            <h3>نستله ماجي مرقة دجاج مكعب 2 قطعة 18 غ</h3>
+            <p>السعر: 2.100 ل.س</p>
+            <button onclick="addToCart('نستله ماجي مرقة دجاج مكعب 2 قطعة 18 غ', 2100)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="بقالة أساسية">
+            <img src="https://via.placeholder.com/200x150?text=الاسرة+زيت+نباتي+دوار+الشمس+1+لتر" alt="الاسرة زيت نباتي دوار الشمس 1 لتر">
+            <h3>الاسرة زيت نباتي دوار الشمس 1 لتر</h3>
+            <p>السعر: 18.375 ل.س</p>
+            <button onclick="addToCart('الاسرة زيت نباتي دوار الشمس 1 لتر', 18375)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="بقالة أساسية">
+            <img src="https://via.placeholder.com/200x150?text=الدار+زيت+نباتي+دوار+الشمس+1+لتر" alt="الدار زيت نباتي دوار الشمس 1 لتر">
+            <h3>الدار زيت نباتي دوار الشمس 1 لتر</h3>
+            <p>السعر: 17.850 ل.س</p>
+            <button onclick="addToCart('الدار زيت نباتي دوار الشمس 1 لتر', 17850)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="بقالة أساسية">
+            <img src="https://via.placeholder.com/200x150?text=ايتي+ليفاليف+شوفان+كيس+500+غ" alt="ايتي ليفاليف شوفان كيس 500 غ">
+            <h3>ايتي ليفاليف شوفان كيس 500 غ</h3>
+            <p>السعر: 19.425 ل.س</p>
+            <button onclick="addToCart('ايتي ليفاليف شوفان كيس 500 غ', 19425)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="بقالة أساسية">
+            <img src="https://via.placeholder.com/200x150?text=يوردوم+دبس+بندورة+تنك+830+غ" alt="يوردوم دبس بندورة تنك 830 غ">
+            <h3>يوردوم دبس بندورة تنك 830 غ</h3>
+            <p>السعر: 13.650 ل.س</p>
+            <button onclick="addToCart('يوردوم دبس بندورة تنك 830 غ', 13650)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="بقالة أساسية">
+            <img src="https://via.placeholder.com/200x150?text=زير+دبس+بندورة+تنك+830+غ" alt="زير دبس بندورة تنك 830 غ">
+            <h3>زير دبس بندورة تنك 830 غ</h3>
+            <p>السعر: 18.375 ل.س</p>
+            <button onclick="addToCart('زير دبس بندورة تنك 830 غ', 18375)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="بقالة أساسية">
+            <img src="https://via.placeholder.com/200x150?text=بلبل+مايونيز+عصارة+840+غ" alt="بلبل مايونيز عصارة 840 غ">
+            <h3>بلبل مايونيز عصارة 840 غ</h3>
+            <p>السعر: 39.900 ل.س</p>
+            <button onclick="addToCart('بلبل مايونيز عصارة 840 غ', 39900)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="بقالة أساسية">
+            <img src="https://via.placeholder.com/200x150?text=بلبل+كتشب+عصارة+1+كغ" alt="بلبل كتشب عصارة 1 كغ">
+            <h3>بلبل كتشب عصارة 1 كغ</h3>
+            <p>السعر: 25.200 ل.س</p>
+            <button onclick="addToCart('بلبل كتشب عصارة 1 كغ', 25200)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="بقالة أساسية">
+            <img src="https://via.placeholder.com/200x150?text=اندومي+نودلز+ظرف+جامبو+120+غ+تركي" alt="اندومي نودلز ظرف جامبو 120 غ تركي">
+            <h3>اندومي نودلز ظرف جامبو 120 غ تركي</h3>
+            <p>السعر: 4.725 ل.س</p>
+            <button onclick="addToCart('اندومي نودلز ظرف جامبو 120 غ تركي', 4725)">أضف إلى السلة</button>
+          </div>
+        </section>
+
+        <!-- منظفات وعناية شخصية -->
+        <div style="text-align: center; margin-bottom: 20px;">
+          <button class="filter-btn" onclick="filterProducts('منظفات وعناية شخصية', this)">منظفات وعناية شخصية</button>
+        </div>
+        <section class="products">
+          <div class="product" data-category="منظفات وعناية شخصية">
+            <img src="https://via.placeholder.com/200x150?text=مدار+مسحوق+غسيل+ظرف+80غ" alt="مدار مسحوق غسيل ظرف 80غ">
+            <h3>مدار مسحوق غسيل ظرف 80غ</h3>
+            <p>السعر: 2.500 ل.س</p>
+            <button onclick="addToCart('مدار مسحوق غسيل ظرف 80غ', 2500)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="منظفات وعناية شخصية">
+            <img src="https://via.placeholder.com/200x150?text=لالي+كير+معطر+تواليت+مكعب+40+غ" alt="لالي كير معطر تواليت مكعب 40 غ">
+            <h3>لالي كير معطر تواليت مكعب 40 غ</h3>
+            <p>السعر: 16.500 ل.س</p>
+            <button onclick="addToCart('لالي كير معطر تواليت مكعب 40 غ', 16500)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="منظفات وعناية شخصية">
+            <img src="https://via.placeholder.com/200x150?text=زيوس+ملمع+زجاج+500+مل" alt="زيوس ملمع زجاج 500 مل">
+            <h3>زيوس ملمع زجاج 500 مل</h3>
+            <p>السعر: 9.000 ل.س</p>
+            <button onclick="addToCart('زيوس ملمع زجاج 500 مل', 9000)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="منظفات وعناية شخصية">
+            <img src="https://via.placeholder.com/200x150?text=رينزو+معطر+جو+بخاخ+450+مل" alt="رينزو معطر جو بخاخ 450 مل">
+            <h3>رينزو معطر جو بخاخ 450 مل</h3>
+            <p>السعر: 18.500 ل.س</p>
+            <button onclick="addToCart('رينزو معطر جو بخاخ 450 مل', 18500)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="منظفات وعناية شخصية">
+            <img src="https://via.placeholder.com/200x150?text=ليتس+جيل+غسيل+بلاستيك+1+لتر" alt="ليتس جيل غسيل بلاستيك 1 لتر">
+            <h3>ليتس جيل غسيل بلاستيك 1 لتر</h3>
+            <p>السعر: 27.000 ل.س</p>
+            <button onclick="addToCart('ليتس جيل غسيل بلاستيك 1 لتر', 27000)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="منظفات وعناية شخصية">
+            <img src="https://via.placeholder.com/200x150?text=زيوس+جيل+اخضر+سوبر+جيل+400+مل" alt="زيوس جيل اخضر سوبر جيل 400 مل">
+            <h3>زيوس جيل اخضر سوبر جيل 400 مل</h3>
+            <p>السعر: 9.000 ل.س</p>
+            <button onclick="addToCart('زيوس جيل اخضر سوبر جيل 400 مل', 9000)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="منظفات وعناية شخصية">
+            <img src="https://via.placeholder.com/200x150?text=اوليفا+شامبو+عرض+400+مل+++200+مل" alt="اوليفا شامبو عرض 400 مل + 200 مل">
+            <h3>اوليفا شامبو عرض 400 مل + 200 مل</h3>
+            <p>السعر: 25.500 ل.س</p>
+            <button onclick="addToCart('اوليفا شامبو عرض 400 مل + 200 مل', 25500)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="منظفات وعناية شخصية">
+            <img src="https://via.placeholder.com/200x150?text=كرمل+سائل+جلي+800+مل" alt="كرمل سائل جلي 800 مل">
+            <h3>كرمل سائل جلي 800 مل</h3>
+            <p>السعر: 12.500 ل.س</p>
+            <button onclick="addToCart('كرمل سائل جلي 800 مل', 12500)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="منظفات وعناية شخصية">
+            <img src="https://via.placeholder.com/200x150?text=نورا+معطر+ارضيات+منظف+متعدد+الاستعمالات+800+مل" alt="نورا معطر ارضيات منظف متعدد الاستعمالات 800 مل">
+            <h3>نورا معطر ارضيات منظف متعدد الاستعمالات 800 مل</h3>
+            <p>السعر: 10.500 ل.س</p>
+            <button onclick="addToCart('نورا معطر ارضيات منظف متعدد الاستعمالات 800 مل', 10500)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="منظفات وعناية شخصية">
+            <img src="https://via.placeholder.com/200x150?text=كليستو+شامبو+ضد+القشرة+370+مل" alt="كليستو شامبو ضد القشرة 370 مل">
+            <h3>كليستو شامبو ضد القشرة 370 مل</h3>
+            <p>السعر: 21.500 ل.س</p>
+            <button onclick="addToCart('كليستو شامبو ضد القشرة 370 مل', 21500)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="منظفات وعناية شخصية">
+            <img src="https://via.placeholder.com/200x150?text=اوليفا+بلسم+400+مل" alt="اوليفا بلسم 400 مل">
+            <h3>اوليفا بلسم 400 مل</h3>
+            <p>السعر: 17.000 ل.س</p>
+            <button onclick="addToCart('اوليفا بلسم 400 مل', 17000)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="منظفات وعناية شخصية">
+            <img src="https://via.placeholder.com/200x150?text=كرمل+فلاش+منظف+حمامات+800+مل" alt="كرمل فلاش منظف حمامات 800 مل">
+            <h3>كرمل فلاش منظف حمامات 800 مل</h3>
+            <p>السعر: 6.500 ل.س</p>
+            <button onclick="addToCart('كرمل فلاش منظف حمامات 800 مل', 6500)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="منظفات وعناية شخصية">
+            <img src="https://via.placeholder.com/200x150?text=سوبر+مور+كلور+800+مل" alt="سوبر مور كلور 800 مل">
+            <h3>سوبر مور كلور 800 مل</h3>
+            <p>السعر: 6.500 ل.س</p>
+            <button onclick="addToCart('سوبر مور كلور 800 مل', 6500)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="منظفات وعناية شخصية">
+            <img src="https://via.placeholder.com/200x150?text=سوبر+مور+بي+اتش+بخاخ+950+مل" alt="سوبر مور بي اتش بخاخ 950 مل">
+            <h3>سوبر مور بي اتش بخاخ 950 مل</h3>
+            <p>السعر: 9.000 ل.س</p>
+            <button onclick="addToCart('سوبر مور بي اتش بخاخ 950 مل', 9000)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="منظفات وعناية شخصية">
+            <img src="https://via.placeholder.com/200x150?text=زيوس+صابون+سائل+500+مل" alt="زيوس صابون سائل 500 مل">
+            <h3>زيوس صابون سائل 500 مل</h3>
+            <p>السعر: 8.000 ل.س</p>
+            <button onclick="addToCart('زيوس صابون سائل 500 مل', 8000)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="منظفات وعناية شخصية">
+            <img src="https://via.placeholder.com/200x150?text=ماتيز+صابون+لوح+110+غ" alt="ماتيز صابون لوح 110 غ">
+            <h3>ماتيز صابون لوح 110 غ</h3>
+            <p>السعر: 4.000 ل.س</p>
+            <button onclick="addToCart('ماتيز صابون لوح 110 غ', 4000)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="منظفات وعناية شخصية">
+            <img src="https://via.placeholder.com/200x150?text=جيت+تول+صابون+سائل+300+مل" alt="جيت تول صابون سائل 300 مل">
+            <h3>جيت تول صابون سائل 300 مل</h3>
+            <p>السعر: 8.500 ل.س</p>
+            <button onclick="addToCart('جيت تول صابون سائل 300 مل', 8500)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="منظفات وعناية شخصية">
+            <img src="https://via.placeholder.com/200x150?text=ماتيز+صابون+سائل+300+مل" alt="ماتيز صابون سائل 300 مل">
+            <h3>ماتيز صابون سائل 300 مل</h3>
+            <p>السعر: 6.500 ل.س</p>
+            <button onclick="addToCart('ماتيز صابون سائل 300 مل', 6500)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="منظفات وعناية شخصية">
+            <img src="https://via.placeholder.com/200x150?text=هامول+شامبو+اطفال+400+مل" alt="هامول شامبو اطفال 400 مل">
+            <h3>هامول شامبو اطفال 400 مل</h3>
+            <p>السعر: 17.500 ل.س</p>
+            <button onclick="addToCart('هامول شامبو اطفال 400 مل', 17500)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="منظفات وعناية شخصية">
+            <img src="https://via.placeholder.com/200x150?text=هامول+شامبو+اطفال+600+مل" alt="هامول شامبو اطفال 600 مل">
+            <h3>هامول شامبو اطفال 600 مل</h3>
+            <p>السعر: 21.000 ل.س</p>
+            <button onclick="addToCart('هامول شامبو اطفال 600 مل', 21000)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="منظفات وعناية شخصية">
+            <img src="https://via.placeholder.com/200x150?text=ماتيز+صابون+سائل+3.6+لتر" alt="ماتيز صابون سائل 3.6 لتر">
+            <h3>ماتيز صابون سائل 3.6 لتر</h3>
+            <p>السعر: 45.000 ل.س</p>
+            <button onclick="addToCart('ماتيز صابون سائل 3.6 لتر', 45000)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="منظفات وعناية شخصية">
+            <img src="https://via.placeholder.com/200x150?text=نورا+مسحوق+غسيل+اوتوماتيك+كيس+500+غ" alt="نورا مسحوق غسيل اوتوماتيك كيس 500 غ">
+            <h3>نورا مسحوق غسيل اوتوماتيك كيس 500 غ</h3>
+            <p>السعر: 7.000 ل.س</p>
+            <button onclick="addToCart('نورا مسحوق غسيل اوتوماتيك كيس 500 غ', 7000)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="منظفات وعناية شخصية">
+            <img src="https://via.placeholder.com/200x150?text=نورا+مسحوق+غسيل+اوتوماتيك+كيس+2+كغ" alt="نورا مسحوق غسيل اوتوماتيك كيس 2 كغ">
+            <h3>نورا مسحوق غسيل اوتوماتيك كيس 2 كغ</h3>
+            <p>السعر: 36.000 ل.س</p>
+            <button onclick="addToCart('نورا مسحوق غسيل اوتوماتيك كيس 2 كغ', 36000)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="منظفات وعناية شخصية">
+            <img src="https://via.placeholder.com/200x150?text=اوليفا+شامبو+ظرف+7+مل" alt="اوليفا شامبو ظرف 7 مل">
+            <h3>اوليفا شامبو ظرف 7 مل</h3>
+            <p>السعر: 750 ل.س</p>
+            <button onclick="addToCart('اوليفا شامبو ظرف 7 مل', 750)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="منظفات وعناية شخصية">
+            <img src="https://via.placeholder.com/200x150?text=ديلما+محارم+حمام+رول+6+قطع" alt="ديلما محارم حمام رول 6 قطع">
+            <h3>ديلما محارم حمام رول 6 قطع</h3>
+            <p>السعر: 16.000 ل.س</p>
+            <button onclick="addToCart('ديلما محارم حمام رول 6 قطع', 16000)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="منظفات وعناية شخصية">
+            <img src="https://via.placeholder.com/200x150?text=ميموزا+محارم+عادية+400+غ" alt="ميموزا محارم عادية 400 غ">
+            <h3>ميموزا محارم عادية 400 غ</h3>
+            <p>السعر: 10.000 ل.س</p>
+            <button onclick="addToCart('ميموزا محارم عادية 400 غ', 10000)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="منظفات وعناية شخصية">
+            <img src="https://via.placeholder.com/200x150?text=ديمة+محارم+عادية+صفرا+400+غ" alt="ديمة محارم عادية صفرا 400 غ">
+            <h3>ديمة محارم عادية صفرا 400 غ</h3>
+            <p>السعر: 9.000 ل.س</p>
+            <button onclick="addToCart('ديمة محارم عادية صفرا 400 غ', 9000)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="منظفات وعناية شخصية">
+            <img src="https://via.placeholder.com/200x150?text=نيو+جينو+محارم+معطرة+102+قطعة" alt="نيو جينو محارم معطرة 102 قطعة">
+            <h3>نيو جينو محارم معطرة 102 قطعة</h3>
+            <p>السعر: 8.500 ل.س</p>
+            <button onclick="addToCart('نيو جينو محارم معطرة 102 قطعة', 8500)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="منظفات وعناية شخصية">
+            <img src="https://via.placeholder.com/200x150?text=نيو+جينو+محارم+معطرة+40+قطعة" alt="نيو جينو محارم معطرة 40 قطعة">
+            <h3>نيو جينو محارم معطرة 40 قطعة</h3>
+            <p>السعر: 5.000 ل.س</p>
+            <button onclick="addToCart('نيو جينو محارم معطرة 40 قطعة', 5000)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="منظفات وعناية شخصية">
+            <img src="https://via.placeholder.com/200x150?text=وريتكس+سيفة+جلي+15+غ" alt="وريتكس سيفة جلي 15 غ">
+            <h3>وريتكس سيفة جلي 15 غ</h3>
+            <p>السعر: 3.000 ل.س</p>
+            <button onclick="addToCart('وريتكس سيفة جلي 15 غ', 3000)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="منظفات وعناية شخصية">
+            <img src="https://via.placeholder.com/200x150?text=كرمل+جيل+غسيل+900+مل" alt="كرمل جيل غسيل 900 مل">
+            <h3>كرمل جيل غسيل 900 مل</h3>
+            <p>السعر: 21.000 ل.س</p>
+            <button onclick="addToCart('كرمل جيل غسيل 900 مل', 21000)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="منظفات وعناية شخصية">
+            <img src="https://via.placeholder.com/200x150?text=مدار+جيل+غسيل+900+مل" alt="مدار جيل غسيل 900 مل">
+            <h3>مدار جيل غسيل 900 مل</h3>
+            <p>السعر: 20.000 ل.س</p>
+            <button onclick="addToCart('مدار جيل غسيل 900 مل', 20000)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="منظفات وعناية شخصية">
+            <img src="https://via.placeholder.com/200x150?text=نورا+سائل+جلي+الترا+800+مل" alt="نورا سائل جلي الترا 800 مل">
+            <h3>نورا سائل جلي الترا 800 مل</h3>
+            <p>السعر: 8.500 ل.س</p>
+            <button onclick="addToCart('نورا سائل جلي الترا 800 مل', 8500)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="منظفات وعناية شخصية">
+            <img src="https://via.placeholder.com/200x150?text=جيت+ملمع+زجاج+500+مل" alt="جيت ملمع زجاج 500 مل">
+            <h3>جيت ملمع زجاج 500 مل</h3>
+            <p>السعر: 8.500 ل.س</p>
+            <button onclick="addToCart('جيت ملمع زجاج 500 مل', 8500)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="منظفات وعناية شخصية">
+            <img src="https://via.placeholder.com/200x150?text=كرمل+كلو+900+مل" alt="كرمل كلو 900 مل">
+            <h3>كرمل كلو 900 مل</h3>
+            <p>السعر: 6.000 ل.س</p>
+            <button onclick="addToCart('كرمل كلو 900 مل', 6000)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="منظفات وعناية شخصية">
+            <img src="https://via.placeholder.com/200x150?text=موهراتج+محارم+معطرة+42+قطعة" alt="موهراتج محارم معطرة 42 قطعة">
+            <h3>موهراتج محارم معطرة 42 قطعة</h3>
+            <p>السعر: 4.000 ل.س</p>
+            <button onclick="addToCart('موهراتج محارم معطرة 42 قطعة', 4000)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="منظفات وعناية شخصية">
+            <img src="https://via.placeholder.com/200x150?text=ليبرس+محارم+نسائية+كرتون+7+قطع" alt="ليبرس محارم نسائية كرتون 7 قطع">
+            <h3>ليبرس محارم نسائية كرتون 7 قطع</h3>
+            <p>السعر: 7.500 ل.س</p>
+            <button onclick="addToCart('ليبرس محارم نسائية كرتون 7 قطع', 7500)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="منظفات وعناية شخصية">
+            <img src="https://via.placeholder.com/200x150?text=محارم+ديمة+جييب+10قطع" alt="محارم ديمة جييب 10قطع">
+            <h3>محارم ديمة جييب 10قطع</h3>
+            <p>السعر: 2.000 ل.س</p>
+            <button onclick="addToCart('محارم ديمة جييب 10قطع', 2000)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="منظفات وعناية شخصية">
+            <img src="https://via.placeholder.com/200x150?text=كانوكس+كلور+800+مل" alt="كانوكس كلور 800 مل">
+            <h3>كانوكس كلور 800 مل</h3>
+            <p>السعر: 6.500 ل.س</p>
+            <button onclick="addToCart('كانوكس كلور 800 مل', 6500)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="منظفات وعناية شخصية">
+            <img src="https://via.placeholder.com/200x150?text=كرمل+معطر+سائل+800+مل" alt="كرمل معطر سائل 800 مل">
+            <h3>كرمل معطر سائل 800 مل</h3>
+            <p>السعر: 11.000 ل.س</p>
+            <button onclick="addToCart('كرمل معطر سائل 800 مل', 11000)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="منظفات وعناية شخصية">
+            <img src="https://via.placeholder.com/200x150?text=عرض+مدار+سائل+جلي+صابونة+ماتيز" alt="عرض مدار سائل جلي+صابونة ماتيز">
+            <h3>عرض مدار سائل جلي+صابونة ماتيز</h3>
+            <p>السعر: 12.000 ل.س</p>
+            <button onclick="addToCart('عرض مدار سائل جلي+صابونة ماتيز', 12000)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="منظفات وعناية شخصية">
+            <img src="https://via.placeholder.com/200x150?text=الافراح+عرض+2ك+سائل+جلي+الافراح" alt="الافراح عرض 2ك+سائل جلي الافراح">
+            <h3>الافراح عرض 2ك+سائل جلي الافراح</h3>
+            <p>السعر: 31.000 ل.س</p>
+            <button onclick="addToCart('الافراح عرض 2ك+سائل جلي الافراح', 31000)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="منظفات وعناية شخصية">
+            <img src="https://via.placeholder.com/200x150?text=ليبرس+محارم+نسائية+كرتون+6قطع" alt="ليبرس محارم نسائية كرتون 6قطع">
+            <h3>ليبرس محارم نسائية كرتون 6قطع</h3>
+            <p>السعر: 7.500 ل.س</p>
+            <button onclick="addToCart('ليبرس محارم نسائية كرتون 6قطع', 7500)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="منظفات وعناية شخصية">
+            <img src="https://via.placeholder.com/200x150?text=شقف+مسح+كليوبترا+مماسح+قطنية+12قطعه" alt="شقف مسح كليوبترا مماسح قطنية 12قطعه">
+            <h3>شقف مسح كليوبترا مماسح قطنية 12قطعه</h3>
+            <p>السعر: 10.000 ل.س</p>
+            <button onclick="addToCart('شقف مسح كليوبترا مماسح قطنية 12قطعه', 10000)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="منظفات وعناية شخصية">
+            <img src="https://via.placeholder.com/200x150?text=الوايز+محارم+نسائية+كيس+7+قطع" alt="الوايز محارم نسائية كيس 7 قطع">
+            <h3>الوايز محارم نسائية كيس 7 قطع</h3>
+            <p>السعر: 12.600 ل.س</p>
+            <button onclick="addToCart('الوايز محارم نسائية كيس 7 قطع', 12600)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="منظفات وعناية شخصية">
+            <img src="https://via.placeholder.com/200x150?text=كولجيت+معجون+اسنان+ماكس+فريش+100+مل+صيني" alt="كولجيت معجون اسنان ماكس فريش 100 مل صيني">
+            <h3>كولجيت معجون اسنان ماكس فريش 100 مل صيني</h3>
+            <p>السعر: 9.450 ل.س</p>
+            <button onclick="addToCart('كولجيت معجون اسنان ماكس فريش 100 مل صيني', 9450)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="منظفات وعناية شخصية">
+            <img src="https://via.placeholder.com/200x150?text=كولجيت+معجون+اسنان+ماكس+وايت+100+مل+صيني" alt="كولجيت معجون اسنان ماكس وايت 100 مل صيني">
+            <h3>كولجيت معجون اسنان ماكس وايت 100 مل صيني</h3>
+            <p>السعر: 9.450 ل.س</p>
+            <button onclick="addToCart('كولجيت معجون اسنان ماكس وايت 100 مل صيني', 9450)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="منظفات وعناية شخصية">
+            <img src="https://via.placeholder.com/200x150?text=كولجيت+معجون+اسنان+ادفانسد+وايت+100+مل+صيني" alt="كولجيت معجون اسنان ادفانسد وايت 100 مل صيني">
+            <h3>كولجيت معجون اسنان ادفانسد وايت 100 مل صيني</h3>
+            <p>السعر: 9.450 ل.س</p>
+            <button onclick="addToCart('كولجيت معجون اسنان ادفانسد وايت 100 مل صيني', 9450)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="منظفات وعناية شخصية">
+            <img src="https://via.placeholder.com/200x150?text=سيجنال+معجون+اسنان+كافيتي+فايتر+100+مل+فييتنام" alt="سيجنال معجون اسنان كافيتي فايتر 100 مل فييتنام">
+            <h3>سيجنال معجون اسنان كافيتي فايتر 100 مل فييتنام</h3>
+            <p>السعر: 9.450 ل.س</p>
+            <button onclick="addToCart('سيجنال معجون اسنان كافيتي فايتر 100 مل فييتنام', 9450)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="منظفات وعناية شخصية">
+            <img src="https://via.placeholder.com/200x150?text=سرياس+معجون+اسنان+7+ايفيكتس+110+غ+صيني" alt="سرياس معجون اسنان 7 ايفيكتس 110 غ صيني">
+            <h3>سرياس معجون اسنان 7 ايفيكتس 110 غ صيني</h3>
+            <p>السعر: 9.450 ل.س</p>
+            <button onclick="addToCart('سرياس معجون اسنان 7 ايفيكتس 110 غ صيني', 9450)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="منظفات وعناية شخصية">
+            <img src="https://via.placeholder.com/200x150?text=دينتيش+معجون+اسنان+سمارت+كيدز+75+مل" alt="دينتيش معجون اسنان سمارت كيدز 75 مل">
+            <h3>دينتيش معجون اسنان سمارت كيدز 75 مل</h3>
+            <p>السعر: 7.875 ل.س</p>
+            <button onclick="addToCart('دينتيش معجون اسنان سمارت كيدز 75 مل', 7875)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="منظفات وعناية شخصية">
+            <img src="https://via.placeholder.com/200x150?text=صابون+دوف+90غ" alt="صابون دوف 90غ">
+            <h3>صابون دوف 90غ</h3>
+            <p>السعر: 9.450 ل.س</p>
+            <button onclick="addToCart('صابون دوف 90غ', 9450)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="منظفات وعناية شخصية">
+            <img src="https://via.placeholder.com/200x150?text=صابون+لوكس+115غ" alt="صابون لوكس 115غ">
+            <h3>صابون لوكس 115غ</h3>
+            <p>السعر: 8.925 ل.س</p>
+            <button onclick="addToCart('صابون لوكس 115غ', 8925)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="منظفات وعناية شخصية">
+            <img src="https://via.placeholder.com/200x150?text=بوفاليو+صابون+125غ" alt="بوفاليو صابون 125غ">
+            <h3>بوفاليو صابون 125غ</h3>
+            <p>السعر: 5.250 ل.س</p>
+            <button onclick="addToCart('بوفاليو صابون 125غ', 5250)">أضف إلى السلة</button>
+          </div>
+        </section>
+
+        <!-- تبغ -->
+        <div style="text-align: center; margin-bottom: 20px;">
+          <button class="filter-btn" onclick="filterProducts('تبغ', this)">تبغ</button>
+        </div>
+        <section class="products">
+          <div class="product" data-category="تبغ">
+            <img src="https://via.placeholder.com/200x150?text=مزايا+معسل+تفاحتين+بحريني+50غ" alt="مزايا معسل تفاحتين بحريني 50غ">
+            <h3>مزايا معسل تفاحتين بحريني 50غ</h3>
+            <p>السعر: 10.000 ل.س</p>
+            <button onclick="addToCart('مزايا معسل تفاحتين بحريني 50غ', 10000)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="تبغ">
+            <img src="https://via.placeholder.com/200x150?text=دخان+حمرا+جديده" alt="دخان حمرا جديده">
+            <h3>دخان حمرا جديده</h3>
+            <p>السعر: 8.500 ل.س</p>
+            <button onclick="addToCart('دخان حمرا جديده', 8500)">أضف إلى السلة</button>
+          </div>
+        </section>
+
+        <!-- أخرى/متفرقات -->
+        <div style="text-align: center; margin-bottom: 20px;">
+          <button class="filter-btn" onclick="filterProducts('أخرى/متفرقات', this)">أخرى/متفرقات</button>
+        </div>
+        <section class="products">
+          <div class="product" data-category="أخرى/متفرقات">
+            <img src="https://via.placeholder.com/200x150?text=شوكو+لايت+اصبعين+مغطس+23+غ" alt="شوكو لايت اصبعين مغطس 23 غ">
+            <h3>شوكو لايت اصبعين مغطس 23 غ</h3>
+            <p>السعر: 2.500 ل.س</p>
+            <button onclick="addToCart('شوكو لايت اصبعين مغطس 23 غ', 2500)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="أخرى/متفرقات">
+            <img src="https://via.placeholder.com/200x150?text=زهر+البستان+دبس+تمر+سائل+بلاستيك+500+غ" alt="زهر البستان دبس تمر سائل بلاستيك 500 غ">
+            <h3>زهر البستان دبس تمر سائل بلاستيك 500 غ</h3>
+            <p>السعر: 11.500 ل.س</p>
+            <button onclick="addToCart('زهر البستان دبس تمر سائل بلاستيك 500 غ', 11500)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="أخرى/متفرقات">
+            <img src="https://via.placeholder.com/200x150?text=المراعي+الدمشقية+جينة+دهن+بلاستيك+250+غ" alt="المراعي الدمشقية جينة دهن بلاستيك 250 غ">
+            <h3>المراعي الدمشقية جينة دهن بلاستيك 250 غ</h3>
+            <p>السعر: 9.500 ل.س</p>
+            <button onclick="addToCart('المراعي الدمشقية جينة دهن بلاستيك 250 غ', 9500)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="أخرى/متفرقات">
+            <img src="https://via.placeholder.com/200x150?text=فيوريلا+معكرونة+سباغيتي+350+غ" alt="فيوريلا معكرونة سباغيتي 350 غ">
+            <h3>فيوريلا معكرونة سباغيتي 350 غ</h3>
+            <p>السعر: 4.500 ل.س</p>
+            <button onclick="addToCart('فيوريلا معكرونة سباغيتي 350 غ', 4500)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="أخرى/متفرقات">
+            <img src="https://via.placeholder.com/200x150?text=ايما+دبس+فليفلة+عادي+زجاج+370+غ" alt="ايما دبس فليفلة عادي زجاج 370 غ">
+            <h3>ايما دبس فليفلة عادي زجاج 370 غ</h3>
+            <p>السعر: 17.000 ل.س</p>
+            <button onclick="addToCart('ايما دبس فليفلة عادي زجاج 370 غ', 17000)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="أخرى/متفرقات">
+            <img src="https://via.placeholder.com/200x150?text=ايما+دبس+فليفلة+حار+زجاج+370+غ" alt="ايما دبس فليفلة حار زجاج 370 غ">
+            <h3>ايما دبس فليفلة حار زجاج 370 غ</h3>
+            <p>السعر: 16.000 ل.س</p>
+            <button onclick="addToCart('ايما دبس فليفلة حار زجاج 370 غ', 16000)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="أخرى/متفرقات">
+            <img src="https://via.placeholder.com/200x150?text=زهر+البستان+دبس+فليفلة+حار+زجاج+370+غ" alt="زهر البستان دبس فليفلة حار زجاج 370 غ">
+            <h3>زهر البستان دبس فليفلة حار زجاج 370 غ</h3>
+            <p>السعر: 22.000 ل.س</p>
+            <button onclick="addToCart('زهر البستان دبس فليفلة حار زجاج 370 غ', 22000)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="أخرى/متفرقات">
+            <img src="https://via.placeholder.com/200x150?text=الامير+سكر+1+كغ" alt="الامير سكر 1 كغ">
+            <h3>الامير سكر 1 كغ</h3>
+            <p>السعر: 7.000 ل.س</p>
+            <button onclick="addToCart('الامير سكر 1 كغ', 7000)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="أخرى/متفرقات">
+            <img src="https://via.placeholder.com/200x150?text=طبخة+لندا+معجون+طاطم+100غ" alt="طبخة لندا معجون طاطم 100غ">
+            <h3>طبخة لندا معجون طاطم 100غ</h3>
+            <p>السعر: 3.000 ل.س</p>
+            <button onclick="addToCart('طبخة لندا معجون طاطم 100غ', 3000)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="أخرى/متفرقات">
+            <img src="https://via.placeholder.com/200x150?text=سامي+اطفال+مشكل+200غ" alt="سامي اطفال مشكل 200غ">
+            <h3>سامي اطفال مشكل 200غ</h3>
+            <p>السعر: 11.000 ل.س</p>
+            <button onclick="addToCart('سامي اطفال مشكل 200غ', 11000)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="أخرى/متفرقات">
+            <img src="https://via.placeholder.com/200x150?text=مرغريتا+سمن+نباتي+2كغ" alt="مرغريتا سمن نباتي 2كغ">
+            <h3>مرغريتا سمن نباتي 2كغ</h3>
+            <p>السعر: 55.000 ل.س</p>
+            <button onclick="addToCart('مرغريتا سمن نباتي 2كغ', 55000)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="أخرى/متفرقات">
+            <img src="https://via.placeholder.com/200x150?text=سيتي+كافيه+3+ب+1+كريمي+ظرف+19.8+غ" alt="سيتي كافيه 3 ب 1 كريمي ظرف 19.8 غ">
+            <h3>سيتي كافيه 3 ب 1 كريمي ظرف 19.8 غ</h3>
+            <p>السعر: 2.500 ل.س</p>
+            <button onclick="addToCart('سيتي كافيه 3 ب 1 كريمي ظرف 19.8 غ', 2500)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="أخرى/متفرقات">
+            <img src="https://via.placeholder.com/200x150?text=سيتي+كافيه+2+ب+1+ظرف+10+غ" alt="سيتي كافيه 2 ب 1 ظرف 10 غ">
+            <h3>سيتي كافيه 2 ب 1 ظرف 10 غ</h3>
+            <p>السعر: 1.750 ل.س</p>
+            <button onclick="addToCart('سيتي كافيه 2 ب 1 ظرف 10 غ', 1750)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="أخرى/متفرقات">
+            <img src="https://via.placeholder.com/200x150?text=كابتشينو+فارتيكا++ظرف+18غ" alt="كابتشينو فارتيكا  ظرف 18غ">
+            <h3>كابتشينو فارتيكا  ظرف 18غ</h3>
+            <p>السعر: 2.500 ل.س</p>
+            <button onclick="addToCart('كابتشينو فارتيكا  ظرف 18غ', 2500)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="أخرى/متفرقات">
+            <img src="https://via.placeholder.com/200x150?text=سيتي+كافيه++زجاج+سريعة+التحضير+80غ" alt="سيتي كافيه  زجاج سريعة التحضير 80غ">
+            <h3>سيتي كافيه  زجاج سريعة التحضير 80غ</h3>
+            <p>السعر: 33.000 ل.س</p>
+            <button onclick="addToCart('سيتي كافيه  زجاج سريعة التحضير 80غ', 33000)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="أخرى/متفرقات">
+            <img src="https://via.placeholder.com/200x150?text=بامبي+تو+جوز+الهند21غ" alt="بامبي تو جوز الهند21غ">
+            <h3>بامبي تو جوز الهند21غ</h3>
+            <p>السعر: 1.500 ل.س</p>
+            <button onclick="addToCart('بامبي تو جوز الهند21غ', 1500)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="أخرى/متفرقات">
+            <img src="https://via.placeholder.com/200x150?text=نستله+سيريلاك+كرتون+125+غ" alt="نستله سيريلاك كرتون 125 غ">
+            <h3>نستله سيريلاك كرتون 125 غ</h3>
+            <p>السعر: 12.600 ل.س</p>
+            <button onclick="addToCart('نستله سيريلاك كرتون 125 غ', 12600)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="أخرى/متفرقات">
+            <img src="https://via.placeholder.com/200x150?text=باستا+زارا+فيتوتشيني+كيس+500+غ+رقم+205" alt="باستا زارا فيتوتشيني كيس 500 غ رقم 205">
+            <h3>باستا زارا فيتوتشيني كيس 500 غ رقم 205</h3>
+            <p>السعر: 35.175 ل.س</p>
+            <button onclick="addToCart('باستا زارا فيتوتشيني كيس 500 غ رقم 205', 35175)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="أخرى/متفرقات">
+            <img src="https://via.placeholder.com/200x150?text=اولي+معكرونة+اشكال+كيس+400+غ" alt="اولي معكرونة اشكال كيس 400 غ">
+            <h3>اولي معكرونة اشكال كيس 400 غ</h3>
+            <p>السعر: 4.200 ل.س</p>
+            <button onclick="addToCart('اولي معكرونة اشكال كيس 400 غ', 4200)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="أخرى/متفرقات">
+            <img src="https://via.placeholder.com/200x150?text=باريلا+معكرونة+اشكال+كرتون+500+غ" alt="باريلا معكرونة اشكال كرتون 500 غ">
+            <h3>باريلا معكرونة اشكال كرتون 500 غ</h3>
+            <p>السعر: 2 ل.س</p>
+            <button onclick="addToCart('باريلا معكرونة اشكال كرتون 500 غ', 2)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="أخرى/متفرقات">
+            <img src="https://via.placeholder.com/200x150?text=باريلا+معكرونة+اشكال+كرتون+500+غ+ملونة" alt="باريلا معكرونة اشكال كرتون 500 غ ملونة">
+            <h3>باريلا معكرونة اشكال كرتون 500 غ ملونة</h3>
+            <p>السعر: 27.825 ل.س</p>
+            <button onclick="addToCart('باريلا معكرونة اشكال كرتون 500 غ ملونة', 27825)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="أخرى/متفرقات">
+            <img src="https://via.placeholder.com/200x150?text=نستله+نيسكافيه+غولد+زجاج+190+غ+روسي" alt="نستله نيسكافيه غولد زجاج 190 غ روسي">
+            <h3>نستله نيسكافيه غولد زجاج 190 غ روسي</h3>
+            <p>السعر: 70.875 ل.س</p>
+            <button onclick="addToCart('نستله نيسكافيه غولد زجاج 190 غ روسي', 70875)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="أخرى/متفرقات">
+            <img src="https://via.placeholder.com/200x150?text=تورا+بكا+كراميلو+لاتيه+ظرف+25+غ" alt="تورا بكا كراميلو لاتيه ظرف 25 غ">
+            <h3>تورا بكا كراميلو لاتيه ظرف 25 غ</h3>
+            <p>السعر: 3.150 ل.س</p>
+            <button onclick="addToCart('تورا بكا كراميلو لاتيه ظرف 25 غ', 3150)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="أخرى/متفرقات">
+            <img src="https://via.placeholder.com/200x150?text=نستله+نيسكافيه+3+ب+1+كلاسيك+ظرف+20+غ+امارات" alt="نستله نيسكافيه 3 ب 1 كلاسيك ظرف 20 غ امارات">
+            <h3>نستله نيسكافيه 3 ب 1 كلاسيك ظرف 20 غ امارات</h3>
+            <p>السعر: 2.625 ل.س</p>
+            <button onclick="addToCart('نستله نيسكافيه 3 ب 1 كلاسيك ظرف 20 غ امارات', 2625)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="أخرى/متفرقات">
+            <img src="https://via.placeholder.com/200x150?text=نستله+نيسكافيه+3+ب+1+اكسترا+اسود+ظرف+16.5+غ+تركي" alt="نستله نيسكافيه 3 ب 1 اكسترا اسود ظرف 16.5 غ تركي">
+            <h3>نستله نيسكافيه 3 ب 1 اكسترا اسود ظرف 16.5 غ تركي</h3>
+            <p>السعر: 2.625 ل.س</p>
+            <button onclick="addToCart('نستله نيسكافيه 3 ب 1 اكسترا اسود ظرف 16.5 غ تركي', 2625)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="أخرى/متفرقات">
+            <img src="https://via.placeholder.com/200x150?text=نستله+نيسكافيه+3+ب+1+اورجينال+احمر+ظرف+17.5+غ+تركي" alt="نستله نيسكافيه 3 ب 1 اورجينال احمر ظرف 17.5 غ تركي">
+            <h3>نستله نيسكافيه 3 ب 1 اورجينال احمر ظرف 17.5 غ تركي</h3>
+            <p>السعر: 2.625 ل.س</p>
+            <button onclick="addToCart('نستله نيسكافيه 3 ب 1 اورجينال احمر ظرف 17.5 غ تركي', 2625)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="أخرى/متفرقات">
+            <img src="https://via.placeholder.com/200x150?text=نستله+نيسكافيه+3+ب+1+كريمي+غولد+ظرف+17.4+غ+تركي" alt="نستله نيسكافيه 3 ب 1 كريمي غولد ظرف 17.4 غ تركي">
+            <h3>نستله نيسكافيه 3 ب 1 كريمي غولد ظرف 17.4 غ تركي</h3>
+            <p>السعر: 2.625 ل.س</p>
+            <button onclick="addToCart('نستله نيسكافيه 3 ب 1 كريمي غولد ظرف 17.4 غ تركي', 2625)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="أخرى/متفرقات">
+            <img src="https://via.placeholder.com/200x150?text=نستله+نيسكافيه+2+ب+1+دايت+ظرف+11.7+غ+امارات" alt="نستله نيسكافيه 2 ب 1 دايت ظرف 11.7 غ امارات">
+            <h3>نستله نيسكافيه 2 ب 1 دايت ظرف 11.7 غ امارات</h3>
+            <p>السعر: 2.625 ل.س</p>
+            <button onclick="addToCart('نستله نيسكافيه 2 ب 1 دايت ظرف 11.7 غ امارات', 2625)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="أخرى/متفرقات">
+            <img src="https://via.placeholder.com/200x150?text=زيت+عافية+زيت+دوار+الشمس+1.5لتر" alt="زيت عافية زيت دوار الشمس 1.5لتر">
+            <h3>زيت عافية زيت دوار الشمس 1.5لتر</h3>
+            <p>السعر: 43.050 ل.س</p>
+            <button onclick="addToCart('زيت عافية زيت دوار الشمس 1.5لتر', 43050)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="أخرى/متفرقات">
+            <img src="https://via.placeholder.com/200x150?text=كندر+اصبع+8+اصابع+100غ" alt="كندر اصبع 8 اصابع 100غ">
+            <h3>كندر اصبع 8 اصابع 100غ</h3>
+            <p>السعر: 15.000 ل.س</p>
+            <button onclick="addToCart('كندر اصبع 8 اصابع 100غ', 15000)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="أخرى/متفرقات">
+            <img src="https://via.placeholder.com/200x150?text=نستله+كيت+كات+شانكي+38+غ" alt="نستله كيت كات شانكي 38 غ">
+            <h3>نستله كيت كات شانكي 38 غ</h3>
+            <p>السعر: 4.725 ل.س</p>
+            <button onclick="addToCart('نستله كيت كات شانكي 38 غ', 4725)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="أخرى/متفرقات">
+            <img src="https://via.placeholder.com/200x150?text=نستله+كيت+كات+اصبعين+17.7+غ" alt="نستله كيت كات اصبعين 17.7 غ">
+            <h3>نستله كيت كات اصبعين 17.7 غ</h3>
+            <p>السعر: 4.200 ل.س</p>
+            <button onclick="addToCart('نستله كيت كات اصبعين 17.7 غ', 4200)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="أخرى/متفرقات">
+            <img src="https://via.placeholder.com/200x150?text=اني+هاي+واي+كيك+40+غ" alt="اني هاي واي كيك 40 غ">
+            <h3>اني هاي واي كيك 40 غ</h3>
+            <p>السعر: 2.310 ل.س</p>
+            <button onclick="addToCart('اني هاي واي كيك 40 غ', 2310)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="أخرى/متفرقات">
+            <img src="https://via.placeholder.com/200x150?text=نستله+سمارتيز+38+غ" alt="نستله سمارتيز 38 غ">
+            <h3>نستله سمارتيز 38 غ</h3>
+            <p>السعر: 3.150 ل.س</p>
+            <button onclick="addToCart('نستله سمارتيز 38 غ', 3150)">أضف إلى السلة</button>
+          </div>
+          <div class="product" data-category="أخرى/متفرقات">
+            <img src="https://via.placeholder.com/200x150?text=نستله+سمارتيز+ابيض+34+غ" alt="نستله سمارتيز ابيض 34 غ">
+            <h3>نستله سمارتيز ابيض 34 غ</h3>
+            <p>السعر: 3.675 ل.س</p>
+            <button onclick="addToCart('نستله سمارتيز ابيض 34 غ', 3675)">أضف 
+
+
+      </div>
+
+    </section>
+
+    <!-- سكربتات -->
+    <script>
+      function addToCart(name, price) {
+        const cart = JSON.parse(localStorage.getItem('cart')) || [];
+        cart.push({ name, price });
+        localStorage.setItem('cart', JSON.stringify(cart));
+        updateCartCount();
+      }
+
+      function updateCartCount() {
+        const cartItems = JSON.parse(localStorage.getItem('cart')) || [];
+        document.getElementById('cart-count').textContent = cartItems.length;
+      }
+
+      function filterProducts(category, btn) {
+        const all = document.querySelectorAll('.product');
+        all.forEach(product => {
+          if (category === 'all' || product.getAttribute('data-category') === category) {
+            product.style.display = 'block';
+          } else {
+            product.style.display = 'none';
+          }
+        });
+
+        document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+      }
+
+      updateCartCount();
+    </script>
+  </body>
+  </html>
