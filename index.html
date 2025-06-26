@@ -1,208 +1,323 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Alma - متجر إلكتروني</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Alma | متجر المواد الغذائية</title>
   <style>
     body {
       font-family: 'Arial', sans-serif;
-      background: #f0f8ff;
       margin: 0;
-      padding: 0;
+      background-color: #f2f2f2;
+      color: #333;
     }
     header {
-      background: #e0f7fa;
+      background-color: #e0f7fa;
       color: #01579b;
-      text-align: center;
       padding: 20px;
-      font-size: 2em;
+      text-align: center;
+      font-size: 24px;
       font-weight: bold;
     }
     nav {
-      display: flex;
-      justify-content: center;
-      flex-wrap: wrap;
-      gap: 10px;
-      background: #b3e5fc;
+      background-color: #b2ebf2;
       padding: 10px;
+      text-align: center;
+      position: sticky;
+      top: 0;
+      z-index: 100;
     }
     nav button {
-      padding: 10px 15px;
-      border: none;
-      background: #0288d1;
+      background-color: #0288d1;
       color: white;
-      border-radius: 5px;
+      border: none;
+      padding: 10px 15px;
+      margin: 5px;
+      border-radius: 4px;
       cursor: pointer;
     }
     nav button:hover {
-      background: #01579b;
+      background-color: #0277bd;
     }
     .products {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
-      gap: 20px;
-      padding: 20px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin: 20px;
     }
     .product {
-      background: white;
-      border-radius: 10px;
-      padding: 15px;
+      background-color: white;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      padding: 10px;
+      margin: 10px;
+      width: 220px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.05);
       text-align: center;
-      box-shadow: 0 0 10px #ccc;
     }
     .product img {
-      width: 100%;
+      max-width: 100%;
       height: auto;
-      border-radius: 5px;
     }
-    .cart-container {
+    .product h3 {
+      font-size: 16px;
+      margin: 10px 0;
+    }
+    .product p {
+      color: #388e3c;
+      margin: 5px 0;
+    }
+    .product button {
+      background-color: #4caf50;
+      color: white;
+      border: none;
+      padding: 8px 12px;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    .product button:hover {
+      background-color: #388e3c;
+    }
+    #toggleCartBtn {
       position: fixed;
       bottom: 20px;
       left: 20px;
-      background: white;
-      border: 1px solid #ccc;
+      background: #0288d1;
+      color: white;
+      border: none;
       padding: 15px;
-      border-radius: 10px;
-      width: 280px;
-      max-height: 400px;
-      overflow-y: auto;
-      box-shadow: 0 0 10px rgba(0,0,0,0.2);
+      border-radius: 50%;
+      font-size: 22px;
       z-index: 999;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+      cursor: pointer;
     }
-    .cart-container h4 {
+    #cartCount {
+      position: absolute;
+      top: -5px;
+      left: -5px;
+      background: red;
+      color: white;
+      font-size: 12px;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      text-align: center;
+      line-height: 20px;
+      font-weight: bold;
+    }
+    #cartSidebar {
+      position: fixed;
+      top: 0;
+      right: -320px;
+      width: 300px;
+      height: 100%;
+      background: white;
+      box-shadow: -3px 0 10px rgba(0,0,0,0.3);
+      padding: 20px;
+      overflow-y: auto;
+      z-index: 1000;
+      transition: right 0.3s ease-in-out;
+    }
+    #cartSidebar h4 {
       margin-top: 0;
     }
-    .cart-items {
-      font-size: 14px;
+    #cartSidebar button.close-btn {
+      background: #f44336;
+      color: white;
+      border: none;
+      padding: 5px 10px;
+      margin-bottom: 10px;
+      border-radius: 5px;
+      float: left;
+    }
+    #cartSidebar .cart-items {
+      max-height: 300px;
+      overflow-y: auto;
       margin-bottom: 10px;
     }
-    .cart-container button {
-      width: 100%;
+    #cartSidebar .send-btn {
       background: #388e3c;
       color: white;
       padding: 10px;
+      width: 100%;
       border: none;
       border-radius: 5px;
+      cursor: pointer;
     }
   </style>
 </head>
 <body>
 
-<header>Alma - متجر إلكتروني</header>
+<header>🛒 Alma - متجر المواد الغذائية</header>
 
 <nav>
-  <button onclick="filterProducts('all')">الكل</button>
+  <button onclick="filterProducts('الكل')">الكل</button>
   <button onclick="filterProducts('مشروبات')">مشروبات</button>
-  <button onclick="filterProducts('حلويات متنوعة')">حلويات متنوعة</button>
+  <button onclick="filterProducts('حلويات متنوعة')">حلويات</button>
   <button onclick="filterProducts('بسكويت')">بسكويت</button>
   <button onclick="filterProducts('بقالة أساسية')">بقالة أساسية</button>
-  <button onclick="filterProducts('منظفات وعناية شخصية')">منظفات</button>
-  <button onclick="filterProducts('أخرى/متفرقات')">متفرقات</button>
+  <button onclick="filterProducts('منظفات وعناية شخصية')">منظفات وعناية شخصية</button>
+  <button onclick="filterProducts('أخرى/متفرقات')">أخرى/متفرقات</button>
 </nav>
 
-<section class="products" id="products">
-  <!-- هنا سيتم إدخال جميع المنتجات من خلال سكربت جافاسكريبت -->
-</section>
+<div class="products" id="productList">
 
-<div class="cart-container" id="cart">
-  <h4>🛒 السلة</h4>
+  <!-- مشروبات -->
+  <div class="product" data-category="مشروبات">
+    <img src="https://via.placeholder.com/200x150?text=بيبسي+علبة+330مل" alt="بيبسي علبة 330مل">
+    <h3>بيبسي علبة 330مل</h3>
+    <p>السعر: 2.500 ل.س</p>
+    <button onclick="addToCart('بيبسي علبة 330مل', 2500)">أضف إلى السلة</button>
+  </div>
+  <div class="product" data-category="مشروبات">
+    <img src="https://via.placeholder.com/200x150?text=سفن+اب+علبة+330مل" alt="سفن اب علبة 330مل">
+    <h3>سفن اب علبة 330مل</h3>
+    <p>السعر: 2.500 ل.س</p>
+    <button onclick="addToCart('سفن اب علبة 330مل', 2500)">أضف إلى السلة</button>
+  </div>
+
+  <!-- حلويات متنوعة -->
+  <div class="product" data-category="حلويات متنوعة">
+    <img src="https://via.placeholder.com/200x150?text=شوكولا+دارك+75غ" alt="شوكولا دارك 75غ">
+    <h3>شوكولا دارك 75غ</h3>
+    <p>السعر: 7.000 ل.س</p>
+    <button onclick="addToCart('شوكولا دارك 75غ', 7000)">أضف إلى السلة</button>
+  </div>
+  <div class="product" data-category="حلويات متنوعة">
+    <img src="https://via.placeholder.com/200x150?text=لوح+كراميل+باللوز" alt="لوح كراميل باللوز">
+    <h3>لوح كراميل باللوز</h3>
+    <p>السعر: 6.000 ل.س</p>
+    <button onclick="addToCart('لوح كراميل باللوز', 6000)">أضف إلى السلة</button>
+  </div>
+
+  <!-- بسكويت -->
+  <div class="product" data-category="بسكويت">
+    <img src="https://via.placeholder.com/200x150?text=بسكويت+بالحليب+45غ" alt="بسكويت بالحليب 45غ">
+    <h3>بسكويت بالحليب 45غ</h3>
+    <p>السعر: 3.000 ل.س</p>
+    <button onclick="addToCart('بسكويت بالحليب 45غ', 3000)">أضف إلى السلة</button>
+  </div>
+  <div class="product" data-category="بسكويت">
+    <img src="https://via.placeholder.com/200x150?text=بسكويت+سادة+50غ" alt="بسكويت سادة 50غ">
+    <h3>بسكويت سادة 50غ</h3>
+    <p>السعر: 2.500 ل.س</p>
+    <button onclick="addToCart('بسكويت سادة 50غ', 2500)">أضف إلى السلة</button>
+  </div>
+
+  <!-- بقالة أساسية -->
+  <div class="product" data-category="بقالة أساسية">
+    <img src="https://via.placeholder.com/200x150?text=سكر+كيس+1كغ" alt="سكر كيس 1كغ">
+    <h3>سكر كيس 1كغ</h3>
+    <p>السعر: 5.500 ل.س</p>
+    <button onclick="addToCart('سكر كيس 1كغ', 5500)">أضف إلى السلة</button>
+  </div>
+  <div class="product" data-category="بقالة أساسية">
+    <img src="https://via.placeholder.com/200x150?text=رز+بلدي+1كغ" alt="رز بلدي 1كغ">
+    <h3>رز بلدي 1كغ</h3>
+    <p>السعر: 7.250 ل.س</p>
+    <button onclick="addToCart('رز بلدي 1كغ', 7250)">أضف إلى السلة</button>
+  </div>
+
+  <!-- منظفات -->
+  <div class="product" data-category="منظفات وعناية شخصية">
+    <img src="https://via.placeholder.com/200x150?text=تايد+غسيل+500غ" alt="تايد غسيل 500غ">
+    <h3>تايد غسيل 500غ</h3>
+    <p>السعر: 8.000 ل.س</p>
+    <button onclick="addToCart('تايد غسيل 500غ', 8000)">أضف إلى السلة</button>
+  </div>
+  <div class="product" data-category="منظفات وعناية شخصية">
+    <img src="https://via.placeholder.com/200x150?text=شامبو+أطفال+200مل" alt="شامبو أطفال 200مل">
+    <h3>شامبو أطفال 200مل</h3>
+    <p>السعر: 6.500 ل.س</p>
+    <button onclick="addToCart('شامبو أطفال 200مل', 6500)">أضف إلى السلة</button>
+  </div>
+
+  <!-- أخرى/متفرقات -->
+  <div class="product" data-category="أخرى/متفرقات">
+    <img src="https://via.placeholder.com/200x150?text=مرغريتا+سمن+2كغ" alt="مرغريتا سمن نباتي 2كغ">
+    <h3>مرغريتا سمن نباتي 2كغ</h3>
+    <p>السعر: 55.000 ل.س</p>
+    <button onclick="addToCart('مرغريتا سمن نباتي 2كغ', 55000)">أضف إلى السلة</button>
+  </div>
+  <div class="product" data-category="أخرى/متفرقات">
+    <img src="https://via.placeholder.com/200x150?text=كندر+اصبع+100غ" alt="كندر اصبع 100غ">
+    <h3>كندر اصبع 100غ</h3>
+    <p>السعر: 15.000 ل.س</p>
+    <button onclick="addToCart('كندر اصبع 100غ', 15000)">أضف إلى السلة</button>
+  </div>
+
+</div>
+
+<!-- زر السلة -->
+<button id="toggleCartBtn">🛒<span id="cartCount">0</span></button>
+
+<!-- السلة الجانبية -->
+<div id="cartSidebar">
+  <button class="close-btn" onclick="toggleCart()">❌</button>
+  <h4>🛍️ سلة المشتريات</h4>
   <div class="cart-items" id="cartItems">لا توجد عناصر.</div>
-  <div><strong>الإجمالي: </strong><span id="totalPrice">0</span> ل.س</div>
-  <button onclick="sendOrder()">أرسل الطلب على واتساب</button>
+  <div><strong>الإجمالي:</strong> <span id="totalPrice">0</span> ل.س</div>
+  <button class="send-btn" onclick="sendOrder()">أرسل الطلب على واتساب</button>
 </div>
 
 <script>
-  const products = [
-    {name: "مرغريتا سمن نباتي 2كغ", price: 55000, category: "أخرى/متفرقات"},
-    {name: "سيتي كافيه 3 ب 1 كريمي ظرف 19.8 غ", price: 2500, category: "أخرى/متفرقات"},
-    {name: "سيتي كافيه 2 ب 1 ظرف 10 غ", price: 1750, category: "أخرى/متفرقات"},
-    {name: "كابتشينو فارتيكا  ظرف 18غ", price: 2500, category: "أخرى/متفرقات"},
-    {name: "سيتي كافيه  زجاج سريعة التحضير 80غ", price: 33000, category: "أخرى/متفرقات"},
-    {name: "بامبي تو جوز الهند21غ", price: 1500, category: "أخرى/متفرقات"},
-    {name: "نستله سيريلاك كرتون 125 غ", price: 12600, category: "أخرى/متفرقات"},
-    {name: "باستا زارا فيتوتشيني كيس 500 غ رقم 205", price: 35175, category: "أخرى/متفرقات"},
-    {name: "اولي معكرونة اشكال كيس 400 غ", price: 4200, category: "أخرى/متفرقات"},
-    {name: "باريلا معكرونة اشكال كرتون 500 غ", price: 2, category: "أخرى/متفرقات"},
-    {name: "باريلا معكرونة اشكال كرتون 500 غ ملونة", price: 27825, category: "أخرى/متفرقات"},
-    {name: "نستله نيسكافيه غولد زجاج 190 غ روسي", price: 70875, category: "أخرى/متفرقات"},
-    {name: "تورا بكا كراميلو لاتيه ظرف 25 غ", price: 3150, category: "أخرى/متفرقات"},
-    {name: "نستله نيسكافيه 3 ب 1 كلاسيك ظرف 20 غ امارات", price: 2625, category: "أخرى/متفرقات"},
-    {name: "نستله نيسكافيه 3 ب 1 اكسترا اسود ظرف 16.5 غ تركي", price: 2625, category: "أخرى/متفرقات"},
-    {name: "نستله نيسكافيه 3 ب 1 اورجينال احمر ظرف 17.5 غ تركي", price: 2625, category: "أخرى/متفرقات"},
-    {name: "نستله نيسكافيه 3 ب 1 كريمي غولد ظرف 17.4 غ تركي", price: 2625, category: "أخرى/متفرقات"},
-    {name: "نستله نيسكافيه 2 ب 1 دايت ظرف 11.7 غ امارات", price: 2625, category: "أخرى/متفرقات"},
-    {name: "زيت عافية زيت دوار الشمس 1.5لتر", price: 43050, category: "أخرى/متفرقات"},
-    {name: "كندر اصبع 8 اصابع 100غ", price: 15000, category: "أخرى/متفرقات"},
-    {name: "نستله كيت كات شانكي 38 غ", price: 4725, category: "أخرى/متفرقات"},
-    {name: "نستله كيت كات اصبعين 17.7 غ", price: 4200, category: "أخرى/متفرقات"},
-    {name: "اني هاي واي كيك 40 غ", price: 2310, category: "أخرى/متفرقات"},
-    {name: "نستله سمارتيز 38 غ", price: 3150, category: "أخرى/متفرقات"},
-    {name: "نستله سمارتيز ابيض 34 غ", price: 3675, category: "أخرى/متفرقات"},
-  ];
+  const cartItems = document.getElementById('cartItems');
+  const totalPrice = document.getElementById('totalPrice');
+  const cartCount = document.getElementById('cartCount');
+  const cartSidebar = document.getElementById('cartSidebar');
+  let cart = [];
 
-  const cart = [];
-  function displayProducts(filtered = products) {
-    const container = document.getElementById('products');
-    container.innerHTML = "";
-    filtered.forEach(p => {
-      container.innerHTML += `
-        <div class="product" data-category="${p.category}">
-          <img src="https://via.placeholder.com/200x150?text=${encodeURIComponent(p.name)}" alt="${p.name}">
-          <h3>${p.name}</h3>
-          <p>السعر: ${p.price.toLocaleString()} ل.س</p>
-          <button onclick="addToCart('${p.name}', ${p.price})">أضف إلى السلة</button>
-        </div>
-      `;
-    });
-  }
   function filterProducts(category) {
-    if (category === "all") {
-      displayProducts();
-    } else {
-      displayProducts(products.filter(p => p.category === category));
-    }
+    document.querySelectorAll('.product').forEach(p => {
+      const cat = p.getAttribute('data-category');
+      p.style.display = (category === 'الكل' || cat === category) ? 'block' : 'none';
+    });
   }
 
   function addToCart(name, price) {
-    cart.push({name, price});
-    updateCart();
+    const item = cart.find(i => i.name === name);
+    if (item) {
+      item.qty += 1;
+    } else {
+      cart.push({ name, price, qty: 1 });
+    }
+    renderCart();
   }
 
-  function updateCart() {
-    const cartItems = document.getElementById("cartItems");
-    const total = cart.reduce((sum, item) => sum + item.price, 0);
-    cartItems.innerHTML = cart.map(i => `<div>• ${i.name} - ${i.price.toLocaleString()} ل.س</div>`).join("");
-    document.getElementById("totalPrice").textContent = total.toLocaleString();
+  function renderCart() {
+    cartItems.innerHTML = '';
+    let total = 0;
+    let count = 0;
+    cart.forEach(item => {
+      const el = document.createElement('div');
+      el.textContent = `${item.name} × ${item.qty} = ${item.qty * item.price} ل.س`;
+      cartItems.appendChild(el);
+      total += item.qty * item.price;
+      count += item.qty;
+    });
+    totalPrice.textContent = total;
+    cartCount.textContent = count;
+    if (cart.length === 0) cartItems.innerHTML = 'لا توجد عناصر.';
   }
 
   function sendOrder() {
-    if (cart.length === 0) {
-      alert("السلة فارغة!");
-      return;
-    }
-
-    let order = cart.map(i => `• ${i.name} - ${i.price.toLocaleString()} ل.س`).join("\n");
-    order += `\nالإجمالي: ${cart.reduce((sum, i) => sum + i.price, 0).toLocaleString()} ل.س`;
-
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(pos => {
-        const {latitude, longitude} = pos.coords;
-        const locLink = `https://maps.google.com/?q=${latitude},${longitude}`;
-        order += `\nموقع الزبون: ${locLink}`;
-        const url = `https://wa.me/963983012001?text=${encodeURIComponent(order)}`;
-        window.open(url, "_blank");
-      }, () => {
-        const url = `https://wa.me/963983012001?text=${encodeURIComponent(order)}`;
-        window.open(url, "_blank");
-      });
-    } else {
-      const url = `https://wa.me/963983012001?text=${encodeURIComponent(order)}`;
-      window.open(url, "_blank");
-    }
+    if (cart.length === 0) return alert("السلة فارغة!");
+    let message = "طلب جديد من متجر Alma:\n";
+    cart.forEach(item => {
+      message += `- ${item.name} × ${item.qty} = ${item.qty * item.price} ل.س\n`;
+    });
+    message += `\nالإجمالي: ${totalPrice.textContent} ل.س`;
+    const phone = "963983012001";
+    const url = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
+    window.open(url, '_blank');
   }
 
-  displayProducts(); // أول تحميل للصفحة
+  function toggleCart() {
+    cartSidebar.style.right = (cartSidebar.style.right === '0px') ? '-320px' : '0px';
+  }
+
+  document.getElementById('toggleCartBtn').addEventListener('click', toggleCart);
 </script>
 
 </body>
