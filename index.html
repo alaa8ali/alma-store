@@ -289,16 +289,39 @@
     cartItems.innerHTML = '';
     let total = 0;
     let count = 0;
-    cart.forEach(item => {
+
+    cart.forEach((item, index) => {
       const el = document.createElement('div');
-      el.textContent = `${item.name} × ${item.qty} = ${item.qty * item.price} ل.س`;
+      el.innerHTML = `
+        <div style="display:flex; justify-content: space-between; align-items:center; margin-bottom: 8px;">
+          <span>${item.name} × ${item.qty} = ${item.qty * item.price} ل.س</span>
+          <span>
+            <button onclick="decreaseItem(${index})" style="margin-left:5px;">➖</button>
+            <button onclick="removeItem(${index})" style="color:red;">🗑️</button>
+          </span>
+        </div>
+      `;
       cartItems.appendChild(el);
       total += item.qty * item.price;
       count += item.qty;
     });
+
     totalPrice.textContent = total;
     cartCount.textContent = count;
     if (cart.length === 0) cartItems.innerHTML = 'لا توجد عناصر.';
+  }
+  function removeItem(index) {
+    cart.splice(index, 1);
+    renderCart();
+  }
+
+  function decreaseItem(index) {
+    if (cart[index].qty > 1) {
+      cart[index].qty -= 1;
+    } else {
+      cart.splice(index, 1); // حذف المنتج إذا كانت الكمية 1
+    }
+    renderCart();
   }
 
   function sendOrder() {
