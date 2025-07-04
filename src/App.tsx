@@ -41,16 +41,13 @@ function App() {
     checkAuth();
   }, [checkAuth]);
 
-  // Check for admin access from URL or localStorage
+  // Check for admin access ONLY from URL parameter (hidden method)
   useEffect(() => {
     const urlParams = new URLSearchParams(window.location.search);
-    const adminParam = urlParams.get('admin');
-    const adminFromStorage = localStorage.getItem('alma_show_admin');
-    
-    if (adminParam === 'true' || adminFromStorage === 'true') {
+    if (urlParams.get('admin') === 'true') {
       setCurrentPage('admin');
-      // Store in localStorage so it persists
-      localStorage.setItem('alma_show_admin', 'true');
+      // Clean URL to hide the parameter
+      window.history.replaceState({}, document.title, window.location.pathname);
     }
   }, []);
 
@@ -129,7 +126,6 @@ function App() {
       <AdminDashboard 
         onLogout={() => {
           logout();
-          localStorage.removeItem('alma_show_admin');
           setCurrentPage('home');
         }}
         currentUser={currentUser!}
@@ -254,23 +250,6 @@ function App() {
               <p className="text-gray-500 text-sm mt-2">
                 تم التطوير بعناية لخدمة عملائنا الكرام
               </p>
-              
-              {/* Admin Access Buttons */}
-              <div className="mt-4 space-y-2">
-                <button
-                  onClick={() => {
-                    localStorage.setItem('alma_show_admin', 'true');
-                    setCurrentPage('admin');
-                  }}
-                  className="block mx-auto text-xs text-gray-600 hover:text-gray-400 transition-colors duration-200 bg-gray-800 hover:bg-gray-700 px-4 py-2 rounded-lg border border-gray-600"
-                >
-                  🔐 لوحة التحكم الإدارية
-                </button>
-                
-                <p className="text-xs text-gray-600">
-                  أو أضف <code className="bg-gray-700 px-2 py-1 rounded">?admin=true</code> للرابط
-                </p>
-              </div>
             </div>
           </div>
         </div>
