@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import { Toaster, toast } from 'react-hot-toast';
 import Header from './components/Header';
 import CategoryFilter from './components/CategoryFilter';
@@ -6,9 +6,13 @@ import ProductGrid from './components/ProductGrid';
 import Cart from './components/Cart';
 import AboutPage from './components/AboutPage';
 import ContactPage from './components/ContactPage';
+import AdminLogin from './components/admin/AdminLogin';
+import AdminDashboard from './components/admin/AdminDashboard';
 import { useCart } from './hooks/useCart';
 import { useWhatsApp } from './hooks/useWhatsApp';
-import { products, categories } from './data/products';
+import { useAdmin } from './hooks/useAdmin';
+import { useProductManager } from './hooks/useProductManager';
+import { useOrderManager } from './hooks/useOrderManager';
 
 function App() {
   const [activeCategory, setActiveCategory] = useState('all');
@@ -28,13 +32,36 @@ function App() {
   } = useCart();
 
   const { sendOrder } = useWhatsApp();
+  const { isAuthenticated, currentUser, login, logout, checkAuth } = useAdmin();
+  const { products, categories } = useProductManager();
+  const { addOrder } = useOrderManager();
+
+  // Check authentication on app load
+  useEffect(() => {
+    checkAuth();
+  }, [checkAuth]);
+
+  // Check for admin access from URL or localStorage
+  useEffect(() => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const adminParam = urlParams.get('admin');
+    const adminFromStorage = localStorage.getItem('alma_show_admin');
+    
+    if (adminParam === 'true' || adminFromStorage === 'true') {
+      setCurrentPage('admin');
+      // Store in localStorage so it persists
+      localStorage.setItem('alma_show_admin', 'true');
+    }
+  }, []);
 
   const filteredProducts = useMemo(() => {
     if (activeCategory === 'all') {
-      return products;
+      return products.filter(product => product.inStock !== false);
     }
-    return products.filter(product => product.category === activeCategory);
-  }, [activeCategory]);
+    return products.filter(product => 
+      product.category === activeCategory && product.inStock !== false
+    );
+  }, [activeCategory, products]);
 
   const handleAddToCart = (product: any) => {
     addToCart(product);
@@ -44,7 +71,7 @@ function App() {
       style: {
         background: '#10B981',
         color: 'white',
-        fontFamily: 'Arial, sans-serif',
+        fontFamily: 'Cairo, Arial, sans-serif',
         direction: 'rtl'
       }
     });
@@ -54,6 +81,18 @@ function App() {
     if (cartItems.length === 0) return;
     
     try {
+      // Add order to admin system
+      addOrder({
+        items: cartItems,
+        total: cartTotal,
+        status: 'pending',
+        notes: 'طلبية من الموقع الإلكتروني',
+        customerInfo: {
+          name: 'عميل من الموقع'
+        },
+        paymentMethod: 'cash'
+      });
+
       await sendOrder(cartItems, cartTotal);
       toast.success('تم إرسال الطلب بنجاح!', {
         position: 'top-center',
@@ -61,7 +100,7 @@ function App() {
         style: {
           background: '#10B981',
           color: 'white',
-          fontFamily: 'Arial, sans-serif',
+          fontFamily: 'Cairo, Arial, sans-serif',
           direction: 'rtl'
         }
       });
@@ -74,12 +113,29 @@ function App() {
         style: {
           background: '#EF4444',
           color: 'white',
-          fontFamily: 'Arial, sans-serif',
+          fontFamily: 'Cairo, Arial, sans-serif',
           direction: 'rtl'
         }
       });
     }
   };
+
+  // Admin page logic
+  if (currentPage === 'admin') {
+    if (!isAuthenticated) {
+      return <AdminLogin onLogin={login} />;
+    }
+    return (
+      <AdminDashboard 
+        onLogout={() => {
+          logout();
+          localStorage.removeItem('alma_show_admin');
+          setCurrentPage('home');
+        }}
+        currentUser={currentUser!}
+      />
+    );
+  }
 
   const renderPage = () => {
     switch (currentPage) {
@@ -198,6 +254,23 @@ function App() {
               <p className="text-gray-500 text-sm mt-2">
                 تم التطوير بعناية لخدمة عملائنا الكرام
               </p>
+              
+              {/* Admin Access Buttons */}
+              <div className="mt-4 space-y-2">
+                <button
+                  onClick={() => {
+                    localStorage.setItem('alma_show_admin', 'true');
+                    setCurrentPage('admin');
+                  }}
+                  className="block mx-auto text-xs text-gray-600 hover:text-gray-400 transition-colors duration-200 bg-gray-800 hover:bg-gray-700 px-4 py-2 rounded-lg border border-gray-600"
+                >
+                  🔐 لوحة التحكم الإدارية
+                </button>
+                
+                <p className="text-xs text-gray-600">
+                  أو أضف <code className="bg-gray-700 px-2 py-1 rounded">?admin=true</code> للرابط
+                </p>
+              </div>
             </div>
           </div>
         </div>
