@@ -111,4 +111,4 @@ export interface ImageUploadResult {
   url: string;
   filename: string;
   size: number;
-}
+} 
