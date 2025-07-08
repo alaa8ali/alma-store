@@ -46,4 +46,4 @@ const CategoryFilter: React.FC<CategoryFilterProps> = ({
   );
 };
 
-export default CategoryFilter;
+export default CategoryFilter; 
