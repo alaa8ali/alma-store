@@ -31,4 +31,4 @@ const ProductGrid: React.FC<ProductGridProps> = ({ products, onAddToCart }) => {
   );
 };
 
-export default ProductGrid;
+export default ProductGrid; 
