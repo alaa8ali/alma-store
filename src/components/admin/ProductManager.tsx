@@ -602,4 +602,4 @@ const CategoryModal: React.FC<{
   );
 };
 
-export default ProductManager;
+export default ProductManager; 
