@@ -109,4 +109,4 @@ const ImageUpload: React.FC<ImageUploadProps> = ({ onImageUpload, currentImage, 
   );
 };
 
-export default ImageUpload;
+export default ImageUpload; 
