@@ -140,4 +140,4 @@ const Cart: React.FC<CartProps> = ({
   );
 };
 
-export default Cart; 
+export default Cart;
