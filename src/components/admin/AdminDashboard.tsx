@@ -9,12 +9,14 @@ import {
   Settings,
   Plus,
   Shield,
-  Layers
+  Layers,
+  Brain
 } from 'lucide-react';
 import ProductManager from './ProductManager';
 import OrderManager from './OrderManager';
 import DashboardStats from './DashboardStats';
 import SectionManager from './SectionManager';
+import AdminAIAssistant from '../ai/AdminAIAssistant';
 import { useOrderManager } from '../../hooks/useOrderManager';
 import { useProductManager } from '../../hooks/useProductManager';
 
@@ -30,6 +32,7 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ onLogout, currentUser }
 
   const tabs = [
     { id: 'dashboard', name: 'لوحة المعلومات', icon: BarChart3 },
+    { id: 'ai-assistant', name: 'المساعد الذكي', icon: Brain },
     { id: 'sections', name: 'إدارة الأقسام', icon: Layers },
     { id: 'products', name: 'إدارة المنتجات', icon: Package },
     { id: 'orders', name: 'إدارة الطلبات', icon: ShoppingCart },
@@ -43,6 +46,8 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ onLogout, currentUser }
 
   const renderContent = () => {
     switch (activeTab) {
+      case 'ai-assistant':
+        return <AdminAIAssistant />;
       case 'sections':
         return <SectionManager />;
       case 'products':
@@ -116,6 +121,11 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ onLogout, currentUser }
                       <span>{tab.name}</span>
                       {tab.adminOnly && (
                         <Shield size={16} className="text-purple-500" />
+                      )}
+                      {tab.id === 'ai-assistant' && (
+                        <span className="bg-gradient-to-r from-purple-500 to-pink-500 text-white text-xs px-2 py-1 rounded-full">
+                          AI
+                        </span>
                       )}
                     </button>
                   );
@@ -249,6 +259,12 @@ const SettingsPanel: React.FC<{ currentUser: any }> = ({ currentUser }) => {
       newOrders: true,
       lowStock: true,
       dailyReports: false
+    },
+    aiSettings: {
+      enabled: true,
+      chatbotEnabled: true,
+      smartSearchEnabled: true,
+      adminAssistantEnabled: true
     }
   });
 
@@ -313,6 +329,67 @@ const SettingsPanel: React.FC<{ currentUser: any }> = ({ currentUser }) => {
                 />
               </div>
             </div>
+          </div>
+        </div>
+
+        {/* AI Settings */}
+        <div className="bg-white rounded-2xl shadow-lg p-6">
+          <h3 className="text-lg font-bold text-gray-800 mb-4 flex items-center">
+            <Brain className="mr-2 text-purple-500" size={20} />
+            إعدادات الذكاء الاصطناعي
+          </h3>
+          <div className="space-y-4">
+            <label className="flex items-center justify-between">
+              <span className="text-sm font-medium text-gray-700">تفعيل الذكاء الاصطناعي</span>
+              <input
+                type="checkbox"
+                checked={settings.aiSettings.enabled}
+                onChange={(e) => setSettings(prev => ({ 
+                  ...prev, 
+                  aiSettings: { ...prev.aiSettings, enabled: e.target.checked }
+                }))}
+                className="w-5 h-5 text-purple-600 border-gray-300 rounded focus:ring-purple-500"
+              />
+            </label>
+
+            <label className="flex items-center justify-between">
+              <span className="text-sm font-medium text-gray-700">شات بوت للعملاء</span>
+              <input
+                type="checkbox"
+                checked={settings.aiSettings.chatbotEnabled}
+                onChange={(e) => setSettings(prev => ({ 
+                  ...prev, 
+                  aiSettings: { ...prev.aiSettings, chatbotEnabled: e.target.checked }
+                }))}
+                className="w-5 h-5 text-purple-600 border-gray-300 rounded focus:ring-purple-500"
+              />
+            </label>
+
+            <label className="flex items-center justify-between">
+              <span className="text-sm font-medium text-gray-700">البحث الذكي</span>
+              <input
+                type="checkbox"
+                checked={settings.aiSettings.smartSearchEnabled}
+                onChange={(e) => setSettings(prev => ({ 
+                  ...prev, 
+                  aiSettings: { ...prev.aiSettings, smartSearchEnabled: e.target.checked }
+                }))}
+                className="w-5 h-5 text-purple-600 border-gray-300 rounded focus:ring-purple-500"
+              />
+            </label>
+
+            <label className="flex items-center justify-between">
+              <span className="text-sm font-medium text-gray-700">المساعد الإداري</span>
+              <input
+                type="checkbox"
+                checked={settings.aiSettings.adminAssistantEnabled}
+                onChange={(e) => setSettings(prev => ({ 
+                  ...prev, 
+                  aiSettings: { ...prev.aiSettings, adminAssistantEnabled: e.target.checked }
+                }))}
+                className="w-5 h-5 text-purple-600 border-gray-300 rounded focus:ring-purple-500"
+              />
+            </label>
           </div>
         </div>
 
@@ -411,36 +488,6 @@ const SettingsPanel: React.FC<{ currentUser: any }> = ({ currentUser }) => {
                 className="w-5 h-5 text-sky-600 border-gray-300 rounded focus:ring-sky-500"
               />
             </label>
-          </div>
-        </div>
-
-        {/* User Profile */}
-        <div className="bg-white rounded-2xl shadow-lg p-6">
-          <h3 className="text-lg font-bold text-gray-800 mb-4">الملف الشخصي</h3>
-          <div className="space-y-4">
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">اسم المستخدم</label>
-              <input
-                type="text"
-                value={currentUser.username}
-                disabled
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg bg-gray-50 text-right"
-              />
-            </div>
-            
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">الدور</label>
-              <input
-                type="text"
-                value={currentUser.role === 'admin' ? 'مدير' : 'موظف'}
-                disabled
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg bg-gray-50 text-right"
-              />
-            </div>
-
-            <button className="w-full bg-gradient-to-r from-orange-500 to-red-500 text-white py-2 rounded-lg hover:from-orange-600 hover:to-red-600 transition-colors duration-200">
-              تغيير كلمة المرور
-            </button>
           </div>
         </div>
       </div>
