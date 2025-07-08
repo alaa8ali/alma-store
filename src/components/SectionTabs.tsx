@@ -36,4 +36,4 @@ const SectionTabs: React.FC<SectionTabsProps> = ({
   );
 };
 
-export default SectionTabs;
+export default SectionTabs; 
