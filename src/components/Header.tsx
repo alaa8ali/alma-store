@@ -122,4 +122,4 @@ const Header: React.FC<HeaderProps> = ({ cartCount, onCartToggle, currentPage, o
   );
 };
 
-export default Header;
+export default Header; 
