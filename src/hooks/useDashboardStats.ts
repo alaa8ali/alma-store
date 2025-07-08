@@ -99,4 +99,4 @@ export const useDashboardStats = (orders: Order[], products: Product[]): Dashboa
       monthlyRevenue
     };
   }, [orders, products]);
-};
+}; 
