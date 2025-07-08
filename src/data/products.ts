@@ -278,4 +278,4 @@ export const products: Product[] = [
     warranty: '2 years',
     warrantyAr: 'سنتان'
   }
-];
+]; 
