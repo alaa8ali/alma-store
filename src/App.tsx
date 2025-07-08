@@ -9,16 +9,20 @@ import AboutPage from './components/AboutPage';
 import ContactPage from './components/ContactPage';
 import AdminLogin from './components/admin/AdminLogin';
 import AdminDashboard from './components/admin/AdminDashboard';
+import ChatBot from './components/ai/ChatBot';
+import SmartSearch from './components/ai/SmartSearch';
 import { useCart } from './hooks/useCart';
 import { useWhatsApp } from './hooks/useWhatsApp';
 import { useAdmin } from './hooks/useAdmin';
 import { useProductManager } from './hooks/useProductManager';
 import { useOrderManager } from './hooks/useOrderManager';
+import { Product } from './types';
 
 function App() {
   const [activeSection, setActiveSection] = useState('food');
   const [activeCategory, setActiveCategory] = useState('all');
   const [currentPage, setCurrentPage] = useState('home');
+  const [searchResults, setSearchResults] = useState<Product[] | null>(null);
   
   const {
     cartItems,
@@ -56,9 +60,17 @@ function App() {
   // Reset category when section changes
   useEffect(() => {
     setActiveCategory('all');
+    setSearchResults(null); // Clear search results when section changes
   }, [activeSection]);
 
   const filteredProducts = useMemo(() => {
+    // If there are search results, show them instead
+    if (searchResults) {
+      return searchResults.filter(product => 
+        product.section === activeSection && product.inStock !== false
+      );
+    }
+
     let filtered = products.filter(product => 
       product.section === activeSection && product.inStock !== false
     );
@@ -68,7 +80,7 @@ function App() {
     }
 
     return filtered;
-  }, [activeSection, activeCategory, products]);
+  }, [activeSection, activeCategory, products, searchResults]);
 
   const filteredCategories = useMemo(() => {
     return categories.filter(category => 
@@ -133,6 +145,21 @@ function App() {
     }
   };
 
+  const handleSearchResults = (results: Product[]) => {
+    setSearchResults(results);
+    // Show a toast with results count
+    toast.success(`تم العثور على ${results.length} منتج`, {
+      position: 'top-center',
+      duration: 2000,
+      style: {
+        background: '#8B5CF6',
+        color: 'white',
+        fontFamily: 'Cairo, Arial, sans-serif',
+        direction: 'rtl'
+      }
+    });
+  };
+
   // Admin page logic
   if (currentPage === 'admin') {
     if (!isAuthenticated) {
@@ -178,9 +205,24 @@ function App() {
                   </div>
                   <div className="flex items-center space-x-2">
                     <div className="w-3 h-3 bg-purple-500 rounded-full"></div>
-                    <span>جودة مضمونة</span>
+                    <span>بحث ذكي</span>
                   </div>
                 </div>
+              </div>
+
+              {/* Smart Search */}
+              <div className="mb-8">
+                <SmartSearch onResults={handleSearchResults} />
+                {searchResults && (
+                  <div className="mt-4 text-center">
+                    <button
+                      onClick={() => setSearchResults(null)}
+                      className="text-purple-600 hover:text-purple-800 underline"
+                    >
+                      مسح نتائج البحث وعرض جميع المنتجات
+                    </button>
+                  </div>
+                )}
               </div>
 
               {/* Section Tabs */}
@@ -233,6 +275,9 @@ function App() {
         onSendOrder={handleSendOrder}
       />
 
+      {/* AI ChatBot */}
+      <ChatBot />
+
       {/* Footer */}
       <footer className="bg-gradient-to-r from-gray-800 to-gray-900 text-white py-12">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -262,8 +307,8 @@ function App() {
               
               <div>
                 <h4 className="font-bold mb-3">خدماتنا</h4>
-                <p className="text-gray-300">طلب عبر واتساب</p>
-                <p className="text-gray-300">جودة مضمونة</p>
+                <p className="text-gray-300">بحث ذكي بالـ AI</p>
+                <p className="text-gray-300">مساعد شخصي ذكي</p>
               </div>
             </div>
             
@@ -272,7 +317,7 @@ function App() {
                 © 2024 Alma Store. جميع الحقوق محفوظة.
               </p>
               <p className="text-gray-500 text-sm mt-2">
-                تم التطوير بعناية لخدمة عملائنا الكرام
+                مدعوم بالذكاء الاصطناعي لتجربة تسوق أفضل
               </p>
             </div>
           </div>
