@@ -1,76 +1,104 @@
-import { useEffect, useState, useCallback } from 'react';
-import { Product, Category } from '../types';
-import { db } from '../firebase';
-import {
-  collection,
-  addDoc,
-  getDocs,
-  updateDoc,
-  deleteDoc,
-  doc,
-  onSnapshot
-} from 'firebase/firestore';
+import { useState, useCallback } from 'react';
+import { Product, Category, Section } from '../types';
+import { products as initialProducts, categories as initialCategories, sections as initialSections } from '../data/products';
 
 export const useProductManager = () => {
-  const [products, setProducts] = useState<Product[]>([]);
-  const [categories, setCategories] = useState<Category[]>([]);
+  const [products, setProducts] = useState<Product[]>(initialProducts);
+  const [categories, setCategories] = useState<Category[]>(initialCategories);
+  const [sections, setSections] = useState<Section[]>(initialSections);
 
-  // تحميل المنتجات والتصنيفات من Firestore عند تشغيل التطبيق
-  useEffect(() => {
-    const unsubProducts = onSnapshot(collection(db, "products"), (snapshot) => {
-      const list: Product[] = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() } as Product));
-      setProducts(list);
-    });
-
-    const unsubCategories = onSnapshot(collection(db, "categories"), (snapshot) => {
-      const list: Category[] = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() } as Category));
-      setCategories(list);
-    });
-
-    return () => {
-      unsubProducts();
-      unsubCategories();
+  const addProduct = useCallback((product: Omit<Product, 'id'>) => {
+    const newProduct: Product = {
+      ...product,
+      id: Date.now().toString(),
+      createdAt: new Date()
     };
+    setProducts(prev => [...prev, newProduct]);
+    return newProduct;
   }, []);
 
-  // إضافة منتج
-  const addProduct = useCallback(async (product: Omit<Product, 'id'>) => {
-    await addDoc(collection(db, 'products'), product);
+  const updateProduct = useCallback((id: string, updates: Partial<Product>) => {
+    setProducts(prev => 
+      prev.map(product => 
+        product.id === id ? { ...product, ...updates, updatedAt: new Date() } : product
+      )
+    );
   }, []);
 
-  // تعديل منتج
-  const updateProduct = useCallback(async (id: string, updates: Partial<Product>) => {
-    await updateDoc(doc(db, 'products', id), updates);
+  const deleteProduct = useCallback((id: string) => {
+    setProducts(prev => prev.filter(product => product.id !== id));
   }, []);
 
-  // حذف منتج
-  const deleteProduct = useCallback(async (id: string) => {
-    await deleteDoc(doc(db, 'products', id));
+  const addCategory = useCallback((category: Omit<Category, 'id'>) => {
+    const newCategory: Category = {
+      ...category,
+      id: Date.now().toString(),
+      createdAt: new Date()
+    };
+    setCategories(prev => [...prev, newCategory]);
+    return newCategory;
   }, []);
 
-  // إضافة تصنيف
-  const addCategory = useCallback(async (category: Omit<Category, 'id'>) => {
-    await addDoc(collection(db, 'categories'), category);
+  const updateCategory = useCallback((id: string, updates: Partial<Category>) => {
+    setCategories(prev => 
+      prev.map(category => 
+        category.id === id ? { ...category, ...updates } : category
+      )
+    );
   }, []);
 
-  // تعديل تصنيف
-  const updateCategory = useCallback(async (id: string, updates: Partial<Category>) => {
-    await updateDoc(doc(db, 'categories', id), updates);
+  const deleteCategory = useCallback((id: string) => {
+    setCategories(prev => prev.filter(category => category.id !== id));
+    // Also remove products in this category
+    setProducts(prev => prev.filter(product => product.category !== id));
   }, []);
 
-  // حذف تصنيف
-  const deleteCategory = useCallback(async (id: string) => {
-    await deleteDoc(doc(db, 'categories', id));
+  const addSection = useCallback((section: Omit<Section, 'id'>) => {
+    const newSection: Section = {
+      ...section,
+      id: Date.now().toString()
+    };
+    setSections(prev => [...prev, newSection]);
+    return newSection;
   }, []);
+
+  const updateSection = useCallback((id: string, updates: Partial<Section>) => {
+    setSections(prev => 
+      prev.map(section => 
+        section.id === id ? { ...section, ...updates } : section
+      )
+    );
+  }, []);
+
+  const deleteSection = useCallback((id: string) => {
+    setSections(prev => prev.filter(section => section.id !== id));
+    // Also remove categories and products in this section
+    setCategories(prev => prev.filter(category => category.section !== id));
+    setProducts(prev => prev.filter(product => product.section !== id));
+  }, []);
+
+  const getProductsBySection = useCallback((sectionId: string) => {
+    return products.filter(product => product.section === sectionId);
+  }, [products]);
+
+  const getCategoriesBySection = useCallback((sectionId: string) => {
+    return categories.filter(category => category.section === sectionId || category.id === 'all');
+  }, [categories]);
 
   return {
     products,
     categories,
+    sections,
     addProduct,
     updateProduct,
     deleteProduct,
     addCategory,
     updateCategory,
-    deleteCategory
+    deleteCategory,
+    addSection,
+    updateSection,
+    deleteSection,
+    getProductsBySection,
+    getCategoriesBySection
   };
 };
