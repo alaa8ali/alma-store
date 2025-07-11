@@ -79,4 +79,4 @@ export const useImageUpload = () => {
     isUploading,
     uploadProgress
   };
-}; 
+};
