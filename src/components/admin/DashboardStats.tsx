@@ -251,4 +251,4 @@ const DashboardStats: React.FC<DashboardStatsProps> = ({ orders, products, secti
   );
 };
 
-export default DashboardStats; 
+export default DashboardStats;
