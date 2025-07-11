@@ -287,4 +287,4 @@ const SectionModal: React.FC<{
   );
 };
 
-export default SectionManager; 
+export default SectionManager;
