@@ -1,15 +1,15 @@
-import React, { useState } from 'react';
-import { 
-  LayoutDashboard, 
-  Package, 
-  Wrench, 
-  Settings, 
-  Download, 
-  Upload, 
+import React, { useState, useEffect } from 'react';
+import {
+  LayoutDashboard,
+  Package,
+  Wrench,
+  Settings,
+  Download,
+  Upload,
   RotateCcw,
   LogOut,
   Menu,
-  X
+  X,
 } from 'lucide-react';
 import { useApp } from '../../contexts/AppContext';
 
@@ -22,6 +22,24 @@ interface AdminLayoutProps {
 export function AdminLayout({ children, activeTab, onTabChange }: AdminLayoutProps) {
   const { exportData, importData, resetData, setIsAdminMode } = useApp();
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+
+  // تحقق من كلمة السر
+  useEffect(() => {
+    const password = localStorage.getItem('admin_pass');
+    if (password === 'ali98alma') {
+      setIsAuthenticated(true);
+    } else {
+      const entered = prompt('أدخل كلمة المرور للدخول إلى لوحة التحكم');
+      if (entered === 'ali98alma') {
+        localStorage.setItem('admin_pass', entered);
+        setIsAuthenticated(true);
+      } else {
+        alert('كلمة المرور غير صحيحة! سيتم إعادتك إلى الصفحة الرئيسية');
+        window.location.href = '/';
+      }
+    }
+  }, []);
 
   const menuItems = [
     { id: 'dashboard', name: 'لوحة التحكم', icon: LayoutDashboard },
@@ -76,24 +94,25 @@ export function AdminLayout({ children, activeTab, onTabChange }: AdminLayoutPro
     }
   };
 
+  if (!isAuthenticated) return null;
+
   return (
     <div className="min-h-screen bg-gray-50 flex" dir="rtl">
-      {/* Mobile Sidebar Backdrop */}
       {isSidebarOpen && (
-        <div 
+        <div
           className="lg:hidden fixed inset-0 bg-black bg-opacity-50 z-40"
           onClick={() => setIsSidebarOpen(false)}
         />
       )}
 
-      {/* Sidebar */}
-      <aside className={`
+      <aside
+        className={`
         fixed lg:static inset-y-0 right-0 z-50
         w-64 bg-white shadow-xl transform transition-transform duration-300 ease-in-out
         ${isSidebarOpen ? 'translate-x-0' : 'translate-x-full lg:translate-x-0'}
-      `}>
+      `}
+      >
         <div className="flex flex-col h-full">
-          {/* Header */}
           <div className="bg-gradient-to-r from-sky-600 to-blue-700 p-4">
             <div className="flex items-center justify-between">
               <h2 className="text-white text-lg font-bold">لوحة التحكم</h2>
@@ -107,7 +126,6 @@ export function AdminLayout({ children, activeTab, onTabChange }: AdminLayoutPro
             <p className="text-sky-100 text-sm mt-1">متجر ألما - إدارة</p>
           </div>
 
-          {/* Navigation */}
           <nav className="flex-1 p-4 space-y-2">
             {menuItems.map((item) => {
               const Icon = item.icon;
@@ -131,10 +149,9 @@ export function AdminLayout({ children, activeTab, onTabChange }: AdminLayoutPro
             })}
           </nav>
 
-          {/* Data Management */}
           <div className="p-4 border-t border-gray-200 space-y-2">
             <h3 className="text-sm font-semibold text-gray-600 mb-3">إدارة البيانات</h3>
-            
+
             <button
               onClick={handleExportData}
               className="w-full flex items-center space-x-3 rtl:space-x-reverse p-2 text-green-700 hover:bg-green-50 rounded-lg text-sm transition-colors duration-200"
@@ -142,7 +159,7 @@ export function AdminLayout({ children, activeTab, onTabChange }: AdminLayoutPro
               <Download className="h-4 w-4" />
               <span>تصدير البيانات</span>
             </button>
-            
+
             <button
               onClick={handleImportData}
               className="w-full flex items-center space-x-3 rtl:space-x-reverse p-2 text-blue-700 hover:bg-blue-50 rounded-lg text-sm transition-colors duration-200"
@@ -150,7 +167,7 @@ export function AdminLayout({ children, activeTab, onTabChange }: AdminLayoutPro
               <Upload className="h-4 w-4" />
               <span>استيراد البيانات</span>
             </button>
-            
+
             <button
               onClick={handleResetData}
               className="w-full flex items-center space-x-3 rtl:space-x-reverse p-2 text-red-700 hover:bg-red-50 rounded-lg text-sm transition-colors duration-200"
@@ -160,7 +177,6 @@ export function AdminLayout({ children, activeTab, onTabChange }: AdminLayoutPro
             </button>
           </div>
 
-          {/* Exit Admin Mode */}
           <div className="p-4 border-t border-gray-200">
             <button
               onClick={() => setIsAdminMode(false)}
@@ -173,15 +189,13 @@ export function AdminLayout({ children, activeTab, onTabChange }: AdminLayoutPro
         </div>
       </aside>
 
-      {/* Main Content */}
       <main className="flex-1 flex flex-col min-h-screen">
-        {/* Top Bar */}
         <header className="bg-white shadow-sm border-b border-gray-200 p-4">
           <div className="flex items-center justify-between">
             <h1 className="text-2xl font-bold text-gray-800">
-              {menuItems.find(item => item.id === activeTab)?.name || 'لوحة التحكم'}
+              {menuItems.find((item) => item.id === activeTab)?.name || 'لوحة التحكم'}
             </h1>
-            
+
             <button
               onClick={() => setIsSidebarOpen(true)}
               className="lg:hidden p-2 text-gray-600 hover:bg-gray-100 rounded-lg"
@@ -191,10 +205,7 @@ export function AdminLayout({ children, activeTab, onTabChange }: AdminLayoutPro
           </div>
         </header>
 
-        {/* Content */}
-        <div className="flex-1 p-6">
-          {children}
-        </div>
+        <div className="flex-1 p-6">{children}</div>
       </main>
     </div>
   );
