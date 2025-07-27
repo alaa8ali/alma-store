@@ -1,1 +1,32 @@
-
+[
+  {
+    "id": "mate-khartah-gold-200g",
+    "nameAr": "متة خارطة ذهبية 200 غ",
+    "name": "Mate Kharta Gold 200g",
+    "descriptionAr": "متة خارطة ذهبية ناعمة عالية الجودة وزن 200 غرام.",
+    "description": "Premium quality Kharta Mate, 200g pack.",
+    "price": 10000,
+    "stock": 50,
+    "discount": 0,
+    "category": "groceries",
+    "unitAr": "علبة",
+    "unit": "box",
+    "image": "http://www.kabourgroup.com/assets/images/db_images/B8894CFE-CF8E-454D-987E-7836D15413C5.jpg",
+    "featured": true
+  },
+  {
+    "id": "nestle-coffee-mate-900g",
+    "nameAr": "نستله كوفي ميت 900 غ",
+    "name": "Nestlé Coffee Mate 900g",
+    "descriptionAr": "نستله كوفي ميت عبوة 900 غرام، مثالي للقهوة.",
+    "description": "Nestlé Coffee Mate 900g pack, ideal for coffee.",
+    "price": 58000,
+    "stock": 50,
+    "discount": 0,
+    "category": "drinks",
+    "unitAr": "علبة",
+    "unit": "can",
+    "image": "https://m.media-amazon.com/images/I/71pg1tWz5+L._AC_SL1500_.jpg",
+    "featured": false
+  }
+]
