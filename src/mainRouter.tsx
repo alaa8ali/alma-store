@@ -8,6 +8,7 @@ import {
 import Home from "./pages/Home";
 import About from "./pages/About";
 import AdminLayout from "./admin/AdminLayout";
+import AddProductForm from "./pages/Admin/AddProductForm"; // استيراد صفحة إضافة منتج
 
 // صفحة تسجيل دخول بسيطة للإدارة
 function AdminLogin({ onAuth }: { onAuth: () => void }) {
@@ -15,26 +16,32 @@ function AdminLogin({ onAuth }: { onAuth: () => void }) {
   const [error, setError] = useState("");
 
   const handleLogin = () => {
-    if (password === "alma_super_secure_2025") {
+    if (password === "ali98alma") {
       onAuth();
     } else {
-      setError("كلمة السر خاطئة");
+      setError("❌ كلمة السر خاطئة");
     }
   };
 
   return (
-    <div style={{ padding: 40 }}>
-      <h2>تسجيل دخول الإدارة</h2>
-      <input
-        type="password"
-        placeholder="أدخل كلمة السر"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-        style={{ marginBottom: 10, padding: 5 }}
-      />
-      <br />
-      <button onClick={handleLogin}>دخول</button>
-      {error && <p style={{ color: "red" }}>{error}</p>}
+    <div className="min-h-screen flex flex-col items-center justify-center bg-gray-100">
+      <div className="bg-white p-8 rounded shadow-md w-full max-w-sm space-y-4">
+        <h2 className="text-center text-xl font-bold text-gray-800">تسجيل دخول الإدارة</h2>
+        <input
+          type="password"
+          placeholder="أدخل كلمة السر"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          className="w-full p-2 border border-gray-300 rounded"
+        />
+        <button
+          onClick={handleLogin}
+          className="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 rounded"
+        >
+          دخول
+        </button>
+        {error && <p className="text-red-600 text-sm text-center">{error}</p>}
+      </div>
     </div>
   );
 }
@@ -53,17 +60,15 @@ export default function MainRouter() {
     },
     {
       path: "/admin-login",
-      element: (
-        <AdminLogin onAuth={() => setIsAdminAuthenticated(true)} />
-      ),
+      element: <AdminLogin onAuth={() => setIsAdminAuthenticated(true)} />,
     },
     {
       path: "/admin",
-      element: isAdminAuthenticated ? (
-        <AdminLayout />
-      ) : (
-        <Navigate to="/admin-login" />
-      ),
+      element: isAdminAuthenticated ? <AdminLayout activeTab="dashboard" onTabChange={() => {}}>{null}</AdminLayout> : <Navigate to="/admin-login" />,
+    },
+    {
+      path: "/admin/add",
+      element: isAdminAuthenticated ? <AddProductForm /> : <Navigate to="/admin-login" />,
     },
   ];
 
@@ -71,4 +76,3 @@ export default function MainRouter() {
 
   return <RouterProvider router={router} />;
 }
- 
