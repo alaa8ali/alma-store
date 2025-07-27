@@ -1,1 +1,34 @@
-[]
+[
+  {
+    "id": "1",
+    "nameAr": "متة خارطة ذهبية 200 غ",
+    "name": "mate kharta 200 g",
+    "descriptionAr": "",
+    "description": "",
+    "price": 10000,
+    "stock": 50,
+    "discount": 0,
+    "category": "groceries",
+    "categoryAr": "بقالة",
+    "unitAr": "علبة",
+    "unit": "box",
+    "image": "http://www.kabourgroup.com/assets/images/db_images/B8894CFE-CF8E-454D-987E-7836D15413C5.jpg",
+    "featured": false
+  },
+  {
+    "id": "2",
+    "nameAr": "نستله كوفي ميت 900 غ",
+    "name": "nestle Coffee mate 900 g",
+    "descriptionAr": "",
+    "description": "",
+    "price": 58000,
+    "stock": 50,
+    "discount": 0,
+    "category": "drinks",
+    "categoryAr": "مشروبات",
+    "unitAr": "علبة",
+    "unit": "box",
+    "image": "https://www.nestleprofessional.com/sites/default/files/2021-05/coffee-mate.jpg",
+    "featured": false
+  }
+]
