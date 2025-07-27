@@ -1,44 +1,60 @@
 // server/server.js
-import express from 'express'
-import fs from 'fs'
-import cors from 'cors'
+import express from 'express';
+import fs from 'fs';
+import cors from 'cors';
+import bodyParser from 'body-parser';
+import path from 'path';
 
-const app = express()
-const PORT = 3001
-const DATA_FILE = './products.json'
+const app = express();
+const PORT = 3001;
+const DATA_PATH = path.resolve('server/products.json');
 
-app.use(cors())
-app.use(express.json())
+app.use(cors());
+app.use(bodyParser.json());
 
-// جلب جميع المنتجات
+// ✅ استرجاع جميع المنتجات
 app.get('/products', (req, res) => {
-  fs.readFile(DATA_FILE, 'utf-8', (err, data) => {
-    if (err) return res.status(500).send('خطأ في القراءة')
-    res.json(JSON.parse(data || '[]'))
-  })
-})
+  try {
+    const products = JSON.parse(fs.readFileSync(DATA_PATH, 'utf-8'));
+    res.json(products);
+  } catch (error) {
+    res.status(500).json({ error: 'خطأ في قراءة البيانات' });
+  }
+});
 
-// إضافة منتج جديد
+// ✅ حفظ أو تعديل منتج جديد
 app.post('/products', (req, res) => {
-  const newProduct = req.body
-  fs.readFile(DATA_FILE, 'utf-8', (err, data) => {
-    const products = JSON.parse(data || '[]')
-    products.push({ ...newProduct, id: Date.now().toString() })
-    fs.writeFile(DATA_FILE, JSON.stringify(products, null, 2), () => {
-      res.status(201).json({ message: 'تمت الإضافة بنجاح' })
-    })
-  })
-})
+  try {
+    const newProduct = req.body;
+    const products = JSON.parse(fs.readFileSync(DATA_PATH, 'utf-8'));
 
-// حذف منتج
+    const existingIndex = products.findIndex((p) => p.id === newProduct.id);
+    if (existingIndex !== -1) {
+      products[existingIndex] = newProduct;
+    } else {
+      products.push({ ...newProduct, id: Date.now().toString() });
+    }
+
+    fs.writeFileSync(DATA_PATH, JSON.stringify(products, null, 2), 'utf-8');
+    res.json({ success: true, message: 'تم الحفظ بنجاح' });
+  } catch (error) {
+    res.status(500).json({ error: 'خطأ أثناء الحفظ' });
+  }
+});
+
+// ✅ حذف منتج حسب ID
 app.delete('/products/:id', (req, res) => {
-  const id = req.params.id
-  fs.readFile(DATA_FILE, 'utf-8', (err, data) => {
-    const products = JSON.parse(data || '[]').filter(p => p.id !== id)
-    fs.writeFile(DATA_FILE, JSON.stringify(products, null, 2), () => {
-      res.json({ message: 'تم الحذف' })
-    })
-  })
-})
+  try {
+    const productId = req.params.id;
+    let products = JSON.parse(fs.readFileSync(DATA_PATH, 'utf-8'));
+    products = products.filter((p) => p.id !== productId);
+    fs.writeFileSync(DATA_PATH, JSON.stringify(products, null, 2), 'utf-8');
+    res.json({ success: true, message: 'تم الحذف' });
+  } catch (error) {
+    res.status(500).json({ error: 'خطأ أثناء الحذف' });
+  }
+});
 
-app.listen(PORT, () => console.log(`✅ Server running at http://localhost:${PORT}`))
+app.listen(PORT, () => {
+  console.log(`✅ Server running at http://localhost:${PORT}`);
+});
