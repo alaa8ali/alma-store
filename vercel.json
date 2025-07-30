@@ -1,5 +1,7 @@
 {
-  "buildCommand": "vite build",
-  "outputDirectory": "dist",
-  "framework": "vite"
+  "rewrites": [
+    { "source": "/admin-login", "destination": "/" },
+    { "source": "/alma-dashboard-743d1a0e1d", "destination": "/" },
+    { "source": "/(.*)", "destination": "/" }
+  ]
 }
