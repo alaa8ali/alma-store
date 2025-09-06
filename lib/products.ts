@@ -395,3 +395,33 @@ export const products: Product[] = [
     ]
   }
 ];
+
+  {
+    id: 'mate-kharta',
+    nameAr: 'متة خارطة 500 غ',
+    nameEn: 'Mate Kharta 500g',
+    category: 'drinks',
+    price: 25000,
+    unit: 'piece',
+    image: '/images/kaharta-greenمتةخارطة.webp',
+    available: true,
+    variants: [
+      {
+        id: 'mate-kharta-250g',
+        nameAr: 'متة خارطة 250 غ',
+        nameEn: 'Mate Kharta 250g',
+        price: 13000,
+        image: '/images/kaharta-greenمتةخارطة.webp',
+        available: true
+      },
+      {
+        id: 'mate-kharta-200g',
+        nameAr: 'متة خارطة 200 غ',
+        nameEn: 'Mate Kharta 200g',
+        price: 10000,
+        image: '/images/kaharta-greenمتةخارطة.webp',
+        available: true
+      }
+    ]
+  },
+
