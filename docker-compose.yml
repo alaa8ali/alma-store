@@ -1,0 +1,28 @@
+version: '3.8'
+
+services:
+  backend:
+    build: ./backend
+    ports:
+      - "3000:3000"
+    environment:
+      - PORT=3000
+      - SUPABASE_URL=${SUPABASE_URL}
+      - SUPABASE_KEY=${SUPABASE_KEY}
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+      - OPAL_API_KEY=${OPAL_API_KEY}
+      - TELEGRAM_BOT_TOKEN=${TELEGRAM_BOT_TOKEN}
+      - TELEGRAM_WEBHOOK_SECRET=${TELEGRAM_WEBHOOK_SECRET}
+      - WHATSAPP_PHONE_ID=${WHATSAPP_PHONE_ID}
+      - WHATSAPP_TOKEN=${WHATSAPP_TOKEN}
+      - HMAC_SECRET=${HMAC_SECRET}
+      - QUEUE_REDIS_URL=redis://redis:6379
+    depends_on:
+      - redis
+
+  redis:
+    image: "redis:alpine"
+    expose:
+      - "6379"
+
+
