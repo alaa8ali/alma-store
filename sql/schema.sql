@@ -65,12 +65,23 @@ CREATE TABLE IF NOT EXISTS messages (
   created_at timestamptz DEFAULT now()
 );
 
--- sessions (for multi-step conversations)
-CREATE TABLE IF NOT EXISTS sessions (
+-- offers
+CREATE TABLE IF NOT EXISTS offers (
   id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
-  user_id text NOT NULL UNIQUE, -- Using text to store chat_id from Telegram
-  current_step text, -- e.g., 'awaiting_product_name'
-  context jsonb, -- To store temporary data like { "product_name": "...", "price": ... }
-  updated_at timestamptz DEFAULT now()
+  name text NOT NULL,
+  description text,
+  type text NOT NULL, -- e.g., 'percentage', 'buy_one_get_one_free'
+  value jsonb, -- For 'percentage': {"value": 15}, for 'bogo': {"buy_quantity": 1, "get_quantity": 1}
+  start_date timestamptz,
+  end_date timestamptz,
+  is_active boolean DEFAULT true,
+  created_at timestamptz DEFAULT now()
+);
+
+-- product_offers (linking table for many-to-many relationship)
+CREATE TABLE IF NOT EXISTS product_offers (
+  product_id uuid NOT NULL REFERENCES products(id) ON DELETE CASCADE,
+  offer_id uuid NOT NULL REFERENCES offers(id) ON DELETE CASCADE,
+  PRIMARY KEY (product_id, offer_id)
 );
 
