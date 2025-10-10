@@ -1,13 +1,11 @@
 import { NextRequest, NextResponse } from 'next/server';
-import * as jwt from 'jsonwebtoken';
-import * as bcrypt from 'bcryptjs';
 
-// Admin password (hashed)
-// Password: ali98myoo
-const ADMIN_PASSWORD_HASH = '$2a$10$YourHashedPasswordHere'; // Will be replaced with actual hash
+// Force dynamic rendering
+export const dynamic = 'force-dynamic';
+export const runtime = 'nodejs';
 
-// JWT secret
-const JWT_SECRET = process.env.JWT_SECRET || 'your-secret-key-change-in-production';
+// Admin password
+const ADMIN_PASSWORD = 'ali98myoo';
 
 export async function POST(request: NextRequest) {
   try {
@@ -21,9 +19,7 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // For now, simple password check (in production, use bcrypt)
-    const ADMIN_PASSWORD = 'ali98myoo';
-    
+    // Simple password check
     if (password !== ADMIN_PASSWORD) {
       return NextResponse.json(
         { error: 'كلمة المرور غير صحيحة' },
@@ -31,15 +27,14 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Generate JWT token
-    const token = jwt.sign(
-      {
+    // Generate simple token (timestamp-based)
+    const token = Buffer.from(
+      JSON.stringify({
         role: 'admin',
         timestamp: Date.now(),
-      },
-      JWT_SECRET,
-      { expiresIn: '7d' }
-    );
+        expires: Date.now() + 7 * 24 * 60 * 60 * 1000, // 7 days
+      })
+    ).toString('base64');
 
     return NextResponse.json({
       success: true,
@@ -55,3 +50,4 @@ export async function POST(request: NextRequest) {
     );
   }
 }
+
