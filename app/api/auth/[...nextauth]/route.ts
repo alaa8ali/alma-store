@@ -10,6 +10,7 @@ const authOptions: NextAuthOptions = {
     }),
   ],
   secret: process.env.NEXTAUTH_SECRET,
+  trustHost: true, // Allow dynamic URLs from Vercel
   pages: {
     signIn: "/admin/login",
   },
