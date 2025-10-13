@@ -1,7 +1,6 @@
 'use client';
 
 import { useState } from 'react';
-import { useRouter } from 'next/navigation';
 
 export default function AdminLogin() {
   const [username, setUsername] = useState('');
@@ -9,7 +8,6 @@ export default function AdminLogin() {
   const [message, setMessage] = useState('');
   const [loading, setLoading] = useState(false);
   const [isError, setIsError] = useState(false);
-  const router = useRouter();
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -31,7 +29,7 @@ export default function AdminLogin() {
       if (data.success) {
         // الانتظار قليلاً لعرض رسالة النجاح ثم التوجيه
         setTimeout(() => {
-          router.push('/admin/dashboard');
+          window.location.href = '/admin/dashboard';
         }, 1000);
       }
     } catch (error) {
