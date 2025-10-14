@@ -2,40 +2,36 @@
 
 import { useState, useEffect, useMemo } from 'react';
 import { Header } from '@/components/layout/header';
-import { BranchSelectorDynamic } from '@/components/branches/branch-selector-dynamic';
-import { CategoryFilterDynamic } from '@/components/categories/category-filter-dynamic';
+import { BranchSelector } from '@/components/branches/branch-selector';
+import { CategoryFilter } from '@/components/products/category-filter';
 import { ProductGrid } from '@/components/products/product-grid';
 import { CartSidebar } from '@/components/cart/cart-sidebar';
 import { Footer } from '@/components/layout/footer';
 import { products } from '@/lib/products';
+import { branches, getCategoriesByBranch } from '@/lib/branches';
 import { CartManager } from '@/lib/cart';
-import { fetchCategoriesByBranch } from '@/lib/supabase-data';
 
-export default function HomeDynamic() {
+export default function Home() {
   const [cartItemCount, setCartItemCount] = useState(0);
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [selectedBranch, setSelectedBranch] = useState('store');
   const [selectedCategory, setSelectedCategory] = useState('all');
   const [searchQuery, setSearchQuery] = useState('');
   const [productList, setProductList] = useState(products);
-  const [branchCategories, setBranchCategories] = useState<any[]>([]);
 
   useEffect(() => {
     updateCartCount();
-  }, []);
-
-  useEffect(() => {
-    loadBranchCategories();
+    // TODO: Load products from Supabase based on branch
   }, [selectedBranch]);
-
-  const loadBranchCategories = async () => {
-    const categories = await fetchCategoriesByBranch(selectedBranch);
-    setBranchCategories(categories);
-  };
 
   const updateCartCount = () => {
     setCartItemCount(CartManager.getCartCount());
   };
+
+  // Get categories for selected branch
+  const branchCategories = useMemo(() => {
+    return getCategoriesByBranch(selectedBranch);
+  }, [selectedBranch]);
 
   // Filter products based on branch, category, and search
   const filteredProducts = useMemo(() => {
@@ -91,16 +87,16 @@ export default function HomeDynamic() {
           </p>
         </div>
 
-        {/* Branch Selector - Dynamic */}
-        <BranchSelectorDynamic
+        {/* Branch Selector */}
+        <BranchSelector
+          branches={branches}
           selectedBranch={selectedBranch}
           onBranchChange={setSelectedBranch}
         />
 
-        {/* Category Filter - Dynamic - Only show for store branch */}
+        {/* Category Filter - Only show for store branch */}
         {selectedBranch === 'store' && (
-          <CategoryFilterDynamic
-            branchId={selectedBranch}
+          <CategoryFilter
             selectedCategory={selectedCategory}
             onCategoryChange={setSelectedCategory}
           />
@@ -121,20 +117,11 @@ export default function HomeDynamic() {
             <p className="text-xl text-gray-600 mb-8">
               اختر نوع الخدمة التي تحتاجها
             </p>
-            <div className="grid grid-cols-2 md:grid-cols-3 gap-6 max-w-4xl mx-auto">
+            <div className="grid grid-cols-2 md:grid-cols-3 gap-4 max-w-4xl mx-auto">
               {branchCategories.map(category => (
                 <div key={category.id} className="bg-white p-6 rounded-xl shadow-md hover:shadow-lg transition-shadow">
-                  {category.image ? (
-                    <div className="relative h-32 w-full mb-4 rounded-lg overflow-hidden">
-                      <img src={category.image} alt={category.name_ar} className="w-full h-full object-cover" />
-                    </div>
-                  ) : (
-                    <div className="text-4xl mb-2">{category.icon}</div>
-                  )}
-                  <h3 className="font-bold text-lg">{category.name_ar}</h3>
-                  {category.description_ar && (
-                    <p className="text-sm text-gray-600 mt-2">{category.description_ar}</p>
-                  )}
+                  <div className="text-4xl mb-2">{category.icon}</div>
+                  <h3 className="font-bold text-lg">{category.nameAr}</h3>
                 </div>
               ))}
             </div>
@@ -151,15 +138,9 @@ export default function HomeDynamic() {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
               {branchCategories.map(category => (
                 <div key={category.id} className="bg-white p-8 rounded-xl shadow-md hover:shadow-lg transition-shadow">
-                  {category.image ? (
-                    <div className="relative h-48 w-full mb-4 rounded-lg overflow-hidden">
-                      <img src={category.image} alt={category.name_ar} className="w-full h-full object-cover" />
-                    </div>
-                  ) : (
-                    <div className="text-5xl mb-4">{category.icon}</div>
-                  )}
-                  <h3 className="font-bold text-2xl mb-2">{category.name_ar}</h3>
-                  <p className="text-gray-600">{category.description_ar || 'قريباً...'}</p>
+                  <div className="text-5xl mb-4">{category.icon}</div>
+                  <h3 className="font-bold text-2xl mb-2">{category.nameAr}</h3>
+                  <p className="text-gray-600">{category.descriptionAr || 'قريباً...'}</p>
                 </div>
               ))}
             </div>
@@ -173,22 +154,11 @@ export default function HomeDynamic() {
             <p className="text-xl text-gray-600 mb-8">
               حلويات ومخبوزات طازجة يومياً
             </p>
-            <div className="grid grid-cols-2 md:grid-cols-3 gap-6 max-w-4xl mx-auto">
+            <div className="grid grid-cols-2 md:grid-cols-3 gap-4 max-w-4xl mx-auto">
               {branchCategories.map(category => (
-                <div key={category.id} className="bg-white p-6 rounded-xl shadow-md hover:shadow-lg transition-shadow overflow-hidden">
-                  {category.image ? (
-                    <div className="relative h-40 w-full -mx-6 -mt-6 mb-4">
-                      <img src={category.image} alt={category.name_ar} className="w-full h-full object-cover" />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
-                      <div className="absolute bottom-2 left-2 text-3xl">{category.icon}</div>
-                    </div>
-                  ) : (
-                    <div className="text-4xl mb-2">{category.icon}</div>
-                  )}
-                  <h3 className="font-bold text-lg">{category.name_ar}</h3>
-                  {category.description_ar && (
-                    <p className="text-sm text-gray-600 mt-2">{category.description_ar}</p>
-                  )}
+                <div key={category.id} className="bg-white p-6 rounded-xl shadow-md hover:shadow-lg transition-shadow">
+                  <div className="text-4xl mb-2">{category.icon}</div>
+                  <h3 className="font-bold text-lg">{category.nameAr}</h3>
                 </div>
               ))}
             </div>
@@ -208,4 +178,3 @@ export default function HomeDynamic() {
     </div>
   );
 }
-
