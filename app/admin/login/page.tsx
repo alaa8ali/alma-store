@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { useRouter } from 'next/navigation';
 
 export default function AdminLogin() {
   const [username, setUsername] = useState('');
@@ -8,6 +9,7 @@ export default function AdminLogin() {
   const [message, setMessage] = useState('');
   const [loading, setLoading] = useState(false);
   const [isError, setIsError] = useState(false);
+  const router = useRouter();
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -27,9 +29,15 @@ export default function AdminLogin() {
       setIsError(!data.success);
 
       if (data.success) {
-        // الانتظار قليلاً لعرض رسالة النجاح ثم التوجيه
+        // حفظ token في localStorage
+        localStorage.setItem('admin_token', 'authenticated');
+        localStorage.setItem('admin_user', JSON.stringify(data.user));
+        
+        // عرض رسالة النجاح ثم التوجيه
+        setMessage('تم تسجيل الدخول بنجاح! جارٍ التوجيه...');
+        
         setTimeout(() => {
-          window.location.href = '/admin/dashboard';
+          router.push('/admin/dashboard');
         }, 1000);
       }
     } catch (error) {
