@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useState } from 'react';
@@ -21,6 +22,7 @@ export default function AdminLogin() {
       const res = await fetch('/api/auth/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
+        credentials: 'include', // مهم — يسمح للكوكي بأن يُرسل ويُحفظ
         body: JSON.stringify({ username, password })
       });
 
@@ -29,9 +31,8 @@ export default function AdminLogin() {
       setIsError(!data.success);
 
       if (data.success) {
-        // حفظ token في localStorage
-        localStorage.setItem('admin_token', 'authenticated');
-        localStorage.setItem('admin_user', JSON.stringify(data.user));
+        // تم إزالة حفظ token في localStorage
+        // تم إزالة حفظ user في localStorage
         
         // عرض رسالة النجاح ثم التوجيه
         setMessage('تم تسجيل الدخول بنجاح! جارٍ التوجيه...');
