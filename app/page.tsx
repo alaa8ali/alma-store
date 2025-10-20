@@ -3,9 +3,10 @@
 import { useState, useEffect, useMemo } from 'react';
 import { Header } from '@/components/layout/header';
 import { BranchSelectorDynamic } from '@/components/branches/branch-selector-dynamic';
-import { HomeMaintenanceCategoryView } from '@/components/home-maintenance/home-maintenance-category-view';
+
 import { KitchenMenuView } from '@/components/kitchen/kitchen-menu-view';
 import { HomeMaintenanceCategoryView } from '@/components/home-maintenance/home-maintenance-category-view';
+
 import { CategoryFilterDynamic } from '@/components/categories/category-filter-dynamic';
 import { ProductGrid } from '@/components/products/product-grid';
 import { CartSidebar } from '@/components/cart/cart-sidebar';
