@@ -3,43 +3,41 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { createClient } from '@supabase/supabase-js';
-
-// تهيئة عميل Supabase على جانب العميل
-// تأكد من أن هذه المتغيرات متوفرة في بيئة Vercel
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
-);
 
 export default function AdminLogin() {
-  const [email, setEmail] = useState('');
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
   const [message, setMessage] = useState('');
   const [loading, setLoading] = useState(false);
   const [isError, setIsError] = useState(false);
   const router = useRouter();
 
-  async function handleMagicLinkLogin(e: React.FormEvent) {
+  async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     setLoading(true);
     setMessage('');
     setIsError(false);
 
     try {
-      const { error } = await supabase.auth.signInWithOtp({
-        email,
-        options: {
-          emailRedirectTo: window.location.origin + '/admin/auth-callback',
-        },
+      const res = await fetch('/api/auth/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        credentials: 'include', // مهم — يسمح للكوكي بأن يُرسل ويُحفظ
+        body: JSON.stringify({ username, password })
       });
 
-      if (error) throw error;
+      const data = await res.json();
+      setMessage(data.message || data.error);
+      setIsError(!data.success);
 
-      setMessage('تم إرسال رابط الدخول السحري إلى بريدك الإلكتروني. يرجى التحقق من صندوق الوارد الخاص بك.');
-      setIsError(false);
-      setEmail(''); // مسح حقل البريد الإلكتروني بعد الإرسال
-    } catch (error: any) {
-      setMessage('خطأ: ' + error.message);
+      if (data.success) {
+        setMessage('تم تسجيل الدخول بنجاح! جارٍ التوجيه...');
+        setTimeout(() => {
+          router.push('/admin/dashboard');
+        }, 1000);
+      }
+    } catch (error) {
+      setMessage('فشل الاتصال بالخادم');
       setIsError(true);
     } finally {
       setLoading(false);
@@ -54,18 +52,33 @@ export default function AdminLogin() {
           <p className="text-gray-600 text-sm">تسجيل الدخول إلى نظام الإدارة</p>
         </div>
 
-        <form onSubmit={handleMagicLinkLogin} className="space-y-6">
+        <form onSubmit={handleSubmit} className="space-y-6">
           <div>
-            <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">
-              البريد الإلكتروني
+            <label htmlFor="username" className="block text-sm font-medium text-gray-700 mb-2">
+              اسم المستخدم
             </label>
             <input
-              id="email"
-              type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              id="username"
+              type="text"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
               className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition"
-              placeholder="أدخل بريدك الإلكتروني"
+              placeholder="أدخل اسم المستخدم"
+              required
+            />
+          </div>
+
+          <div>
+            <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-2">
+              كلمة المرور
+            </label>
+            <input
+              id="password"
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition"
+              placeholder="أدخل كلمة المرور"
               required
             />
           </div>
@@ -75,17 +88,25 @@ export default function AdminLogin() {
             disabled={loading}
             className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-4 rounded-lg transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
           >
-            {loading ? 'جارٍ الإرسال...' : 'إرسال رابط الدخول السحري'}
+            {loading ? 'جارٍ المعالجة...' : 'تسجيل الدخول'}
           </button>
         </form>
 
         {message && (
           <div
-            className={`mt-6 p-4 rounded-lg text-center text-sm ${isError ? 'bg-red-50 text-red-700 border border-red-200' : 'bg-green-50 text-green-700 border border-green-200'}`}
+            className={`mt-6 p-4 rounded-lg text-center text-sm ${
+              isError
+                ? 'bg-red-50 text-red-700 border border-red-200'
+                : 'bg-green-50 text-green-700 border border-green-200'
+            }`}
           >
             {message}
           </div>
         )}
+
+        <div className="mt-6 text-center text-xs text-gray-500">
+          <p>💡 إذا كانت هذه أول مرة، قم بإنشاء حساب المدير الأول</p>
+        </div>
       </div>
     </div>
   );
