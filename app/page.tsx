@@ -3,6 +3,9 @@
 import { useState, useEffect, useMemo } from 'react';
 import { Header } from '@/components/layout/header';
 import { BranchSelectorDynamic } from '@/components/branches/branch-selector-dynamic';
+import { HomeMaintenanceCategoryView } from '@/components/home-maintenance/home-maintenance-category-view';
+import { KitchenMenuView } from '@/components/kitchen/kitchen-menu-view';
+import { HomeMaintenanceCategoryView } from '@/components/home-maintenance/home-maintenance-category-view';
 import { CategoryFilterDynamic } from '@/components/categories/category-filter-dynamic';
 import { ProductGrid } from '@/components/products/product-grid';
 import { CartSidebar } from '@/components/cart/cart-sidebar';
@@ -121,49 +124,12 @@ export default function HomeDynamic() {
             <p className="text-xl text-gray-600 mb-8">
               اختر نوع الخدمة التي تحتاجها
             </p>
-            <div className="grid grid-cols-2 md:grid-cols-3 gap-6 max-w-4xl mx-auto">
-              {branchCategories.map(category => (
-                <div key={category.id} className="bg-white p-6 rounded-xl shadow-md hover:shadow-lg transition-shadow">
-                  {category.image ? (
-                    <div className="relative h-32 w-full mb-4 rounded-lg overflow-hidden">
-                      <img src={category.image} alt={category.name_ar} className="w-full h-full object-cover" />
-                    </div>
-                  ) : (
-                    <div className="text-4xl mb-2">{category.icon}</div>
-                  )}
-                  <h3 className="font-bold text-lg">{category.name_ar}</h3>
-                  {category.description_ar && (
-                    <p className="text-sm text-gray-600 mt-2">{category.description_ar}</p>
-                  )}
-                </div>
-              ))}
-            </div>
+            <HomeMaintenanceCategoryView categories={branchCategories} />
           </div>
         )}
 
         {selectedBranch === 'kitchen' && (
-          <div className="text-center py-16">
-            <div className="text-6xl mb-4">👨‍🍳</div>
-            <h2 className="text-3xl font-bold text-gray-900 mb-4">المطبخ</h2>
-            <p className="text-xl text-gray-600 mb-8">
-              اطلب وجباتك المفضلة أو قدم طلب مخصص
-            </p>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
-              {branchCategories.map(category => (
-                <div key={category.id} className="bg-white p-8 rounded-xl shadow-md hover:shadow-lg transition-shadow">
-                  {category.image ? (
-                    <div className="relative h-48 w-full mb-4 rounded-lg overflow-hidden">
-                      <img src={category.image} alt={category.name_ar} className="w-full h-full object-cover" />
-                    </div>
-                  ) : (
-                    <div className="text-5xl mb-4">{category.icon}</div>
-                  )}
-                  <h3 className="font-bold text-2xl mb-2">{category.name_ar}</h3>
-                  <p className="text-gray-600">{category.description_ar || 'قريباً...'}</p>
-                </div>
-              ))}
-            </div>
-          </div>
+          <KitchenMenuView branchId={selectedBranch} />
         )}
 
         {selectedBranch === 'sweets-bakery' && (

@@ -144,3 +144,41 @@ export function clearCache() {
   cacheTimestamp = 0;
 }
 
+
+
+/**
+ * جلب عناصر القائمة اليومية للمطبخ
+ */
+export async function fetchDailyMenuItems(): Promise<DailyMenuItem[]> {
+  try {
+    const { data, error } = await supabase
+      .from("daily_menu_items")
+      .select("*")
+      .eq("is_active", true)
+      .order("created_at", { ascending: false });
+
+    if (error) {
+      console.error("Error fetching daily menu items:", error);
+      return [];
+    }
+
+    return data || [];
+  } catch (error) {
+    console.error("Error fetching daily menu items:", error);
+    return [];
+  }
+}
+
+export interface DailyMenuItem {
+  id: string;
+  name_ar: string;
+  name_en?: string;
+  description_ar?: string;
+  description_en?: string;
+  price: number;
+  image?: string;
+  is_active: boolean;
+  created_at: string;
+  updated_at: string;
+}
+
